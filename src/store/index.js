@@ -19,8 +19,14 @@ export default new Vuex.Store({
     getUsers: (state) => {},
     getCurrentUser: (state) => {},
     getProjects: (state) => {},
-    getCurrentProject: (state) => {},
-    getTechSet: (state) => {},
+    getCurrentProject: (state) => {
+      return [
+        
+      ]
+    },
+    getTechSet: (state) => {
+     
+    },
   },
   mutations: {
     setIslogged(state) {},
