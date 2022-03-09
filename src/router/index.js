@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import ProjectsPage from "../views/ProjectsPage.vue";
+import MyAccountPage from "../views/MyAccountPage.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -18,6 +19,12 @@ const routes = [
         /* webpackChunkName: 'ProjectDetailPage' */ "../views/ProjectDetailPage.vue"
       );
     },
+  },
+
+  {
+    path: "/MyAccountPage",
+    name: "MyAccountPage",
+    component: MyAccountPage
   },
 
 ];
