@@ -1,70 +1,82 @@
 <template>
-    <div class="mt-5 container">
-        <div class="markers-flex">
-            <div v-for="(view, index) in views" :key="index" class="page-marker" @click="$emit('changeView', view)"><span class="marker-name">{{ view }}</span></div>
-        </div>
+  <div class="mt-5 container">
+    <div class="markers-flex">
+      <div
+        v-for="(view, index) in views"
+        :key="index"
+        class="page-marker"
+        @click="$emit('changeView', view)"
+      >
+        <span class="marker-name">{{ view }}</span>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            views: ['My Data', 'My Projects']
-        }
-    }
-}
+  props: {
+    views: {
+      type: Array,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style>
 .container {
-    max-width: 900px;
+  max-width: 900px;
 }
 .markers-flex {
-    display: flex;
-    justify-content: left;
-    width: 300px;
-    margin-left: 10vw;
+  display: flex;
+  justify-content: left;
+  width: 300px;
+  margin-left: 10vw;
 }
 .page-marker {
-    width: 10rem;
-    height: 2.7rem;
-    background-color: #666;
-    font-size: 1.3rem;
-    position: relative;
-    padding: .3rem 0 0 1.2rem;
-    z-index: 100;
+  width: 10rem;
+  height: 2.7rem;
+  background-color: #666;
+  font-size: 1.3rem;
+  position: relative;
+  padding: 0.3rem 0 0 1.2rem;
+  z-index: 100;
 }
 .page-marker:after {
-    content: '';
-    width: calc(10rem - 5px);
-    height: calc(2.7rem - 2px);
-    background-color: #F2F2F2;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    z-index: -2;
+  content: "";
+  width: calc(10rem - 5px);
+  height: calc(2.7rem - 2px);
+  background-color: #f2f2f2;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: -2;
 }
 .marker-name {
-    display: inline-block;
-    width: 15ch;
-    text-align: left;
+  display: inline-block;
+  width: 15ch;
+  text-align: left;
 }
 .marker-name:hover {
-    font-weight: bold;
-    letter-spacing: -1px;
-    cursor: pointer;
+  font-weight: bold;
+  letter-spacing: -1px;
+  cursor: pointer;
 }
 
 .page-marker {
-    clip-path: polygon(0 0, 80% 0%, 100% 100%, 0% 100%); /* https://bennettfeely.com/clippy/ */
+  clip-path: polygon(
+    0 0,
+    80% 0%,
+    100% 100%,
+    0% 100%
+  ); /* https://bennettfeely.com/clippy/ */
 }
 .page-marker:after {
-    clip-path: polygon(0 0, 81% 0%, 100% 100%, 0% 100%); 
+  clip-path: polygon(0 0, 81% 0%, 100% 100%, 0% 100%);
 }
 
 .page-marker:last-of-type {
-    transform: translateX(-1rem);
+  transform: translateX(-1rem);
 }
-
 </style>
