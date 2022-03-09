@@ -1,4 +1,5 @@
 import Vue from "vue";
+import axios from "axios";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
@@ -18,31 +19,40 @@ export default new Vuex.Store({
     getIsAdmin: (state) => {},
     getUsers: (state) => {},
     getCurrentUser: (state) => {},
-    getProjects: (state) => {},
+    getProjects: (state) => {
+      return state.projects;
+    },
     getCurrentProject: (state) => {
-      return [
-        
-      ]
+      return [];
     },
-    getTechSet: (state) => {
-     
-    },
+    getTechSet: (state) => {},
   },
   mutations: {
     setIslogged(state) {},
     setIsAdmin(state, userAdmin) {},
     setCurrentUser(state, user) {},
     setUsers(state, users) {},
-    setProjects(state, projects) {},
-    setCurrentProject(state, project) { },
-    setTechSet(state, techSet){},
+    setProjects(state, data) {
+      state.projects = data.projects;
+    },
+    setCurrentProject(state, project) {},
+    setTechSet(state, techSet) {},
   },
   actions: {
     getUsers({ commit }) {},
     getUserById({ commit }, id) {},
     setNewUser({ dispatch }) {},
     deleteUser({ dispatch }, id) {},
-    getProjects({ commit }) {},
+    async getProjects({ commit }) {
+      try {
+        const response = await axios.get(
+          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects"
+        );
+        commit("setProjects", response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
     getProjectById({ commit }, id) {},
     setNewProject({ dispatch }, project) {},
     updateProject({ dispatch }, project) {},

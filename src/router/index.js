@@ -13,13 +13,12 @@ const routes = [
   {
     path: "/ProjectDetailPage/:id",
     name: "ProjectDetailPage",
-    coponent: () => {
+    component: () => {
       import(
         /* webpackChunkName: 'ProjectDetailPage' */ "../views/ProjectDetailPage.vue"
       );
     },
   },
-
 ];
 
 const router = new VueRouter({
