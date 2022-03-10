@@ -35,7 +35,7 @@
                 >
                     Registrar
                 </b-button>
-        </b-form>
+            </b-form>
         </div>  
     </div>
 </template>
@@ -57,9 +57,10 @@ export default {
     methods: {
       onSubmit(event){
         event.preventDefault()
-        this.crearNuevoUsuario();
+        this.registerNewUser();
+        this.checkPassword();
       },
-      crearNuevoUsuario(){
+      registerNewUser(){
         const nuevoUsuario = {
           nombre: this.nombre,
           apellidos: this.apellidos,
@@ -67,6 +68,13 @@ export default {
           password: this.password,
         }
         console.log(nuevoUsuario)
+      },
+      checkPassword() {
+          if(this.confirmPassword === this.password) {
+            return true
+          } else {
+            return false
+          }
       }
     },
 }

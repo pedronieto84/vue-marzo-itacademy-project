@@ -27,6 +27,9 @@
             this.$emit('input', value);
         }
     },
+    created() {
+        this.input = this.valor
+    },
     props:{
         nombre: String,
         valor: [String, Number],
@@ -45,6 +48,9 @@
             let regEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/
             return regEx.test(value) ? true : false;
         },
+        validateConfirmPassword(value) {
+            return value === this.validatePassword ? true : false;
+        },
         validate(value) {
             if (value == "") {
                 return null;
@@ -56,6 +62,8 @@
                     return this.validateEmail(value);
                 case "Password":
                     return this.validatePassword(value);
+                case "Confirm Password":
+                    return this.validateConfirmPassword(value);
                 default:
             }
         },
