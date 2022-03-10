@@ -2,18 +2,27 @@
   <div class="home container">
     <!-- The NavComponent goes Here -->
     <h1 class="text-center mt-5 mb-5">Projects Page</h1>
-    <div class="content">
-      <main class="aticle-card" v-for="project in projects" :key="project.id">
-        <router-link
-          :to="{ path: '/ProjectDetailPage/', query: { id: project.id } }"
+    <b-row>
+      <b-col class="content">
+        <article
+          class="aticle-card"
+          v-for="project in projects"
+          :key="project.id"
         >
-          <project-card
-            :title="project.title"
-            :shortDescription="project.shortExplanation"
-          ></project-card>
-        </router-link>
-      </main>
-    </div>
+          <router-link
+            :to="{ path: '/ProjectDetailPage/', query: { id: project.id } }"
+          >
+            <project-card
+              :title="project.title"
+              :shortDescription="project.shortExplanation"
+            ></project-card>
+          </router-link>
+        </article>
+      </b-col>
+    </b-row>
+    <b-row class="chat">
+      <chat-component></chat-component>
+    </b-row>
   </div>
 </template>
 
@@ -21,10 +30,11 @@
 // @ is an alias to /src
 import store from "@/store";
 import ProjectCard from "@/components/ProjectCard.vue";
+import ChatComponent from "@/components/ChatComponent.vue";
 
 export default {
   name: "ProjectsPage",
-  components: { ProjectCard },
+  components: { ProjectCard, ChatComponent },
   data() {
     return {
       id: 1,
@@ -57,8 +67,13 @@ export default {
 .content
   width: 90%
   display: flex
-  justify-content: space-between
+  flex-wrap: wrap
+  justify-content: start
 
   a
     text-decoration: none
+
+.chat
+  display: flex
+  justify-content: end
 </style>

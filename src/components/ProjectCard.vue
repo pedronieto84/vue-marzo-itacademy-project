@@ -1,11 +1,6 @@
 <template>
   <div class="template-card">
-    <b-card
-      header="Projecte"
-      header-tag="projecte"
-      footer="Footer Projecte"
-      :title="title"
-    >
+    <b-card header="Projecte" :title="title">
       <b-card-text>{{ shortDescription }}</b-card-text>
     </b-card>
   </div>
