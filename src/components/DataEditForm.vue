@@ -2,25 +2,26 @@
   <div class="container mt-5">
     <b-form @submit.prevent="onSubmit" class="my-data-form">
       <form-input
-        :valor="user.company"
-        :nombre="'Nombre'"
+        :inputValue="user.company"
+        :name="'Nombre'"
         :inputType="'text'"
-        @input="handleNameInput"
+        @input="user.company = $event"
       />
       <form-input
-        :valor="user.email"
-        :nombre="'Email'"
+        :inputValue="user.email"
+        :name="'Email'"
         :inputType="'email'"
-        @input="handleEmailInput"
+        @input="user.email = $event"
       />
       <form-input
-        :valor="user.password"
-        :nombre="'Password'"
+        :inputValue="user.password"
+        :name="'Password'"
         :inputType="'password'"
-        @input="handlePasswordInput"
+        @input="user.password = $event"
       />
+      <div>(Aquí falta el select per al tipus d'organització)</div>
 
-      <div class="buttons-container" v-if="showButtons">
+      <div class="buttons-container">
         <b-button type="submit" variant="primary">Submit</b-button>
         <b-button type="button" variant="outline-secondary" @click="onCancel"
           >Cancel</b-button
@@ -38,7 +39,6 @@ export default {
   },
   data() {
     return {
-      showButtons: false,
       user: {
         company: "Company",
         email: "email@ail.ail",
@@ -48,18 +48,6 @@ export default {
     };
   },
   methods: {
-    handleNameInput() {
-      this.user.company = $event;
-      this.showButtons = true;
-    },
-    handleEmailInput() {
-      this.user.email = $event;
-      this.showButtons = true;
-    },
-    handlePasswordInput() {
-      this.user.password = $event;
-      this.showButtons = true;
-    },
     onSubmit() {
       return;
     },
@@ -70,8 +58,7 @@ export default {
         password: "password123",
         orgType: "ONG",
       };
-      this.showButtons = false;
-      return;
+      location.reload(); // ugly but it works for now
     },
   },
 };
