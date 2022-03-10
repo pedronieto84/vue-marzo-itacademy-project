@@ -12,9 +12,9 @@ const routes = [
   },
 
   {
-    path: "/ProjectDetailPage/:id",
+    path: "/project-detail-page/:id",
     name: "ProjectDetailPage",
-    coponent: () => {
+    component: () => {
       import(
         /* webpackChunkName: 'ProjectDetailPage' */ "../views/ProjectDetailPage.vue"
       );
@@ -22,7 +22,7 @@ const routes = [
   },
 
   {
-    path: "/MyAccountPage",
+    path: "/my-account-page",
     name: "MyAccountPage",
     component: MyAccountPage
   },
