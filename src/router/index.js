@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import ProjectsPage from "../views/ProjectsPage.vue";
+import CreateProjectPage from "../views/CreateProjectPage.vue"
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -19,6 +21,12 @@ const routes = [
       );
     },
   },
+
+  {
+    path: "/CreateProject",
+    name: "CreateProjectPage",
+    component: CreateProjectPage
+  }
 
 ];
 
