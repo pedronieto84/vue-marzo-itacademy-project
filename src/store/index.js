@@ -17,7 +17,9 @@ export default new Vuex.Store({
   getters: {
     getIsLogged: (state) => {},
     getIsAdmin: (state) => {},
-    getUsers: (state) => {},
+    getUsers: (state) => {
+      return state.users;
+    },
     getCurrentUser: (state) => {
       return state.currentUser;
     },
@@ -35,7 +37,9 @@ export default new Vuex.Store({
     setCurrentUser(state, user) {
       state.currentUser = user;
     },
-    setUsers(state, users) {},
+    setUsers(state, users) {
+      state.users = users;
+    },
     setProjects(state, data) {
       state.projects = data.projects;
     },
@@ -43,7 +47,16 @@ export default new Vuex.Store({
     setTechSet(state, techSet) {},
   },
   actions: {
-    getUsers({ commit }) {},
+    async getUsers({ commit }) {
+      try {
+        const response = await axios.get(
+          "https://6227da469fd6174ca814fdc5.mockapi.io/api/users"
+        );
+        commit("setUsers", response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
     async getUserById({ commit }, id) {
       try {
         const response = await axios.get(
