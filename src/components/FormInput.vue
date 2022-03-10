@@ -1,14 +1,14 @@
 <template>
     <div>
         <b-form-group class="m-4">
-            <label>{{nombre}}</label>
+            <label>{{name}}</label>
             <b-form-input
                 v-model="input"
                 required
                 :state="validationState"
                 :type="inputType"
             >
-                {{valor}}
+                {{inputValue}}
             </b-form-input>
         </b-form-group>
     </div>  
@@ -28,11 +28,11 @@
         }
     },
     created() {
-        this.input = this.valor
+        this.input = this.inputValue
     },
     props:{
-        nombre: String,
-        valor: [String, Number],
+        name: String,
+        inputValue: [String, Number],
         inputType: String,
     },
     methods: {
@@ -48,22 +48,17 @@
             let regEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/
             return regEx.test(value) ? true : false;
         },
-        validateConfirmPassword(value) {
-            return value === this.validatePassword ? true : false;
-        },
         validate(value) {
             if (value == "") {
                 return null;
             }
-            switch (this.nombre){
+            switch (this.name){
                 case "Nombre":
                     return this.validateName(value);
                 case "Email":
                     return this.validateEmail(value);
                 case "Password":
                     return this.validatePassword(value);
-                case "Confirm Password":
-                    return this.validateConfirmPassword(value);
                 default:
             }
         },

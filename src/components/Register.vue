@@ -5,29 +5,33 @@
             class=" m-5 p-5 col-6 border "
             >
                 <FormInput
-                    :valor="nombre"
-                    :nombre="'Nombre'"
-                    @input="nombre = $event"
+                    :inputValue="name"
+                    :name="'Nombre'"
+                    @input="name = $event"
                     :inputType="'text'" 
                 />
                 <FormInput
-                    :valor="email"
-                    :nombre="'E-mail'"
+                    :inputValue="email"
+                    :name="'E-mail'"
                     @input="email = $event"
                     :inputType="'email'" 
                 />
                 <FormInput
-                    :valor="password"
-                    :nombre="'Password'"
+                    :inputValue="password"
+                    :name="'Password'"
                     @input="password = $event"
                     :inputType="'password'" 
                 />
                 <FormInput
-                    :valor="confirmPassword"
-                    :nombre="'Confirm Password'"
-                    @input="password = $event"
+                    :inputValue="confirmPassword"
+                    :name="'Confirm Password'"
+                    @input="confimrPassword = $event"
                     :inputType="'password'" 
+                    :state="validation"
                 />
+                <b-form-invalid-feedback :state="validation">
+                    La contraseña no coincide
+                </b-form-invalid-feedback>
                 <b-button 
                     variant="outline-primary"
                     type="submit" 
@@ -48,11 +52,16 @@ export default {
     },
     data(){
         return {
-            nombre: '',
+            name: '',
             email: '',
             password: '',
             confirmPassword: '',
         }
+    },
+    computed: {
+      validation() {
+        return this.password === this.confirmPassword
+      }
     },
     methods: {
       onSubmit(event){
@@ -61,20 +70,16 @@ export default {
         this.checkPassword();
       },
       registerNewUser(){
-        const nuevoUsuario = {
-          nombre: this.nombre,
-          apellidos: this.apellidos,
+        const newUser = {
+          name: this.name,
           email: this.email,
           password: this.password,
         }
-        console.log(nuevoUsuario)
+        console.log(newUser)
       },
       checkPassword() {
-          if(this.confirmPassword === this.password) {
-            return true
-          } else {
-            return false
-          }
+        //   debugger
+          
       }
     },
 }
