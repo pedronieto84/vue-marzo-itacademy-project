@@ -5,11 +5,18 @@
         ><p><ProjectTitle /></p
       ></b-tab>
       <b-tab title="2">
-        <p>
-          <DateInput id="published" />
-          <DateInput id="deadline" />
-          <AddTechSet /></p
-      ></b-tab>
+        <div>
+          <div>
+            Published:
+            <DateInput id="published" />
+          </div>
+          <div>
+            Deadline:
+            <DateInput id="deadline" />
+          </div>
+          <AddTechSet />
+        </div>
+      </b-tab>
       <b-tab title="3"
         ><p><FileUploader /></p
       ></b-tab>
