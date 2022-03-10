@@ -10,7 +10,7 @@
                 Create Project
             </b-button>       
             <b-button variant=" ml-auto" size="lg border">
-                My Name
+                Son las 18:42
             </b-button>
         </b-navbar>
     </div>
