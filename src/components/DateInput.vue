@@ -1,5 +1,7 @@
 <template>
-  <div>date input</div>
+  <div>
+    <b-form-datepicker></b-form-datepicker>
+  </div>
 </template>
 <script>
 export default {

@@ -12,3 +12,5 @@ export default {
   components: { StepsNav },
 };
 </script>
+<style scoped>
+</style>

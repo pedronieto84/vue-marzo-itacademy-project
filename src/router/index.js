@@ -23,7 +23,7 @@ const routes = [
   },
 
   {
-    path: "/CreateProject",
+    path: "/create-project",
     name: "CreateProjectPage",
     component: CreateProjectPage
   }
