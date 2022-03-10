@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import StepsNav from "../components/StepsNav.vue";
+import StepsNav from "../components/createProject/StepsNav.vue";
 
 export default {
   name: "CreateProjectPage",

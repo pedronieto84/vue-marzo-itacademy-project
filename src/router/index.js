@@ -27,8 +27,9 @@ const routes = [
     path: "/create-project",
     name: "CreateProjectPage",
     component: CreateProjectPage
-  }
+  },
 
+  {
     path: "/my-account-page",
     name: "MyAccountPage",
     component: MyAccountPage
