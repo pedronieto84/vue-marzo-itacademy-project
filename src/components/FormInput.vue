@@ -25,6 +25,9 @@
         input(value) {
             this.validationState = this.validate(value);
             this.$emit('input', value);
+        },
+        validationState() {
+            this.$emit('validation', this.validationState);
         }
     },
     created() {
@@ -45,7 +48,7 @@
             return regEx.test(value) ? true : false;    
         },
         validatePassword(value) {
-            let regEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/
+            let regEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,8}$/
             return regEx.test(value) ? true : false;
         },
         validate(value) {
@@ -58,6 +61,8 @@
                 case "Email":
                     return this.validateEmail(value);
                 case "Password":
+                    return this.validatePassword(value);
+                case "Confirm Password":
                     return this.validatePassword(value);
                 default:
             }
