@@ -58,7 +58,7 @@
             switch (this.name){
                 case "Nombre":
                     return this.validateName(value);
-                case "Email":
+                case "E-mail":
                     return this.validateEmail(value);
                 case "Password":
                     return this.validatePassword(value);

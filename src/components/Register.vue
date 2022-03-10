@@ -1,5 +1,6 @@
 <template>
     <div>
+        <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>Hay errores en el formulario</b-alert>
         <div class=" row justify-content-center align-items-center">
             <b-form @submit="onSubmit" 
             class=" m-5 p-5 col-6 border "
@@ -10,7 +11,6 @@
                     @input="name = $event"
                     @validation="validation.name  = $event"
                     :inputType="'text'" 
-                    :state="areInputsValids"
                 />
                 <FormInput
                     :inputValue="email"
@@ -31,10 +31,10 @@
                     :name="'Confirm Password'"
                     @input="confirmPassword = $event"
                     :inputType="'password'" 
-                    :state="validation"
+                    :state="validationPassword"
                 />
                 <b-form-invalid-feedback 
-                    :state="validation"
+                    :state="validationPassword"
                 >
                     La contraseña no coincide
                 </b-form-invalid-feedback>
@@ -66,32 +66,37 @@ export default {
                 name: null,
                 email: null,
                 password: null
-            }
+            },
+            showDismissibleAlert: false
         }
     },
     computed: {
-      validation() {
+      validationPassword() {
         return this.password === this.confirmPassword
       },
-      isFormValid() {
-
-      },
-      areInputsValids() {
-          
-      }
     },
     methods: {
       onSubmit(event){
+        //   debugger
         event.preventDefault()
         this.registerNewUser();
       },
       registerNewUser(){
+        if(this.validation.name === true && 
+            this.validation.email === true && 
+            this.validation.password === true && 
+            this.validationPassword === true) 
+        {
             const newUser = {
                 name: this.name,
                 email: this.email,
                 password: this.password,
             }
-            console.log(newUser)
+            console.log(newUser);
+            return true
+        } else {
+            this.showDismissibleAlert = true
+        } 
         },
     },
 }
