@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import ProjectsPage from "../views/ProjectsPage.vue";
 import CreateProjectPage from "../views/CreateProjectPage.vue"
+import MyAccountPage from "../views/MyAccountPage.vue";
 
 Vue.use(VueRouter);
 
@@ -13,9 +14,9 @@ const routes = [
   },
 
   {
-    path: "/ProjectDetailPage/:id",
+    path: "/project-detail-page/:id",
     name: "ProjectDetailPage",
-    coponent: () => {
+    component: () => {
       import(
         /* webpackChunkName: 'ProjectDetailPage' */ "../views/ProjectDetailPage.vue"
       );
@@ -27,6 +28,12 @@ const routes = [
     name: "CreateProjectPage",
     component: CreateProjectPage
   }
+
+    path: "/my-account-page",
+    name: "MyAccountPage",
+    component: MyAccountPage
+  },
+
 
 ];
 
