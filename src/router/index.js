@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import ProjectsPage from "../views/ProjectsPage.vue";
+import MyAccountPage from "../views/MyAccountPage.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -11,7 +12,7 @@ const routes = [
   },
 
   {
-    path: "/ProjectDetailPage/:id",
+    path: "/project-detail-page/:id",
     name: "ProjectDetailPage",
     component: () => {
       import(
@@ -19,6 +20,13 @@ const routes = [
       );
     },
   },
+
+  {
+    path: "/my-account-page",
+    name: "MyAccountPage",
+    component: MyAccountPage
+  },
+
 ];
 
 const router = new VueRouter({
