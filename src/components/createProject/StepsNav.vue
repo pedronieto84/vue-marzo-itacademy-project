@@ -1,19 +1,12 @@
 <template>
   <div class="tabs-container">
     <b-tabs content-class="mt-3">
-      <b-tab title="1" active
-        ><p><ProjectTitle /></p
-      ></b-tab>
+      <b-tab title="1" active>
+        <ProjectTitle />
+      </b-tab>
       <b-tab title="2">
         <div>
-          <div>
-            Published:
-            <DateInput id="published" />
-          </div>
-          <div>
-            Deadline:
-            <DateInput id="deadline" />
-          </div>
+          <DateInput />
           <AddTechSet />
         </div>
       </b-tab>
