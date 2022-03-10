@@ -1,38 +1,24 @@
 <template>
   <div class="container mt-5">
     <b-form @submit.prevent="onSubmit" class="my-data-form">
-      <b-form-input
-        id="input-1"
-        v-model="user.company"
-        type="text"
-        @input="showButtons = true"
-        placeholder="Name of company / institution / person"
-        required
-      ></b-form-input>
-      <b-form-input
-        id="input-2"
-        v-model="user.email"
-        type="email"
-        @input="showButtons = true"
-        placeholder="Enter email"
-        required
-      ></b-form-input>
-      <b-form-input
-        id="input-3"
-        v-model="user.password"
-        type="text"
-        @input="showButtons = true"
-        placeholder="Change Password"
-        required
-      ></b-form-input>
-      <b-form-input
-        id="input-4"
-        v-model="user.orgType"
-        type="text"
-        @input="showButtons = true"
-        placeholder="Organization Type"
-        required
-      ></b-form-input>
+      <form-input
+        :valor="user.company"
+        :nombre="'Nombre'"
+        :inputType="'text'"
+        @input="handleNameInput"
+      />
+      <form-input
+        :valor="user.email"
+        :nombre="'Email'"
+        :inputType="'email'"
+        @input="handleEmailInput"
+      />
+      <form-input
+        :valor="user.password"
+        :nombre="'Password'"
+        :inputType="'password'"
+        @input="handlePasswordInput"
+      />
 
       <div class="buttons-container" v-if="showButtons">
         <b-button type="submit" variant="primary">Submit</b-button>
@@ -45,7 +31,11 @@
 </template>
 
 <script>
+import FormInput from "@/components/FormInput.vue";
 export default {
+  components: {
+    FormInput,
+  },
   data() {
     return {
       showButtons: false,
@@ -58,6 +48,18 @@ export default {
     };
   },
   methods: {
+    handleNameInput() {
+      this.user.company = $event;
+      this.showButtons = true;
+    },
+    handleEmailInput() {
+      this.user.email = $event;
+      this.showButtons = true;
+    },
+    handlePasswordInput() {
+      this.user.password = $event;
+      this.showButtons = true;
+    },
     onSubmit() {
       return;
     },
