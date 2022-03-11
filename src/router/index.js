@@ -1,8 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import ProjectsPage from "../views/ProjectsPage.vue";
-import CreateProjectPage from "../views/CreateProjectPage.vue"
+import CreateProjectPage from "../views/CreateProjectPage.vue";
 import MyAccountPage from "../views/MyAccountPage.vue";
+import LoginForm from "../views/LoginForm.vue"
 
 Vue.use(VueRouter);
 
@@ -26,16 +27,19 @@ const routes = [
   {
     path: "/create-project",
     name: "CreateProjectPage",
-    component: CreateProjectPage
+    component: CreateProjectPage,
   },
 
   {
     path: "/my-account-page",
     name: "MyAccountPage",
-    component: MyAccountPage
+    component: MyAccountPage,
   },
-
-
+  {
+    path: "/login-form",
+    name: "LoginForm",
+    component: LoginForm,
+  },
 ];
 
 const router = new VueRouter({
