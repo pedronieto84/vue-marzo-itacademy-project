@@ -5,6 +5,7 @@ import CreateProjectPage from "../views/CreateProjectPage.vue";
 import MyAccountPage from "../views/MyAccountPage.vue";
 import LoginForm from "../views/LoginForm.vue";
 import CreateAccount from "../views/CreateAccount.vue";
+import AdminPage from '../views/AdminPage.vue';
 
 Vue.use(VueRouter);
 
@@ -32,9 +33,19 @@ const routes = [
   },
 
   {
-    path: "/my-account-",
+    path: "/my-account",
     name: "MyAccountPage",
     component: MyAccountPage,
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: AdminPage,
+  },
+  {
+    path: "/create-account",
+    name: "CreateAccount",
+    component: CreateAccount,
   },
   {
     path: "/login",
@@ -45,13 +56,8 @@ const routes = [
     path: "/register",
     name: "Register",
     component: () => {
-      import(/* webpackChunkName: 'Register' */ 'Register.vue')
+      import(/* webpackChunkName: 'Register' */ "Register.vue");
     },
-  },
-  {
-    path: "/create-account",
-    name: "CreateAccount",
-    component: CreateAccount,
   },
 ];
 
