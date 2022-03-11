@@ -1,6 +1,7 @@
 <template>
     <div>
-        <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>Usuario no encontrado</b-alert>
+        <b-alert v-model="showSuccessMessage" variant="success">Acceso correcto!</b-alert>
+        <b-alert v-model="showErrorMessage" variant="danger" dismissible>Usuario no encontrado</b-alert>
          <div class=" row justify-content-center align-items-center">
              <b-form @submit="onSubmit" 
             class=" m-5 p-5 col-6 border "
@@ -42,12 +43,24 @@ export default {
         return {
             email: '',
             password: '',
-            validation: {
-                email: null,
-                password: null
-            },
-            showDismissibleAlert: false
+            showErrorMessage: false,
+            showSuccessMessage: false
         }
     },
+    methods: {
+        onSubmit(event){
+        event.preventDefault()
+        this.foundRegisteredUser();
+      },
+      foundRegisteredUser() {
+        if(this.$store.state.users.find(
+            user => user.email === this.email && user.password === this.password)
+        ) {
+            this.validation.email = true 
+        } else{
+            this.showErrorMessage = true
+        }
+      }
+    }
 }
 </script>
