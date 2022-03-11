@@ -2,24 +2,30 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import ProjectsPage from "../views/ProjectsPage.vue";
 Vue.use(VueRouter);
-
 const routes = [
   {
     path: "/",
     name: "ProjectsPage",
     component: ProjectsPage,
   },
-
   {
     path: "/ProjectDetailPage/:id",
     name: "ProjectDetailPage",
-    coponent: () => {
-      import(
+    component: () => {
+      return import(
         /* webpackChunkName: 'ProjectDetailPage' */ "../views/ProjectDetailPage.vue"
       );
     },
   },
-
+  {
+    path: "/form-login",
+    name: "FormLogin",
+    component: () => {
+      return import(
+        /* webpackChunkName: 'FormLogin' */ "../views/FormLogin.vue"
+      );
+    },
+  },
 ];
 
 const router = new VueRouter({

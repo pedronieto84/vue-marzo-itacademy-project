@@ -10,7 +10,7 @@
                 Create Project
             </b-button>       
             <b-button variant=" ml-auto" size="lg border">
-                My Name
+               <router-link :to="{name: 'FormLogin'}">Login</router-link>
             </b-button>
         </b-navbar>
     </div>
