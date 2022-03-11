@@ -7,30 +7,44 @@ import LoginForm from "../views/LoginForm.vue";
 import CreateAccount from "../views/CreateAccount.vue";
 
 Vue.use(VueRouter);
-
 const routes = [
   {
     path: "/",
     name: "ProjectsPage",
     component: ProjectsPage,
   },
-
   {
     path: "/project-detail/:id",
     name: "ProjectDetailPage",
     component: () => {
-      import(
+      return import(
         /* webpackChunkName: 'ProjectDetailPage' */ "../views/ProjectDetailPage.vue"
       );
     },
   },
-
+  {
+    path: "/form-login",
+    name: "FormLogin",
+    component: () => {
+      return import(
+        /* webpackChunkName: 'FormLogin' */ "../views/FormLogin.vue"
+      );
+    },
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => {
+      return import(
+        /* webpackChunkName: 'Register' */ "../views/Register.vue"
+      );
+    },
+  },
   {
     path: "/create-project",
     name: "CreateProjectPage",
     component: CreateProjectPage,
   },
-
   {
     path: "/my-account-",
     name: "MyAccountPage",

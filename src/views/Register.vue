@@ -5,6 +5,7 @@
             <b-form @submit="onSubmit" 
             class=" m-5 p-5 col-6 border "
             >
+                <h3>Registro</h3>
                 <FormInput
                     :inputValue="name"
                     :name="'Nombre'"
@@ -50,7 +51,7 @@
     </div>
 </template>
 <script>
-import FormInput from './FormInput.vue'
+import FormInput from '@/components/FormInput.vue'
 export default {
     name: 'Register',
     components: {
@@ -77,7 +78,6 @@ export default {
     },
     methods: {
       onSubmit(event){
-        //   debugger
         event.preventDefault()
         this.registerNewUser();
       },
@@ -92,6 +92,7 @@ export default {
                 email: this.email,
                 password: this.password,
             }
+            this.$router.push({path: 'form-login'})
             console.log(newUser);
             return true
         } else {
@@ -100,6 +101,4 @@ export default {
         },
     },
 }
-
-
 </script>
