@@ -10,7 +10,7 @@ export default new Vuex.Store({
     isAdmin: false,
     users: [],
     currentUser: Object,
-    userLogged: { name: "Julius" },
+    userLogged: Object,
     projects: [],
     currentProject: Object,
     techSet: [],
@@ -28,9 +28,6 @@ export default new Vuex.Store({
     },
     getCurrentUser: (state) => {
       return state.currentUser;
-    },
-    getUserLogged: (state) => {
-      return state.userLogged;
     },
     getProjects: (state) => {
       return state.projects;
