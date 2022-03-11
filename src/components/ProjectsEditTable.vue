@@ -5,161 +5,79 @@
       responsive="true"
       striped
       hover
-      :items="items"
+      :items="tableItems"
       :fields="fields"
     >
-      <template #cell(name)="data">
-        <b-form-input
-          v-if="items[data.index].isEdit"
-          type="text"
-          v-model="items[data.index].name"
-        ></b-form-input>
-        <span v-else>{{ data.value }}</span>
-      </template>
-      <template #cell(published)="data">
+      <template v-for="(field, index) in fields" #[`cell(${field.key})`]="data">
         <b-form-datepicker
-          v-if="items[data.index].isEdit"
-          v-model="items[data.index].published"
+          v-if="field.type === 'date' && tableItems[data.index].isEdit"
+          :key="index"
+          :type="field.type"
+          :value="tableItems[data.index][field.key]"
+          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
         ></b-form-datepicker>
-        <span v-else>{{ data.value }}</span>
-      </template>
-      <template #cell(deadline)="data">
-        <b-form-datepicker
-          v-if="items[data.index].isEdit"
-          v-model="items[data.index].deadline"
-        ></b-form-datepicker>
-        <span v-else>{{ data.value }}</span>
-      </template>
-      <template #cell(bid)="data">
-        <b-form-input
-          v-if="items[data.index].isEdit"
-          type="number"
-          v-model="items[data.index].bid"
-        ></b-form-input>
-        <span v-else>{{ data.value }}</span>
-      </template>
-      <template #cell(state)="data">
         <b-form-select
-          v-if="items[data.index].isEdit"
-          v-model="items[data.index].state"
-          :options="['accepted', 'published', 'refused', 'doing', 'finished']"
+          v-else-if="field.type === 'select' && tableItems[data.index].isEdit"
+          :key="index"
+          :value="tableItems[data.index][field.key]"
+          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
+          :options="field.options"
         ></b-form-select>
-        <span v-else>{{ data.value }}</span>
-      </template>
-      <template #cell(edit)="data">
-        <b-button @click="handleEdit(data)">
-          <span v-if="!items[data.index].isEdit">Edit</span>
-          <span v-else>Done</span>
-        </b-button>
+        <div :key="index" v-else-if="field.type === 'edit'">
+          <b-button @click="handleEdit(data)">
+            <span v-if="!tableItems[data.index].isEdit">Edit</span>
+            <span v-else>Done</span>
+          </b-button>
+          <b-button
+            class="delete-button"
+            variant="danger"
+            @click="handleDelete(data.index)"
+            >Delete</b-button
+          >
+        </div>
+        <b-form-input
+          v-else-if="field.type && tableItems[data.index].isEdit"
+          :key="index"
+          :type="field.type"
+          :value="tableItems[data.index][field.key]"
+          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
+        ></b-form-input>
+        <span :key="index" v-else>{{ data.value }}</span>
       </template>
     </b-table>
-    <pre>
-      {{ items }}
-    </pre>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      projects: [
-        {
-          title: "Project 1",
-          id: 1,
-          user_id: 666,
-          publishedDate: 1646902840,
-          deadline: 1649992840,
-          techset: ["CSS", "JS"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "doing",
-          bid: 1200,
-        },
-        {
-          title: "Project 2",
-          id: 2,
-          user_id: 666,
-          publishedDate: 1646802840,
-          deadline: 1651232840,
-          techset: ["CSS", "HTML"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "doing",
-          bid: 4200,
-        },
-        {
-          title: "Project 3",
-          id: 3,
-          user_id: 666,
-          publishedDate: 1646902840,
-          deadline: 1649992840,
-          techset: ["CSS", "JS"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "doing",
-          bid: 1800,
-        },
-        {
-          title: "Project 4",
-          id: 4,
-          user_id: 666,
-          publishedDate: 1646902840,
-          deadline: 1649992840,
-          techset: ["CSS", "JS"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "doing",
-          bid: 2300,
-        },
-      ],
-      fields: [
-        { key: "name", sortable: true },
-        { key: "published", sortable: true },
-        { key: "deadline", sortable: true },
-        { key: "bid", sortable: true },
-        { key: "state", sortable: true },
-        { key: "edit", label: ""}
-      ],
-    };
-  },
-  computed: {
-    items() {
-      const itemsArray = [];
-      this.projects.forEach((project) => {
-        const publishedToDate = new Date(
-          project.publishedDate * 1000
-        ).toLocaleString(undefined, {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        });
-        const deadlineToDate = new Date(project.deadline * 1000).toLocaleString(
-          undefined,
-          {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          }
-        );
-        const item = {
-          name: project.title,
-          published: publishedToDate,
-          deadline: deadlineToDate,
-          bid: project.bid,
-          state: project.state,
-          isEdit: false
-        };
-        itemsArray.push(item);
-      });
-      return itemsArray;
+  props: {
+    value: {
+      type: Array,
+    },
+    fields: {
+      type: Array,
+      required: true,
     },
   },
+  data() {
+    return {
+      tableItems: this.value.map((item) => ({ ...item, isEdit: false })),
+    };
+  },
   methods: {
+    inputHandler(value, index, key) {
+      this.tableItems[index][key] = value;
+      this.$set(this.tableItems, index, this.tableItems[index]);
+      this.$emit("input", this.tableItems);
+    },
     handleEdit(data) {
-      this.items[data.index].isEdit = !this.items[data.index].isEdit;
-    }
-  }
+      this.tableItems[data.index].isEdit = !this.tableItems[data.index].isEdit;
+    },
+    handleDelete(index) {
+      this.tableItems = this.tableItems.filter((item, i) => i !== index);
+      this.$emit('input', this.tableItems);
+    },
+  },
 };
 </script>
 
