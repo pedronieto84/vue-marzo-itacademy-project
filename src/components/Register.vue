@@ -77,7 +77,6 @@ export default {
     },
     methods: {
       onSubmit(event){
-        //   debugger
         event.preventDefault()
         this.registerNewUser();
       },
