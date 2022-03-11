@@ -15,7 +15,7 @@ const routes = [
   },
 
   {
-    path: "/project-detail-page/:id",
+    path: "/project-detail/:id",
     name: "ProjectDetailPage",
     component: () => {
       import(
@@ -31,12 +31,12 @@ const routes = [
   },
 
   {
-    path: "/my-account-page",
+    path: "/my-account-",
     name: "MyAccountPage",
     component: MyAccountPage,
   },
   {
-    path: "/login-form",
+    path: "/login",
     name: "LoginForm",
     component: LoginForm,
   },
