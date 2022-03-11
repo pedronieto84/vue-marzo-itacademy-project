@@ -1,4 +1,5 @@
 <template>
+  <div>
     <b-table
       class="border mx-5 my-5"
       responsive="true"
@@ -7,8 +8,55 @@
       :items="items"
       :fields="fields"
     >
-    <template></template>
+      <template #cell(name)="data">
+        <b-form-input
+          v-if="items[data.index].isEdit"
+          type="text"
+          v-model="items[data.index].name"
+        ></b-form-input>
+        <span v-else>{{ data.value }}</span>
+      </template>
+      <template #cell(published)="data">
+        <b-form-datepicker
+          v-if="items[data.index].isEdit"
+          v-model="items[data.index].published"
+        ></b-form-datepicker>
+        <span v-else>{{ data.value }}</span>
+      </template>
+      <template #cell(deadline)="data">
+        <b-form-datepicker
+          v-if="items[data.index].isEdit"
+          v-model="items[data.index].deadline"
+        ></b-form-datepicker>
+        <span v-else>{{ data.value }}</span>
+      </template>
+      <template #cell(bid)="data">
+        <b-form-input
+          v-if="items[data.index].isEdit"
+          type="number"
+          v-model="items[data.index].bid"
+        ></b-form-input>
+        <span v-else>{{ data.value }}</span>
+      </template>
+      <template #cell(state)="data">
+        <b-form-select
+          v-if="items[data.index].isEdit"
+          v-model="items[data.index].state"
+          :options="['accepted', 'published', 'refused', 'doing', 'finished']"
+        ></b-form-select>
+        <span v-else>{{ data.value }}</span>
+      </template>
+      <template #cell(edit)="data">
+        <b-button @click="handleEdit(data)">
+          <span v-if="!items[data.index].isEdit">Edit</span>
+          <span v-else>Done</span>
+        </b-button>
+      </template>
     </b-table>
+    <pre>
+      {{ items }}
+    </pre>
+  </div>
 </template>
 
 <script>
@@ -71,6 +119,7 @@ export default {
         { key: "deadline", sortable: true },
         { key: "bid", sortable: true },
         { key: "state", sortable: true },
+        { key: "edit", label: ""}
       ],
     };
   },
@@ -99,12 +148,18 @@ export default {
           deadline: deadlineToDate,
           bid: project.bid,
           state: project.state,
+          isEdit: false
         };
         itemsArray.push(item);
       });
       return itemsArray;
     },
   },
+  methods: {
+    handleEdit(data) {
+      this.items[data.index].isEdit = !this.items[data.index].isEdit;
+    }
+  }
 };
 </script>
 
