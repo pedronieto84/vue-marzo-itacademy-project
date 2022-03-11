@@ -1,6 +1,13 @@
 <template>
   <div class="template-card">
-    <b-card header="Projecte" :title="title">
+    <b-card
+      class="project-card"
+      header="Projecte"
+      border-variant="primary"
+      header-bg-variant="primary"
+      header-text-variant="white"
+      :title="title"
+    >
       <b-card-text>{{ shortDescription }}</b-card-text>
     </b-card>
   </div>
@@ -13,4 +20,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scopped>
+.project-card {
+  max-width: 12rem;
+  height: 15rem;
+  margin-top: 0.5rem;
+}
+</style>

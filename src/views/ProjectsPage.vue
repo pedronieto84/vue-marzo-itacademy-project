@@ -1,9 +1,7 @@
 <template>
-  <div class="home container">
-    <!-- The NavComponent goes Here -->
-    <h1 class="text-center mt-5 mb-5">Projects Page</h1>
+  <div class="container mt-4">
     <b-row>
-      <b-col class="content">
+      <b-col class="content d-flex ml-4">
         <article
           class="aticle-card"
           v-for="project in projects"
@@ -20,9 +18,9 @@
         </article>
       </b-col>
     </b-row>
-    <b-row class="chat">
+    <div class="chat">
       <chat-component></chat-component>
-    </b-row>
+    </div>
   </div>
 </template>
 
@@ -66,14 +64,14 @@ export default {
 
 .content
   width: 90%
-  display: flex
+  column-gap: 1rem
   flex-wrap: wrap
-  justify-content: start
+  margin: 1rem .5rem
 
   a
     text-decoration: none
 
 .chat
-  display: flex
-  justify-content: end
+  position: sticky
+  top: 90vh
 </style>

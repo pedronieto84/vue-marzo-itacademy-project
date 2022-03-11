@@ -11,7 +11,9 @@
     <b-dropdown-item class="chat__dropdown"></b-dropdown-item>
     <b-dropdown-item class="chat__dropdown"></b-dropdown-item>
     <b-dropdown-item class="chat__dropdown"></b-dropdown-item>
-    <b-dropdown-item class="chat__dropdown"></b-dropdown-item>
+    <b-dropdown-item class="chat__dropdown">
+      <b-input></b-input>
+    </b-dropdown-item>
    
     
 
