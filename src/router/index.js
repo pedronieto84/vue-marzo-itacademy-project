@@ -1,6 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import ProjectsPage from "../views/ProjectsPage.vue";
+import CreateProjectPage from "../views/CreateProjectPage.vue"
+import MyAccountPage from "../views/MyAccountPage.vue";
+
 Vue.use(VueRouter);
 const routes = [
   {
@@ -9,7 +12,7 @@ const routes = [
     component: ProjectsPage,
   },
   {
-    path: "/ProjectDetailPage/:id",
+    path: "/project-detail-page/:id",
     name: "ProjectDetailPage",
     component: () => {
       return import(
@@ -25,6 +28,16 @@ const routes = [
         /* webpackChunkName: 'FormLogin' */ "../views/FormLogin.vue"
       );
     },
+  },
+  {
+    path: "/create-project",
+    name: "CreateProjectPage",
+    component: CreateProjectPage
+  },
+  {
+    path: "/my-account-page",
+    name: "MyAccountPage",
+    component: MyAccountPage
   },
 ];
 
