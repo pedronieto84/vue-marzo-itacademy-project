@@ -30,6 +30,15 @@ const routes = [
     },
   },
   {
+    path: "/register",
+    name: "Register",
+    component: () => {
+      return import(
+        /* webpackChunkName: 'Register' */ "../views/Register.vue"
+      );
+    },
+  },
+  {
     path: "/create-project",
     name: "CreateProjectPage",
     component: CreateProjectPage
