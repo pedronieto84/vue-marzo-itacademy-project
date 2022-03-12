@@ -19,7 +19,8 @@ export default new Vuex.Store({
       description: "",
       published: "",
       deadline: "",
-      technologies: [""],
+      bid: "",
+      frameworks: [""],
       files: []
     }
   },
@@ -43,6 +44,7 @@ export default new Vuex.Store({
     setUsers(state, users) { },
     setProjects(state, data) {
       state.projects = data.projects;
+      console.log(state.projects)
     },
     setCurrentProject(state, project) { },
     setTechSet(state, techSet) { },
@@ -59,7 +61,11 @@ export default new Vuex.Store({
     },
     updateDeadline(state, newDeadline) {
       state.newProject.deadline = newDeadline
-    }
+    },
+    updateFrameworks(state, newFrameworks) {
+      state.newProject.frameworks = newFrameworks
+    },
+
   },
   actions: {
     getUsers({ commit }) { },
@@ -77,7 +83,17 @@ export default new Vuex.Store({
       }
     },
     getProjectById({ commit }, id) { },
-    setNewProject({ dispatch }, project) { },
+
+    async setNewProject({ dispatch, state }) {
+      try {
+        await axios.post(
+          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects", state.newProject
+        );
+        dispatch("getProjects");
+      } catch (e) {
+        console.log(e);
+      }
+    },
     updateProject({ dispatch }, project) { },
     deleteProject({ dispatch }, id) { },
     getTechSet({ commit }) { },

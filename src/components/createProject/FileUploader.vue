@@ -4,7 +4,9 @@
       <b-form-file id="file1" accept=".pdf"></b-form-file>
       <b-form-file id="file2" accept=".pdf"></b-form-file>
     </b-form-group>
-    <b-button type="submit">Publish Project</b-button>
+    <b-button type="submit" @click="$store.dispatch('setNewProject')"
+      >Publish Project</b-button
+    >
   </div>
 </template>
 <script>
