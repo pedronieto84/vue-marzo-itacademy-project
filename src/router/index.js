@@ -4,7 +4,8 @@ import ProjectsPage from "../views/ProjectsPage.vue";
 import CreateProjectPage from "../views/CreateProjectPage.vue";
 import MyAccountPage from "../views/MyAccountPage.vue";
 import LoginForm from "../views/LoginForm.vue";
-import CreateAccount from "../views/CreateAccount.vue";
+// import CreateAccount from "../views/CreateAccount.vue";
+// import AdminPage from '../views/AdminPage.vue';
 
 Vue.use(VueRouter);
 const routes = [
@@ -23,32 +24,14 @@ const routes = [
     },
   },
   {
-    path: "/form-login",
-    name: "FormLogin",
-    component: () => {
-      return import(
-        /* webpackChunkName: 'FormLogin' */ "../views/FormLogin.vue"
-      );
-    },
-  },
-  {
-    path: "/register",
-    name: "Register",
-    component: () => {
-      return import(
-        /* webpackChunkName: 'Register' */ "../views/Register.vue"
-      );
-    },
-  },
-  {
     path: "/create-project",
     name: "CreateProjectPage",
     component: CreateProjectPage,
   },
   {
-    path: "/my-account-",
-    name: "MyAccountPage",
-    component: MyAccountPage,
+    path: "/admin",
+    name: "Admin",
+    component: AdminPage,
   },
   {
     path: "/login",
@@ -59,17 +42,24 @@ const routes = [
     path: "/register",
     name: "Register",
     component: () => {
-      import(/* webpackChunkName: 'Register' */ 'Register.vue')
+      return import(
+        /* webpackChunkName: 'Register' */ "../views/Register.vue"
+        );
+      },
     },
-  },
-  {
-    path: "/create-account",
-    name: "CreateAccount",
-    component: CreateAccount,
-  },
-];
-
-const router = new VueRouter({
+    {
+      path: "/create-account",
+      name: "CreateAccount",
+      component: CreateAccount,
+    },
+    {
+      path: "/my-account",
+      name: "MyAccountPage",
+      component: MyAccountPage,
+    },
+  ];
+  
+  const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
