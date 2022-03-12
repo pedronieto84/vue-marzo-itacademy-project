@@ -4,8 +4,8 @@ import ProjectsPage from "../views/ProjectsPage.vue";
 import CreateProjectPage from "../views/CreateProjectPage.vue";
 import MyAccountPage from "../views/MyAccountPage.vue";
 import LoginForm from "../views/LoginForm.vue";
-import CreateAccount from "../views/CreateAccount.vue";
-import AdminPage from '../views/AdminPage.vue';
+// import CreateAccount from "../views/CreateAccount.vue";
+// import AdminPage from '../views/AdminPage.vue';
 
 Vue.use(VueRouter);
 const routes = [
