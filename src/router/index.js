@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import ProjectsPage from "../views/ProjectsPage.vue";
 import CreateProjectPage from "../views/CreateProjectPage.vue";
 import MyAccountPage from "../views/MyAccountPage.vue";
-import LoginForm from "../views/LoginForm.vue";
+import FormLogin from "../views/FormLogin.vue";
 // import CreateAccount from "../views/CreateAccount.vue";
 // import AdminPage from '../views/AdminPage.vue';
 
@@ -35,8 +35,8 @@ const routes = [
   // },
   {
     path: "/login",
-    name: "LoginForm",
-    component: LoginForm,
+    name: "FormLogin",
+    component: FormLogin,
   },
   {
     path: "/register",
