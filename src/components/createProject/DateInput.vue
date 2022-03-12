@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="date-container">
     <div>
       Published:
       <b-form-datepicker v-model="publishedDate"></b-form-datepicker>
@@ -11,7 +11,6 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
 export default {
   name: "DateInput",
   computed: {
@@ -34,3 +33,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+.date-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+</style>

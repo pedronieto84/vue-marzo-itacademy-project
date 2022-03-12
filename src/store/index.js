@@ -1,6 +1,7 @@
 import Vue from "vue";
 import axios from "axios";
 import Vuex from "vuex";
+import VueRouter from "vue-router";
 
 Vue.use(Vuex);
 
@@ -22,7 +23,8 @@ export default new Vuex.Store({
       bid: "",
       frameworks: [""],
       files: []
-    }
+    },
+
   },
   getters: {
     getIsLogged: (state) => { },
@@ -104,6 +106,7 @@ export default new Vuex.Store({
           "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects", state.newProject
         );
         commit('resetNewProject');
+
         dispatch("getProjects");
       } catch (e) {
         console.log(e);

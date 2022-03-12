@@ -1,6 +1,11 @@
 <template>
-  <div class="create-container-step1">
-    <b-form-group type="text" label="Project Title" id="projectTitle">
+  <div class="hola">
+    <b-form-group
+      type="text"
+      label="Project Title"
+      id="projectTitle"
+      class="stepper1"
+    >
       <b-form-input placeholder="Your Title" v-model="title"></b-form-input>
       <b-form-textarea
         placeholder="Project Description, 500 char"
@@ -34,10 +39,12 @@ export default {
 };
 </script>
 <style scoped>
-.create-container-step1 {
+.hola {
   display: flex;
   flex-direction: column;
-  margin: 10px;
+}
+.stepper1 {
+  margin: 20px;
 }
 .description {
   height: 300px;
