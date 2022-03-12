@@ -28,11 +28,11 @@ const routes = [
     name: "CreateProjectPage",
     component: CreateProjectPage,
   },
-  {
-    path: "/admin",
-    name: "Admin",
-    component: AdminPage,
-  },
+  // {
+  //   path: "/admin",
+  //   name: "Admin",
+  //   component: AdminPage,
+  // },
   {
     path: "/login",
     name: "LoginForm",
@@ -42,24 +42,22 @@ const routes = [
     path: "/register",
     name: "Register",
     component: () => {
-      return import(
-        /* webpackChunkName: 'Register' */ "../views/Register.vue"
-        );
-      },
+      return import(/* webpackChunkName: 'Register' */ "../views/Register.vue");
     },
-    {
-      path: "/create-account",
-      name: "CreateAccount",
-      component: CreateAccount,
-    },
-    {
-      path: "/my-account",
-      name: "MyAccountPage",
-      component: MyAccountPage,
-    },
-  ];
-  
-  const router = new VueRouter({
+  },
+  // {
+  //   path: "/create-account",
+  //   name: "CreateAccount",
+  //   component: CreateAccount,
+  // },
+  {
+    path: "/my-account",
+    name: "MyAccountPage",
+    component: MyAccountPage,
+  },
+];
+
+const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
