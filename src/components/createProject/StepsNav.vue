@@ -7,6 +7,11 @@
       <b-tab title="2">
         <div>
           <DateInput />
+          <b-form-input
+            type="number"
+            placeholder="Bid in Euro"
+            v-model="bid"
+          ></b-form-input>
           <AddTechSet />
         </div>
       </b-tab>
@@ -25,6 +30,16 @@ import FileUploader from "./FileUploader.vue";
 export default {
   name: "StepsNav",
   components: { ProjectTitle, AddTechSet, DateInput, FileUploader },
+  computed: {
+    bid: {
+      get() {
+        return this.$store.state.newProject.bid;
+      },
+      set(newBid) {
+        this.$store.commit("updateBid", newBid);
+      },
+    },
+  },
 };
 </script>
 <style scoped>

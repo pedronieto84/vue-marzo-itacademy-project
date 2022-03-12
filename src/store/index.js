@@ -65,6 +65,20 @@ export default new Vuex.Store({
     updateFrameworks(state, newFrameworks) {
       state.newProject.frameworks = newFrameworks
     },
+    updateBid(state, newBid) {
+      state.newProject.bid = newBid
+    },
+    resetNewProject(state) {
+      state.newProject = {
+        title: "",
+        description: "",
+        published: "",
+        deadline: "",
+        bid: "",
+        frameworks: [""],
+        files: []
+      }
+    }
 
   },
   actions: {
@@ -84,11 +98,12 @@ export default new Vuex.Store({
     },
     getProjectById({ commit }, id) { },
 
-    async setNewProject({ dispatch, state }) {
+    async setNewProject({ dispatch, state, commit }) {
       try {
         await axios.post(
           "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects", state.newProject
         );
+        commit('resetNewProject');
         dispatch("getProjects");
       } catch (e) {
         console.log(e);

@@ -2,11 +2,11 @@
   <div class="create-container-step1">
     <b-form-group type="text" label="Project Title" id="projectTitle">
       <b-form-input placeholder="Your Title" v-model="title"></b-form-input>
-      <b-form-input
+      <b-form-textarea
         placeholder="Project Description, 500 char"
         class="description"
         v-model="description"
-      ></b-form-input>
+      ></b-form-textarea>
     </b-form-group>
   </div>
 </template>
