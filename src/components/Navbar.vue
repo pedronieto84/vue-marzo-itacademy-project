@@ -1,3 +1,4 @@
+<template>
     <div>
         <b-navbar class="mt-2">
             <b-button-group size="lg">
@@ -13,3 +14,4 @@
             </b-button>
         </b-navbar>
     </div>
+</template>
