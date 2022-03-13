@@ -1,7 +1,7 @@
 <template>
   <b-form-input
     type="number"
-    placeholder="Bid in Euro"
+    placeholder="Bid in €"
     v-model="bid"
     class="bid"
   ></b-form-input>
@@ -21,3 +21,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.bid {
+  margin: 30px;
+  width: 200px;
+}
+</style>

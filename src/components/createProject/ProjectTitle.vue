@@ -1,17 +1,25 @@
 <template>
-  <div class="hola">
-    <b-form-group
-      type="text"
-      label="Project Title"
-      id="projectTitle"
-      class="stepper1"
-    >
-      <b-form-input placeholder="Your Title" v-model="title"></b-form-input>
+  <div class="stepper1-container">
+    <b-form-group type="text" label="Project Title" id="projectTitle">
+      <b-form-input
+        id="title"
+        placeholder="Your Title"
+        v-model="title"
+        :state="titleState"
+      ></b-form-input>
+      <b-form-invalid-feedback id="title-feedback">
+        The title must have at least 3 letters
+      </b-form-invalid-feedback>
       <b-form-textarea
+        id="new-textarea"
+        :state="descriptionState"
         placeholder="Project Description, 500 char"
         class="description"
         v-model="description"
       ></b-form-textarea>
+      <b-form-invalid-feedback id="new-textarea-feedback">
+        This field cannot be empty
+      </b-form-invalid-feedback>
     </b-form-group>
   </div>
 </template>
@@ -35,17 +43,21 @@ export default {
         this.$store.commit("updateNewProjecDescription", newDescription);
       },
     },
+    titleState() {
+      return this.title.length > 3 ? true : false;
+    },
+    descriptionState() {
+      return this.description ? true : false;
+    },
   },
 };
 </script>
 <style scoped>
-.hola {
+.stepper1-container {
   display: flex;
   flex-direction: column;
 }
-.stepper1 {
-  margin: 20px;
-}
+
 .description {
   height: 300px;
 }
