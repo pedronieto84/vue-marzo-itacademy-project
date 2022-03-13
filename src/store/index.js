@@ -100,13 +100,13 @@ export default new Vuex.Store({
     },
     getProjectById({ commit }, id) { },
 
-    async setNewProject({ dispatch, state, commit }) {
+    async setNewProject({ dispatch, state, commit }, $router) {
       try {
         await axios.post(
           "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects", state.newProject
         );
         commit('resetNewProject');
-
+        $router.push({ name: "ProjectsPage" });
         dispatch("getProjects");
       } catch (e) {
         console.log(e);
