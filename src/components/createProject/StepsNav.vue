@@ -14,13 +14,7 @@
       <b-tab title="2">
         <div>
           <DateInput />
-          <!-- BID INPUT -->
-          <b-form-input
-            type="number"
-            placeholder="Bid in Euro"
-            v-model="bid"
-            class="bid"
-          ></b-form-input>
+          <Bid />
           <AddTechSet />
         </div>
         <b-progress
@@ -49,33 +43,20 @@ import ProjectTitle from "./ProjectTitle.vue";
 import AddTechSet from "./AddTechSet.vue";
 import DateInput from "./DateInput.vue";
 import FileUploader from "./FileUploader.vue";
+import Bid from "./Bid.vue";
 
 export default {
   name: "StepsNav",
-  components: { ProjectTitle, AddTechSet, DateInput, FileUploader },
+  components: { ProjectTitle, AddTechSet, DateInput, FileUploader, Bid },
   data() {
     return {
       animate: true,
     };
-  },
-  computed: {
-    bid: {
-      get() {
-        return this.$store.state.newProject.bid;
-      },
-      set(newBid) {
-        this.$store.commit("updateBid", newBid);
-      },
-    },
   },
 };
 </script>
 <style scoped>
 .barra-progress {
   margin: 50px;
-}
-.bid {
-  margin: 30px;
-  width: 150px;
 }
 </style>
