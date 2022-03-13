@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-container">
+  <div class="mx-auto w-50">
     <b-tabs content-class="mt-3">
       <b-tab title="1" active>
         <ProjectTitle />
@@ -12,11 +12,9 @@
         ></b-progress>
       </b-tab>
       <b-tab title="2">
-        <div>
-          <DateInput />
-          <Bid />
-          <AddTechSet />
-        </div>
+        <DateInput />
+        <Bid />
+        <AddTechSet />
         <b-progress
           class="mt-2 barra-progress"
           :value="50"
@@ -55,8 +53,5 @@ export default {
   },
 };
 </script>
-<style scoped>
-.barra-progress {
-  margin: 50px;
-}
-</style>
+
+

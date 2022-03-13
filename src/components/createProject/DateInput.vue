@@ -1,13 +1,21 @@
 <template>
-  <div class="date-container">
-    <div>
-      Published:
-      <b-form-datepicker v-model="publishedDate"></b-form-datepicker>
-    </div>
-    <div>
-      Deadline:
-      <b-form-datepicker v-model="deadline"></b-form-datepicker>
-    </div>
+  <div>
+    <b-row>
+      <b-form-input>
+        <b-col>
+          <div class="datepicker">
+            Published:
+            <b-form-datepicker v-model="publishedDate"></b-form-datepicker>
+          </div>
+        </b-col>
+        <b-col>
+          <div class="datepicker">
+            Deadline:
+            <b-form-datepicker v-model="deadline"></b-form-datepicker>
+          </div>
+        </b-col>
+      </b-form-input>
+    </b-row>
   </div>
 </template>
 <script>
@@ -33,10 +41,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.date-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-</style>

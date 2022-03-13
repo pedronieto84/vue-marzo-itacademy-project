@@ -1,10 +1,17 @@
 <template>
-  <b-form-input
-    type="number"
-    placeholder="Bid in €"
-    v-model="bid"
-    class="bid"
-  ></b-form-input>
+  <b-row>
+    <b-col cols="6">
+      <b-input-group>
+        <b-form-input
+          type="number"
+          placeholder="Bid in €"
+          v-model="bid"
+          class="bid"
+        />
+        <b-input-group-prepend is-text>€</b-input-group-prepend>
+      </b-input-group>
+    </b-col>
+  </b-row>
 </template>
 <script>
 export default {
@@ -21,9 +28,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.bid {
-  margin: 30px;
-  width: 200px;
-}
-</style>
