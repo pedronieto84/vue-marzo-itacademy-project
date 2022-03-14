@@ -12,7 +12,7 @@
         ></b-progress>
       </b-tab>
       <b-tab title="2">
-        <DateInput />
+        <date-input />
         <Bid />
         <AddTechSet />
         <b-progress
@@ -53,5 +53,3 @@ export default {
   },
 };
 </script>
-
-

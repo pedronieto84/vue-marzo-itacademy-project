@@ -23,7 +23,7 @@ export default new Vuex.Store({
       deadline: "",
       bid: "",
       frameworks: [""],
-      files: []
+      files: [],
     },
     messageError: "",
   },
@@ -55,7 +55,6 @@ export default new Vuex.Store({
     getErrorMessage: (state) => {
       return errorMessage;
     },
-
   },
   mutations: {
     setUserLogged(state, user) {
@@ -72,29 +71,32 @@ export default new Vuex.Store({
     },
     setProjects(state, data) {
       state.projects = data.projects;
-      console.log(state.projects)
+      console.log(state.projects);
     },
-    setCurrentProject(state, project) { },
-    setTechSet(state, techSet) { },
+    setCurrentProject(state, project) {},
+    setTechSet(state, techSet) {},
 
     //mutations for createProject page
-    updateNewProje(state, newTitle) {
-      state.newProject.title = newTitle
+    updateNewProjet(state, newTitle) {
+      state.newProject.title = newTitle;
     },
     updateNewProjecDescription(state, newDescription) {
-      state.newProject.description = newDescription
+      state.newProject.description = newDescription;
     },
     updateNewDate(state, newDate) {
-      state.newProject.published = newDate
+      state.newProject.published = newDate;
     },
     updateDeadline(state, newDeadline) {
-      state.newProject.deadline = newDeadline
+      state.newProject.deadline = newDeadline;
     },
     updateFrameworks(state, newFrameworks) {
-      state.newProject.frameworks = newFrameworks
+      state.newProject.frameworks = newFrameworks;
     },
     updateBid(state, newBid) {
-      state.newProject.bid = newBid
+      state.newProject.bid = newBid;
+    },
+    updateFile(state, file) {
+      state.newProject.files.push(file);
     },
     resetNewProject(state) {
       state.newProject = {
@@ -104,8 +106,8 @@ export default new Vuex.Store({
         deadline: "",
         bid: "",
         frameworks: [""],
-        files: []
-      }
+        files: [],
+      };
     },
     setCurrentProject(state, project) {
       state.currentProject = project;
@@ -204,7 +206,7 @@ export default new Vuex.Store({
       }
     },
 
-   async updateProject({ dispatch, commit }, project) {
+    async updateProject({ dispatch, commit }, project) {
       try {
         const response = await axios.put(
           "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects",
@@ -216,26 +218,25 @@ export default new Vuex.Store({
           throw response.error;
         }
         dispatch("getUsers", 2000);
-     
       } catch (e) {
         commit("setErrorMessage", { error: `${e.message}` });
       }
     },
-    
 
     async setNewProject({ dispatch, state, commit }, $router) {
       try {
         await axios.post(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects", state.newProject
+          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects",
+          state.newProject
         );
-        commit('resetNewProject');
+        commit("resetNewProject");
         $router.push({ name: "ProjectsPage" });
         dispatch("getProjects");
       } catch (e) {
         console.log(e);
       }
     },
-   
+
     deleteProject({ dispatch }, id) {},
     async getTechSet({ commit }) {
       try {
@@ -268,7 +269,6 @@ export default new Vuex.Store({
     },
     uploadDocument({ dispatch }, document) {},
     downloadDocument(url) {},
-
   },
   modules: {},
 });
