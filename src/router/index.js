@@ -1,41 +1,60 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import ProjectsPage from "../views/ProjectsPage.vue";
-import CreateProjectPage from "../views/CreateProjectPage.vue"
+import CreateProjectPage from "../views/CreateProjectPage.vue";
 import MyAccountPage from "../views/MyAccountPage.vue";
+import FormLogin from "../views/FormLogin.vue";
+// import CreateAccount from "../views/CreateAccount.vue";
+// import AdminPage from '../views/AdminPage.vue';
 
 Vue.use(VueRouter);
-
 const routes = [
   {
     path: "/",
     name: "ProjectsPage",
     component: ProjectsPage,
   },
-
   {
-    path: "/project-detail-page/:id",
+    path: "/project-detail/:id",
     name: "ProjectDetailPage",
     component: () => {
-      import(
+      return import(
         /* webpackChunkName: 'ProjectDetailPage' */ "../views/ProjectDetailPage.vue"
       );
     },
   },
-
   {
     path: "/create-project",
     name: "CreateProjectPage",
-    component: CreateProjectPage
+    component: CreateProjectPage,
   },
-
+  // {
+  //   path: "/admin",
+  //   name: "Admin",
+  //   component: AdminPage,
+  // },
   {
-    path: "/my-account-page",
-    name: "MyAccountPage",
-    component: MyAccountPage
+    path: "/login",
+    name: "FormLogin",
+    component: FormLogin,
   },
-
-
+  {
+    path: "/register",
+    name: "Register",
+    component: () => {
+      return import(/* webpackChunkName: 'Register' */ "../views/Register.vue");
+    },
+  },
+  // {
+  //   path: "/create-account",
+  //   name: "CreateAccount",
+  //   component: CreateAccount,
+  // },
+  {
+    path: "/my-account",
+    name: "MyAccountPage",
+    component: MyAccountPage,
+  },
 ];
 
 const router = new VueRouter({
