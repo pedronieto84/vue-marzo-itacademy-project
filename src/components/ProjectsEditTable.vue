@@ -8,49 +8,65 @@
       :items="tableItems"
       :fields="fields"
     >
-      <template v-for="(field, index) in fields" #[`cell(${field.key})`]="data">
-        <b-form-datepicker
-          v-if="field.type === 'date' && tableItems[data.index].isEdit"
-          :key="index"
-          :type="field.type"
-          :value="convertDateToDatepicker(tableItems[data.index][field.key])"
-          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
-        ></b-form-datepicker>
-        <b-form-select
-          v-else-if="field.type === 'select' && tableItems[data.index].isEdit"
-          :key="index"
-          :value="tableItems[data.index][field.key]"
-          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
-          :options="field.options"
-        ></b-form-select>
-        <div :key="index" v-else-if="field.type === 'edit'">
-          <button class="edit-button" @click="handleEdit(data)">
-            <span v-if="!tableItems[data.index].isEdit"
-              ><img src="@/assets/icons/pencil.png" alt="Edit"
-            /></span>
-            <span v-else class="done-span"
-              ><img src="@/assets/icons/done.png" alt="Done"
-            /></span>
-          </button>
-          <button
-            v-if="!tableItems[data.index].isEdit"
-            class="delete-button"
-            @click="handleDelete(data.index)"
-          >
-            <img src="@/assets/icons/remove.png" alt="Delete" />
-          </button>
-        </div>
+      <template #cell(title)="data">
         <b-form-input
-          v-else-if="field.type && tableItems[data.index].isEdit"
-          :key="index"
-          :type="field.type"
-          :value="tableItems[data.index][field.key]"
+          v-if="tableItems[data.index].isEdit"
+          type="text"
+          :value="tableItems[data.index].title"
           @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
         ></b-form-input>
-        <span :key="index" v-else-if="field.type === 'date'">{{
-          convertDateToLocale(data.value)
-        }}</span>
-        <span :key="index" v-else>{{ data.value }}</span>
+        <span v-else>{{ data.value }}</span>
+      </template>
+
+      <template #cell(publishedDate)="data">
+        <span>{{ convertDateToLocale(data.value) }}</span>
+      </template>
+
+      <template #cell(deadline)="data">
+        <b-form-datepicker
+          v-if="tableItems[data.index].isEdit"
+          :value="convertDateToDatepicker(tableItems[data.index].deadline)"
+          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
+        ></b-form-datepicker>
+        <span v-else>{{ convertDateToLocale(data.value) }}</span>
+      </template>
+
+      <template #cell(bid)="data">
+        <b-form-input
+          v-if="tableItems[data.index].isEdit"
+          type="number"
+          :value="tableItems[data.index].bid"
+          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
+        ></b-form-input>
+        <!--                    -->
+        <span v-else>{{ data.value }}</span>
+      </template>
+      <template #cell(state)="data">
+        <b-form-select
+          v-if="tableItems[data.index].isEdit"
+          :options="options"
+          :value="tableItems[data.index].state"
+          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
+        ></b-form-select>
+        <!--                   -->
+        <span v-else>{{ data.value }}</span>
+      </template>
+      <template #cell(edit)="data">
+        <button class="edit-button" @click="handleEdit(data)">
+          <span v-if="!tableItems[data.index].isEdit"
+            ><img src="@/assets/icons/pencil.png" alt="Edit"
+          /></span>
+          <span v-else class="done-span"
+            ><img src="@/assets/icons/done.png" alt="Done"
+          /></span>
+        </button>
+        <button
+          v-if="!tableItems[data.index].isEdit"
+          class="delete-button"
+          @click="handleDelete(data.index)"
+        >
+          <img src="@/assets/icons/remove.png" alt="Delete" />
+        </button>
       </template>
     </b-table>
   </div>
@@ -65,6 +81,9 @@ export default {
     fields: {
       type: Array,
       required: true,
+    },
+    options: {
+      type: Array,
     },
   },
   data() {

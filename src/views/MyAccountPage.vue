@@ -7,6 +7,7 @@
         v-if="currentView === 'projects'"
         v-model="projects"
         :fields="fields"
+        :options="options"
       />
     </div>
   </div>
@@ -50,7 +51,7 @@ export default {
           techset: ["CSS", "HTML"],
           filesArray: ["delete me"],
           shortExplanation: ["idk"],
-          state: "doing",
+          state: "refused",
           bid: 4200,
         },
         {
@@ -92,10 +93,10 @@ export default {
           key: "state",
           sortable: true,
           type: "select",
-          options: ["accepted", "published", "refused", "doing", "finished"],
         },
         { key: "edit", label: "", type: "edit" },
       ],
+      options: ["accepted", "published", "refused", "doing", "finished"],
     };
   },
   methods: {
