@@ -105,23 +105,6 @@ export default {
         : (this.currentView = "projects");
     },
   },
-  /*
-          const publishedToDate = new Date(
-          project.publishedDate * 1000
-        ).toLocaleString(undefined, {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        });
-        const deadlineToDate = new Date(project.deadline * 1000).toLocaleString(
-          undefined,
-          {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          }
-        );
-        */
 };
 </script>
 
