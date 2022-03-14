@@ -24,16 +24,21 @@
           :options="field.options"
         ></b-form-select>
         <div :key="index" v-else-if="field.type === 'edit'">
-          <b-button @click="handleEdit(data)">
-            <span v-if="!tableItems[data.index].isEdit">Edit</span>
-            <span v-else>Done</span>
-          </b-button>
-          <b-button
+          <button class="edit-button" @click="handleEdit(data)">
+            <span v-if="!tableItems[data.index].isEdit"
+              ><img src="@/assets/icons/pencil.png" alt="Edit"
+            /></span>
+            <span v-else class="done-span"
+              ><img src="@/assets/icons/done.png" alt="Done"
+            /></span>
+          </button>
+          <button
+            v-if="!tableItems[data.index].isEdit"
             class="delete-button"
-            variant="danger"
             @click="handleDelete(data.index)"
-            >Delete</b-button
           >
+            <img src="@/assets/icons/remove.png" alt="Delete" />
+          </button>
         </div>
         <b-form-input
           v-else-if="field.type && tableItems[data.index].isEdit"
@@ -116,7 +121,19 @@ export default {
 ::v-deep .sr-only {
   display: none !important;
 }
+.edit-button {
+  max-height: 36px;
+  border: none;
+  background-color: transparent;
+}
+.edit-button img,
+.delete-button img {
+  max-height: 30px;
+}
 .delete-button {
   margin-left: 1rem;
+  max-height: 36px;
+  border: none;
+  background-color: transparent;
 }
 </style>
