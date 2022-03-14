@@ -92,7 +92,7 @@ export default {
   computed: {
     frameworks: {
       get() {
-        return this.$store.state.newProject.frameworks;
+        return this.$store.state.newProject.techSet;
       },
       set(newFrameworks) {
         this.$store.commit("updateFrameworks", newFrameworks);
