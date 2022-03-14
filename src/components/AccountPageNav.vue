@@ -5,7 +5,8 @@
         v-for="(view, index) in views"
         :key="index"
         class="page-marker"
-        @click="$emit('changeView', view)"
+        :class="{ active: view === selected }"
+        @click="handleClick(view)"
       >
         <span class="marker-name">{{ view }}</span>
       </div>
@@ -19,6 +20,17 @@ export default {
     views: {
       type: Array,
       required: true,
+    },
+  },
+  data() {
+    return {
+      selected: this.views[0],
+    };
+  },
+  methods: {
+    handleClick(view) {
+      this.selected = view;
+      this.$emit("changeView", view);
     },
   },
 };
@@ -42,16 +54,24 @@ export default {
   position: relative;
   padding: 0.3rem 0 0 1.2rem;
   z-index: 100;
+  color: #666;
 }
 .page-marker:after {
   content: "";
   width: calc(10rem - 5px);
   height: calc(2.7rem - 2px);
-  background-color: #f2f2f2;
+  background-color: #f5f5f5;
   position: absolute;
   top: 2px;
   left: 2px;
   z-index: -2;
+}
+.active {
+  color: white;
+  z-index: 110;
+}
+.active:after {
+  background-color: #005e85;
 }
 .marker-name {
   display: inline-block;
