@@ -13,7 +13,7 @@
           v-if="tableItems[data.index].isEdit"
           type="text"
           :value="tableItems[data.index].title"
-          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
+          @blur="(e) => inputHandler(e.target.value, data.index, 'title')"
         ></b-form-input>
         <span v-else>{{ data.value }}</span>
       </template>
@@ -24,9 +24,9 @@
 
       <template #cell(deadline)="data">
         <b-form-datepicker
+          value-as-date
           v-if="tableItems[data.index].isEdit"
-          :value="convertDateToDatepicker(tableItems[data.index].deadline)"
-          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
+          v-model="tableItems[data.index].deadlineToDatepicker"
         ></b-form-datepicker>
         <span v-else>{{ convertDateToLocale(data.value) }}</span>
       </template>
@@ -35,28 +35,34 @@
         <b-form-input
           v-if="tableItems[data.index].isEdit"
           type="number"
+          min="0"
           :value="tableItems[data.index].bid"
-          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
+          @blur="
+            (e) => inputHandler(Math.abs(e.target.value), data.index, 'bid')
+          "
         ></b-form-input>
-        <!--                    -->
         <span v-else>{{ data.value }}</span>
       </template>
+
       <template #cell(state)="data">
         <b-form-select
           v-if="tableItems[data.index].isEdit"
           :options="options"
           :value="tableItems[data.index].state"
-          @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
+          @change="(value) => inputHandler(value, data.index, 'state')"
         ></b-form-select>
-        <!--                   -->
         <span v-else>{{ data.value }}</span>
       </template>
+
       <template #cell(edit)="data">
         <button class="edit-button" @click="handleEdit(data)">
           <span v-if="!tableItems[data.index].isEdit"
             ><img src="@/assets/icons/pencil.png" alt="Edit"
           /></span>
-          <span v-else class="done-span"
+          <span
+            v-else
+            class="done-span"
+            @click="convertDeadlineToUnixDate(data)"
             ><img src="@/assets/icons/done.png" alt="Done"
           /></span>
         </button>
@@ -88,11 +94,16 @@ export default {
   },
   data() {
     return {
-      tableItems: this.value.map((item) => ({ ...item, isEdit: false })),
+      tableItems: this.value.map((item) => ({
+        ...item,
+        isEdit: false,
+        deadlineToDatepicker: this.convertDateToDatepicker(item.deadline),
+      })),
     };
   },
   methods: {
     inputHandler(value, index, key) {
+      console.log(value);
       this.tableItems[index][key] = value;
       this.$set(this.tableItems, index, this.tableItems[index]);
       this.$emit("input", this.tableItems);
@@ -124,6 +135,11 @@ export default {
         mm = "0" + mm;
       }
       return yyyy + "-" + mm + "-" + dd;
+    },
+    convertDeadlineToUnixDate(data) {
+      data.item.deadline = Math.floor(
+        new Date(data.item.deadlineToDatepicker).getTime() / 1000
+      );
     },
   },
 };
