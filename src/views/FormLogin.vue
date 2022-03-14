@@ -50,9 +50,6 @@ export default {
             showSuccessMessage: false,
         }
     },
-    mounted(){
-        this. hideLogin = true
-    },
     methods: {
         onSubmit(event){
         event.preventDefault()
@@ -65,7 +62,8 @@ export default {
         if(this.$store.state.users.find(
             user => user.email === this.email && user.password === this.password)
         ) {
-            this.validation.email = true 
+            this.validation.email = true
+            this. showSuccessMessage = true 
         } else{
             this.showErrorMessage = true
         }
