@@ -2,8 +2,8 @@
     <div>
         <b-alert v-model="showSuccessMessage" variant="success">Acceso correcto!</b-alert>
         <b-alert v-model="showErrorMessage" variant="danger" dismissible>Usuario no encontrado</b-alert>
-         <div class=" row justify-content-center align-items-center">
-             <b-form @submit="onSubmit" 
+         <div   class=" row justify-content-center align-items-center">
+            <b-form @submit="onSubmit" 
             class=" m-5 p-5 col-6 border "
             >
                 <h3>Login</h3>
@@ -28,6 +28,9 @@
                 >
                     Entrar
                 </b-button>
+                <b-button  @click="openRegister">
+                  ¿No tines cuenta?  Regístrate!
+                </b-button>
             </b-form>
          </div>
     </div>
@@ -44,13 +47,19 @@ export default {
             email: '',
             password: '',
             showErrorMessage: false,
-            showSuccessMessage: false
+            showSuccessMessage: false,
         }
+    },
+    mounted(){
+        this. hideLogin = true
     },
     methods: {
         onSubmit(event){
         event.preventDefault()
         this.foundRegisteredUser();
+      },
+      openRegister(){
+          this.$router.push({path: 'Register'})
       },
       foundRegisteredUser() {
         if(this.$store.state.users.find(
