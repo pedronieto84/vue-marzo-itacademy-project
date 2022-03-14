@@ -25,8 +25,6 @@ export default new Vuex.Store({
       frameworks: [""],
       files: []
     },
-
-  },
     messageError: "",
   },
   getters: {
@@ -108,9 +106,7 @@ export default new Vuex.Store({
         frameworks: [""],
         files: []
       }
-    }
-
-  },
+    },
     setCurrentProject(state, project) {
       state.currentProject = project;
     },
