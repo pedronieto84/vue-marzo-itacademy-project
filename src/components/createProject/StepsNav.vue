@@ -2,7 +2,6 @@
   <div class="mx-auto w-50">
     <b-tabs content-class="mt-3">
       <b-tab title="1" active>
-        <ProjectTitle />
         <b-progress
           class="mt-2 barra-progress"
           :value="25"
@@ -10,11 +9,9 @@
           striped
           :animated="animate"
         ></b-progress>
+        <ProjectTitle />
       </b-tab>
       <b-tab title="2">
-        <DateInput />
-        <Bid />
-        <AddTechSet />
         <b-progress
           class="mt-2 barra-progress"
           :value="50"
@@ -22,9 +19,11 @@
           striped
           :animated="animate"
         ></b-progress>
+        <DateInput />
+        <Bid />
+        <AddTechSet />
       </b-tab>
       <b-tab title="3">
-        <FileUploader />
         <b-progress
           class="mt-2 barra-progress"
           :value="75"
@@ -32,6 +31,7 @@
           striped
           :animated="animate"
         ></b-progress>
+        <FileUploader />
       </b-tab>
     </b-tabs>
   </div>

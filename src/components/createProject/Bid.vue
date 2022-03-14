@@ -7,6 +7,7 @@
           placeholder="Bid in €"
           v-model="bid"
           class="bid"
+          min="0"
         />
         <b-input-group-prepend is-text>€</b-input-group-prepend>
       </b-input-group>
