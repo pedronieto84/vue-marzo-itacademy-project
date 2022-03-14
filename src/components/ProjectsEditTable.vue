@@ -2,7 +2,7 @@
   <div>
     <b-table
       class="border mx-5 my-5"
-      responsive="true"
+      responsive
       striped
       hover
       :items="tableItems"
@@ -13,7 +13,7 @@
           v-if="field.type === 'date' && tableItems[data.index].isEdit"
           :key="index"
           :type="field.type"
-          :value="tableItems[data.index][field.key]"
+          :value="convertDateToDatepicker(tableItems[data.index][field.key])"
           @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
         ></b-form-datepicker>
         <b-form-select
@@ -42,6 +42,9 @@
           :value="tableItems[data.index][field.key]"
           @blur="(e) => inputHandler(e.target.value, data.index, field.key)"
         ></b-form-input>
+        <span :key="index" v-else-if="field.type === 'date'">{{
+          convertDateToLocale(data.value)
+        }}</span>
         <span :key="index" v-else>{{ data.value }}</span>
       </template>
     </b-table>
@@ -75,18 +78,45 @@ export default {
     },
     handleDelete(index) {
       this.tableItems = this.tableItems.filter((item, i) => i !== index);
-      this.$emit('input', this.tableItems);
+      this.$emit("input", this.tableItems);
+    },
+    convertDateToLocale(date) {
+      const localeDate = new Date(date * 1000).toLocaleString(undefined, {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+      return localeDate;
+    },
+    convertDateToDatepicker(date) {
+      const datepickerDate = new Date(date * 1000);
+      let dd = datepickerDate.getDate();
+      let mm = datepickerDate.getMonth() + 1;
+      const yyyy = datepickerDate.getFullYear();
+      if (dd < 10) {
+        dd = "0" + dd;
+      }
+      if (mm < 10) {
+        mm = "0" + mm;
+      }
+      return yyyy + "-" + mm + "-" + dd;
     },
   },
 };
 </script>
 
 <style scoped>
+.table-responsive {
+  max-width: 90%;
+}
 .border {
   border: 2px solid #666 !important;
   border-radius: 5px;
 }
 ::v-deep .sr-only {
   display: none !important;
+}
+.delete-button {
+  margin-left: 1rem;
 }
 </style>
