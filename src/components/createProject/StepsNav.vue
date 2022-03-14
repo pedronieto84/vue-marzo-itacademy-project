@@ -1,18 +1,38 @@
 <template>
-  <div class="tabs-container">
+  <div class="mx-auto w-50">
     <b-tabs content-class="mt-3">
-      <b-tab title="1" active
-        ><p><ProjectTitle /></p
-      ></b-tab>
+      <b-tab title="1" active>
+        <ProjectTitle />
+        <b-progress
+          class="mt-2 barra-progress"
+          :value="25"
+          variant="info"
+          striped
+          :animated="animate"
+        ></b-progress>
+      </b-tab>
       <b-tab title="2">
-        <p>
-          <DateInput id="published" />
-          <DateInput id="deadline" />
-          <AddTechSet /></p
-      ></b-tab>
-      <b-tab title="3"
-        ><p><FileUploader /></p
-      ></b-tab>
+        <DateInput />
+        <Bid />
+        <AddTechSet />
+        <b-progress
+          class="mt-2 barra-progress"
+          :value="50"
+          variant="info"
+          striped
+          :animated="animate"
+        ></b-progress>
+      </b-tab>
+      <b-tab title="3">
+        <FileUploader />
+        <b-progress
+          class="mt-2 barra-progress"
+          :value="75"
+          variant="info"
+          striped
+          :animated="animate"
+        ></b-progress>
+      </b-tab>
     </b-tabs>
   </div>
 </template>
@@ -21,11 +41,17 @@ import ProjectTitle from "./ProjectTitle.vue";
 import AddTechSet from "./AddTechSet.vue";
 import DateInput from "./DateInput.vue";
 import FileUploader from "./FileUploader.vue";
+import Bid from "./Bid.vue";
 
 export default {
   name: "StepsNav",
-  components: { ProjectTitle, AddTechSet, DateInput, FileUploader },
+  components: { ProjectTitle, AddTechSet, DateInput, FileUploader, Bid },
+  data() {
+    return {
+      animate: true,
+    };
+  },
 };
 </script>
-<style scoped>
-</style>
+
+

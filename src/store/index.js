@@ -1,6 +1,7 @@
 import Vue from "vue";
 import axios from "axios";
 import Vuex from "vuex";
+import VueRouter from "vue-router";
 
 Vue.use(Vuex);
 
@@ -14,6 +15,18 @@ export default new Vuex.Store({
     projects: [],
     currentProject: Object,
     techSet: [],
+    //initial value of the fields when creating a new project
+    newProject: {
+      title: "",
+      description: "",
+      published: "",
+      deadline: "",
+      bid: "",
+      frameworks: [""],
+      files: []
+    },
+
+  },
     messageError: "",
   },
   getters: {
@@ -44,6 +57,7 @@ export default new Vuex.Store({
     getErrorMessage: (state) => {
       return errorMessage;
     },
+
   },
   mutations: {
     setUserLogged(state, user) {
@@ -60,7 +74,43 @@ export default new Vuex.Store({
     },
     setProjects(state, data) {
       state.projects = data.projects;
+      console.log(state.projects)
     },
+    setCurrentProject(state, project) { },
+    setTechSet(state, techSet) { },
+
+    //mutations for createProject page
+    updateNewProjecTitle(state, newTitle) {
+      state.newProject.title = newTitle
+    },
+    updateNewProjecDescription(state, newDescription) {
+      state.newProject.description = newDescription
+    },
+    updateNewDate(state, newDate) {
+      state.newProject.published = newDate
+    },
+    updateDeadline(state, newDeadline) {
+      state.newProject.deadline = newDeadline
+    },
+    updateFrameworks(state, newFrameworks) {
+      state.newProject.frameworks = newFrameworks
+    },
+    updateBid(state, newBid) {
+      state.newProject.bid = newBid
+    },
+    resetNewProject(state) {
+      state.newProject = {
+        title: "",
+        description: "",
+        published: "",
+        deadline: "",
+        bid: "",
+        frameworks: [""],
+        files: []
+      }
+    }
+
+  },
     setCurrentProject(state, project) {
       state.currentProject = project;
     },
@@ -191,6 +241,21 @@ export default new Vuex.Store({
         commit("setErrorMessage", { error: `${e.message}` });
       }
     },
+    
+
+    async setNewProject({ dispatch, state, commit }, $router) {
+      try {
+        await axios.post(
+          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects", state.newProject
+        );
+        commit('resetNewProject');
+        $router.push({ name: "ProjectsPage" });
+        dispatch("getProjects");
+      } catch (e) {
+        console.log(e);
+      }
+    },
+   
     deleteProject({ dispatch }, id) {},
     async getTechSet({ commit }) {
       try {
@@ -223,6 +288,7 @@ export default new Vuex.Store({
     },
     uploadDocument({ dispatch }, document) {},
     downloadDocument(url) {},
+
   },
   modules: {},
 });
