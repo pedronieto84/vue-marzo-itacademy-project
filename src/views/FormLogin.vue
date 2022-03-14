@@ -4,9 +4,9 @@
         <b-alert v-model="showErrorMessage" variant="danger" dismissible>Usuario no encontrado</b-alert>
          <div   class=" row justify-content-center align-items-center">
             <b-form @submit="onSubmit" 
-            class=" m-5 p-5 col-6 border "
+            class=" m-5 p-5 col-8 text-left border "
             >
-                <h3>Login</h3>
+                <h3 class="text-center">Login</h3>
                 <FormInput
                     :inputValue="email"
                     :name="'E-mail'"
@@ -14,23 +14,29 @@
                     @validation="validation.email  = $event"
                     :inputType="'email'" 
                 />
-                <FormInput
-                    :inputValue="password"
-                    :name="'Password'"
-                    @input="password = $event"
-                    @validation="validation.password  = $event"
-                    :inputType="'password'" 
-                />
-                <b-button 
-                    variant="outline-primary"
-                    type="submit" 
-                    value="Submit"
-                >
-                    Entrar
-                </b-button>
-                <b-button  @click="openRegister">
-                  ¿No tines cuenta?  Regístrate!
-                </b-button>
+                <b-form-group class="m-4">
+                    <label for="text-password">Password</label>
+                    <b-form-input 
+                        v-model="password"
+                        type="password" 
+                    />
+                </b-form-group>
+                <div class="d-flex justify-content-center">
+                     <b-button  @click="openRegister"
+                        variant="light"
+                        class="m-4 col-6"
+                     >
+                        ¿No tines cuenta?  Regístrate!
+                    </b-button>
+                    <b-button 
+                        variant="outline-primary"
+                        type="submit" 
+                        value="Submit"
+                        class="m-4 col-4 text-center"
+                    >
+                        Entrar
+                    </b-button>
+                </div> 
             </b-form>
          </div>
     </div>
@@ -46,6 +52,7 @@ export default {
         return {
             email: '',
             password: '',
+            verified: false,
             showErrorMessage: false,
             showSuccessMessage: false,
         }
@@ -63,6 +70,7 @@ export default {
             user => user.email === this.email && user.password === this.password)
         ) {
             this.validation.email = true
+            this.verified = true
             this. showSuccessMessage = true 
         } else{
             this.showErrorMessage = true
