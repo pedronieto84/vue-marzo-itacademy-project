@@ -29,7 +29,6 @@ export default {
   },
   methods: {
     handleClick(view) {
-      console.log(view);
       this.selected = view;
       this.$emit("changeView", view);
     },
