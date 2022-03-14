@@ -1,13 +1,11 @@
 <template>
   <div id="app">
-    <nav class="container">
-      <Navbar/>
-      <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
+    <b-container>
+      <Navbar />
       <router-view />
-    </nav>
+    </b-container>
+
+
   </div>
 </template>
 <script>
