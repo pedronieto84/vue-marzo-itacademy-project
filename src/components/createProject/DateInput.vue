@@ -26,7 +26,7 @@ export default {
   computed: {
     publishedDate: {
       get() {
-        return this.$store.state.newProject.published;
+        return this.$store.state.newProject.publishedDate;
       },
       set(newDate) {
         let toMs = new Date(newDate).getTime();

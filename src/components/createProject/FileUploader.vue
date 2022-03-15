@@ -1,28 +1,25 @@
 <template>
   <div class="uploader-container">
-    <b-form-group label="Files:" label-cols-sm="2">
-      <b-row>
-        <b-col>
-          <b-form-file
-            id="file1"
-            placeholder="drag and drop a file"
-            accept=".pdf"
-            v-model="fileUp1"
-            ref="refFile1"
-            >
-          </b-form-file>
-          <b-icon icon="plus-circle-fill"></b-icon>
-        </b-col>
-      </b-row>
-    </b-form-group>
-    <v-row>
+    <b-row>
+      <b-form-group
+        id="form-group"
+        text-variant="black"
+        label="Files:"
+        label-cols-sm="2"
+        ref="fileform"
+      >
+        <file-input @click="addFile1" />
+        <file-input @click="addFile2" />
+      </b-form-group>
+    </b-row>
+    <b-row>
       <b-col>
         <b-button class="outline" variant="outline" @click="updateFiles"
           >SendFiles</b-button
         >
       </b-col>
-    </v-row>
-    <v-row>
+    </b-row>
+    <b-row>
       <b-col>
         <b-button
           type="submit"
@@ -30,27 +27,32 @@
           >Publish Project</b-button
         >
       </b-col>
-    </v-row>
+    </b-row>
   </div>
 </template>
 <script>
 import store from "@/store";
+import FileInput from "@/components/createProject/FileInput.vue";
 export default {
+  components: { FileInput },
   name: "FileUploader",
   data() {
     return {
-      fileUp1: null,
-      fileUp2: null,
+      inputFile: [],
     };
   },
-  watch: {
-    fileUp1: function () {
-      store.commit("updateFile", this.fileUp1);
-      console.log(this.fileUp1);
-      console.log(this.$refs.refFile1.files);
+
+  methods: {
+    addFile1: function (payload) {
+      this.inputFile[0] = payload;
     },
-    fileUp2: function () {
-      store.commit("updateFile", this.fileUp2);
+    addFile2: function (payload) {
+      this.inputFile[1] = payload;
+    },
+    updateFiles: function () {
+      if (this.inputFile.length > 0) {
+        store.commit("updateFiles", this.inputFile);
+      }
     },
   },
 };

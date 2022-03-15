@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 
 Vue.use(Vuex);
+const API = 'http://itacademyvuemarzo.duckdns.org/api';
 
 export default new Vuex.Store({
   state: {
@@ -18,11 +19,11 @@ export default new Vuex.Store({
     //initial value of the fields when creating a new project
     newProject: {
       title: "",
-      description: "",
-      published: "",
+      shortExplanation: "",
+      publishedDate: "",
       deadline: "",
       bid: "",
-      frameworks: [""],
+      techSet: [""],
       files: [],
     },
     messageError: "",
@@ -81,10 +82,10 @@ export default new Vuex.Store({
       state.newProject.title = newTitle;
     },
     updateNewProjecDescription(state, newDescription) {
-      state.newProject.description = newDescription;
+      state.newProject.shortExplanation = newDescription;
     },
     updateNewDate(state, newDate) {
-      state.newProject.published = newDate;
+      state.newProject.publishedDate = newDate;
     },
     updateDeadline(state, newDeadline) {
       state.newProject.deadline = newDeadline;
@@ -95,18 +96,19 @@ export default new Vuex.Store({
     updateBid(state, newBid) {
       state.newProject.bid = newBid;
     },
-    updateFile(state, file) {
-      state.newProject.files.push(file);
+    updateFiles(state, file) {
+      state.newProject.files = file;
     },
     resetNewProject(state) {
       state.newProject = {
         title: "",
-        description: "",
-        published: "",
+        shortExplanation: "",
+        publishedDate: "",
         deadline: "",
         bid: "",
-        frameworks: [""],
-        files: [],
+        techSet: [""],
+        filesArray: [],
+        state: "published",
       };
     },
     setCurrentProject(state, project) {
@@ -123,7 +125,7 @@ export default new Vuex.Store({
     async getUsers({ commit }) {
       try {
         const response = await axios.get(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/users"
+          "API/users"
         );
         if (response.error) {
           throw response.error;
@@ -149,7 +151,7 @@ export default new Vuex.Store({
     async setNewUser({ dispatch, commit }, user) {
       try {
         const response = await axios.post(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/users/",
+          "API/users/",
           {
             name: user.name,
             password: user.password,
