@@ -24,7 +24,7 @@ export default {
   computed: {
     publishedDate: {
       get() {
-        return this.$store.state.newProject.published;
+        return this.$store.state.newProject.publishedDate;
       },
       set(newDate) {
         this.$store.commit("updateNewDate", newDate);

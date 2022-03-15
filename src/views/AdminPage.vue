@@ -1,34 +1,20 @@
 <template>
   <div class="container">
-    <account-page-nav @changeView="changeView" :views="views" />
     <div class="view-container">
-      <data-edit-form v-if="currentView === 'data'" />
-      <projects-edit-table
-        v-if="currentView === 'projects'"
-        v-model="projects"
-        :fields="fields"
-        :options="options"
-      />
+      <admin-table v-model="projects" :fields="fields" />
     </div>
   </div>
 </template>
 
 <script>
-import AccountPageNav from "@/components/AccountPageNav.vue";
-import DataEditForm from "@/components/DataEditForm.vue";
-import ProjectsEditTable from "@/components/ProjectsEditTable.vue";
-
+import AdminTable from "@/components/AdminTable.vue";
 export default {
-  name: "MyAccountPage",
+  name: "AdminPage",
   components: {
-    AccountPageNav,
-    DataEditForm,
-    ProjectsEditTable,
+    AdminTable,
   },
   data() {
     return {
-      views: ["My Data", "My Projects"],
-      currentView: "data",
       projects: [
         {
           title: "Project 1",
@@ -96,21 +82,14 @@ export default {
         },
         { key: "edit", label: "", type: "edit" },
       ],
-      options: ["accepted", "published", "refused", "doing", "finished"],
     };
-  },
-  methods: {
-    changeView(view) {
-      view === "My Data"
-        ? (this.currentView = "data")
-        : (this.currentView = "projects");
-    },
   },
 };
 </script>
 
 <style scoped>
 .view-container {
+  margin-top: 3rem;
   border: 2px solid #666;
 }
 </style>

@@ -1,26 +1,37 @@
 <template>
   <div class="container mt-5">
-    <b-form @submit.prevent="onSubmit" class="my-data-form">
+    <b-form
+      @input="showButtons = true"
+      @submit.prevent="onSubmit"
+      class="my-data-form"
+    >
       <form-input
-        :valor="user.company"
-        :nombre="'Nombre'"
+        :inputValue="user.company"
+        :name="'Nombre'"
         :inputType="'text'"
-        @input="handleNameInput"
+        @input="user.company = $event"
       />
       <form-input
-        :valor="user.email"
-        :nombre="'Email'"
+        :inputValue="user.email"
+        :name="'Email'"
         :inputType="'email'"
-        @input="handleEmailInput"
+        @input="user.email = $event"
       />
       <form-input
-        :valor="user.password"
-        :nombre="'Password'"
+        :inputValue="user.password"
+        :name="'Password'"
         :inputType="'password'"
-        @input="handlePasswordInput"
+        @input="user.password = $event"
       />
+      <b-form-group class="m-4">
+        <label>Type Of Institution</label>
+        <b-form-select
+          v-model="user.orgType"
+          :options="orgTypes"
+        ></b-form-select>
+      </b-form-group>
 
-      <div class="buttons-container" v-if="showButtons">
+      <div v-if="showButtons" class="buttons-container mr-4">
         <b-button type="submit" variant="primary">Submit</b-button>
         <b-button type="button" variant="outline-secondary" @click="onCancel"
           >Cancel</b-button
@@ -38,28 +49,28 @@ export default {
   },
   data() {
     return {
+      orgTypes: [
+        "Empresa Pública",
+        "ONG o empreses del 3er sector",
+        "Empresa Privada",
+        "Altres",
+      ],
       showButtons: false,
       user: {
+        // TODO: Use getCurrentUser getter and **set new user onSubmit()**
         company: "Company",
         email: "email@ail.ail",
         password: "password123",
-        orgType: "ONG",
+        orgType: "ONG o empreses del 3er sector",
       },
     };
   },
+  computed: {
+    getUser() {
+      return this.$store.getters.getCurrentUser; // It still doesn't return anything...
+    },
+  },
   methods: {
-    handleNameInput() {
-      this.user.company = $event;
-      this.showButtons = true;
-    },
-    handleEmailInput() {
-      this.user.email = $event;
-      this.showButtons = true;
-    },
-    handlePasswordInput() {
-      this.user.password = $event;
-      this.showButtons = true;
-    },
     onSubmit() {
       return;
     },
@@ -70,8 +81,7 @@ export default {
         password: "password123",
         orgType: "ONG",
       };
-      this.showButtons = false;
-      return;
+      location.reload(); // ugly but it works for now
     },
   },
 };
@@ -92,7 +102,9 @@ export default {
   margin-bottom: 3rem;
 }
 .buttons-container {
+  margin-top: 4rem;
   display: flex;
+  justify-content: right;
   gap: 2rem;
 }
 </style>

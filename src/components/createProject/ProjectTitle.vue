@@ -37,7 +37,7 @@ export default {
     },
     description: {
       get() {
-        return this.$store.state.newProject.description;
+        return this.$store.state.newProject.shortExplanation;
       },
       set(newDescription) {
         this.$store.commit("updateNewProjecDescription", newDescription);

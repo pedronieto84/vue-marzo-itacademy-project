@@ -18,11 +18,11 @@ export default new Vuex.Store({
     //initial value of the fields when creating a new project
     newProject: {
       title: "",
-      description: "",
-      published: "",
+      shortExplanation: "",
+      publishedDate: "",
       deadline: "",
       bid: "",
-      frameworks: [""],
+      techSet: [""],
       files: []
     },
     messageError: "",
@@ -63,7 +63,7 @@ export default new Vuex.Store({
       state.userLogged = user;
       if (user.admin === true) state.admin = true;
     },
-    setIsAdmin(state, userAdmin) {},
+    setIsAdmin(state, userAdmin) { },
     setCurrentUser(state, user) {
       state.currentUser = user;
     },
@@ -78,14 +78,14 @@ export default new Vuex.Store({
     setTechSet(state, techSet) { },
 
     //mutations for createProject page
-    updateNewProjecTitle(state, newTitle) {
+    updateNewProje(state, newTitle) {
       state.newProject.title = newTitle
     },
     updateNewProjecDescription(state, newDescription) {
-      state.newProject.description = newDescription
+      state.newProject.shortExplanation = newDescription
     },
     updateNewDate(state, newDate) {
-      state.newProject.published = newDate
+      state.newProject.publishedDate = newDate
     },
     updateDeadline(state, newDeadline) {
       state.newProject.deadline = newDeadline
@@ -99,12 +99,13 @@ export default new Vuex.Store({
     resetNewProject(state) {
       state.newProject = {
         title: "",
-        description: "",
-        published: "",
+        shortExplanation: "",
+        publishedDate: "",
         deadline: "",
         bid: "",
-        frameworks: [""],
-        files: []
+        techSet: [""],
+        filesArray: [],
+        state: "published"
       }
     },
     setCurrentProject(state, project) {
@@ -203,25 +204,10 @@ export default new Vuex.Store({
         commit("setErrorMessage", { error: `${e.message}` });
       }
     },
-    async setNewProject({ dispatch, commit }, project) {
+
+   async updateProject({ dispatch, commit }, project) {
       try {
-        const response = axios.post(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects/",
-          { project }
-        );
-        if (response.error) {
-          throw response.error;
-        }
-        setTimeout(() => {
-          dispatch("getProjects"), 2000;
-        });
-      } catch (e) {
-        commit("setErrorMessage", { error: `${e.message}` });
-      }
-    },
-    updateProject({ dispatch, commit }, project) {
-      try {
-        const response = axios.put(
+        const response = await axios.put(
           "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects",
           {
             project,
@@ -230,14 +216,13 @@ export default new Vuex.Store({
         if (response.error) {
           throw response.error;
         }
-        setTimeout(() => {
-          dispatch("getUsers", 2000);
-        });
+        dispatch("getUsers", 2000);
+     
       } catch (e) {
         commit("setErrorMessage", { error: `${e.message}` });
       }
     },
-    
+
 
     async setNewProject({ dispatch, state, commit }, $router) {
       try {
@@ -251,8 +236,8 @@ export default new Vuex.Store({
         console.log(e);
       }
     },
-   
-    deleteProject({ dispatch }, id) {},
+
+    deleteProject({ dispatch }, id) { },
     async getTechSet({ commit }) {
       try {
         const response = await axios.get("API/getTech");
@@ -266,7 +251,7 @@ export default new Vuex.Store({
     },
     async logIn({ commit }, login) {
       try {
-        const response = axios.post(
+        const response = await axios.post(
           "https://6227da469fd6174ca814fdc5.mockapi.io/api/users/",
           {
             user: login.email,
@@ -282,8 +267,8 @@ export default new Vuex.Store({
         // Redirect goBack(-1)
       }
     },
-    uploadDocument({ dispatch }, document) {},
-    downloadDocument(url) {},
+    uploadDocument({ dispatch }, document) { },
+    downloadDocument(url) { },
 
   },
   modules: {},
