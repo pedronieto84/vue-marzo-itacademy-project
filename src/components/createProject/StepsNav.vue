@@ -22,11 +22,17 @@
           striped
           :animated="animate"
         ></b-progress>
-        <DateInput />
+        <DateInput
+          :isDeadlineValid="isDeadlineValid"
+          :ispublishedDateValid="ispublishedDateValid"
+        />
         <Bid :bidValid="isBidValid" />
         <AddTechSet :techSetValid="isTechSetValid" />
       </b-tab>
-      <b-tab title="3" :disabled="!isBidValid || !isTechSetValid">
+      <b-tab
+        title="3"
+        :disabled="!isBidValid || !isTechSetValid || !isDeadlineValid"
+      >
         <b-progress
           class="mt-2 barra-progress"
           :value="75"
@@ -73,6 +79,12 @@ export default {
     },
     isTechSetValid() {
       return this.$store.state.newProject.techSet.length >= 1 ? true : false;
+    },
+    isDeadlineValid() {
+      return this.$store.state.newProject.deadline ? true : false;
+    },
+    ispublishedDateValid() {
+      return this.$store.state.newProject.publishedDate ? true : false;
     },
   },
 };
