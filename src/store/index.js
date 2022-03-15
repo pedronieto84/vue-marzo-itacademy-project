@@ -73,7 +73,6 @@ export default new Vuex.Store({
     setProjects(state, projects) {
       state.projects = projects;
     },
-    setCurrentProject(state, project) { },
     setTechSet(state, techSet) { },
 
     //mutations for createProject page
@@ -184,7 +183,7 @@ export default new Vuex.Store({
     },
     async getProjectById({ commit }, id) {
       try {
-        const response = axios.get(`${API}/projects/${id}`);
+        const response = await axios.get(`${API}/project/${id}`);
         if (response.error) {
           throw response.error;
         }
@@ -196,7 +195,7 @@ export default new Vuex.Store({
 
     async updateProject({ dispatch, commit }, project) {
       try {
-        const response = await axios.put(`${API}/projects/${procject.id}`, {
+        const response = await axios.put(`${API}/projects/${project.id}`, {
           project,
         });
         if (response.error) {
