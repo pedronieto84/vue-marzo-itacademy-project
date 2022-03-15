@@ -70,8 +70,8 @@ export default new Vuex.Store({
     setUsers(state, users) {
       state.users = users;
     },
-    setProjects(state, data) {
-      state.projects = data.projects;
+    setProjects(state, projects) {
+      state.projects = projects;
       console.log(state.projects);
     },
     setCurrentProject(state, project) {},
@@ -175,6 +175,7 @@ export default new Vuex.Store({
     async getProjects({ commit }) {
       try {
         const response = await axios.get(`${API}/projects`);
+        console.log(response);
         if (response.error) {
           throw response.error;
         }
