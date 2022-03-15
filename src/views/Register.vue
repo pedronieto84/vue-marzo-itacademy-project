@@ -37,12 +37,12 @@
                     <label for="text-password">Confirm Password</label>
                     <b-form-input 
                         v-model="confirmPassword"
-                        :state="validationPassword"
+                        :state="passwordValidation"
                         type="password" 
                     />
                 </b-form-group>
                 <b-form-invalid-feedback 
-                    :state="validationPassword"
+                    :state="passwordValidation"
                     class="text-center"
                 >
                     La contraseña no coincide
@@ -105,7 +105,10 @@ export default {
         }
     },
     computed: {
-      validationPassword() {
+      passwordValidation() {
+        if (this.confirmPassword.length === 0) {
+            return null;
+        }
         return this.password === this.confirmPassword ? true :false;
       },
     },
