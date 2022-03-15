@@ -109,7 +109,7 @@ export default {
         if (this.confirmPassword.length === 0) {
             return null;
         }
-        return this.password === this.confirmPassword ? true :false;
+        return this.password === this.confirmPassword
       },
     },
     methods: {
