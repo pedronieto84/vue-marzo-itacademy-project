@@ -38,8 +38,10 @@
       </b-tab>
     </b-tabs>
     <b-button-group class="mt-2">
-      <b-button @click="tabIndex--" invalid="tabIndex === 0">Previous</b-button>
-      <b-button @click="tabIndex++" invalid="tabIndex === 2">Next</b-button>
+      <b-button @click="tabIndex--" :disabled="tabIndex === 0"
+        >Previous</b-button
+      >
+      <b-button @click="tabIndex++" :disabled="tabIndex === 2">Next</b-button>
     </b-button-group>
   </div>
 </template>
