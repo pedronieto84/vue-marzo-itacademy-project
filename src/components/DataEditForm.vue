@@ -10,18 +10,28 @@
         :name="'Nombre'"
         :inputType="'text'"
         @input="user.company = $event"
+        @validation="validation.name = $event"
       />
       <form-input
         :inputValue="user.email"
         :name="'Email'"
         :inputType="'email'"
         @input="user.email = $event"
+        @validation="validation.email = $event"
       />
       <form-input
         :inputValue="user.password"
         :name="'Password'"
         :inputType="'password'"
         @input="user.password = $event"
+        @validation="validation.password = $event"
+      />
+      <form-input
+        :inputValue="user.password"
+        :name="'Confirm Password'"
+        :inputType="'password'"
+        @input="confirmPassword = $event"
+        :state="validationPassword"
       />
       <b-form-group class="m-4">
         <label>Type Of Institution</label>
@@ -30,6 +40,9 @@
           :options="orgTypes"
         ></b-form-select>
       </b-form-group>
+      <b-form-invalid-feedback :state="validationPassword">
+        La contraseña no coincide
+      </b-form-invalid-feedback>
 
       <div v-if="showButtons" class="buttons-container mr-4">
         <b-button type="submit" variant="primary">Submit</b-button>
@@ -60,12 +73,22 @@ export default {
         // TODO: Use getCurrentUser getter and **set new user onSubmit()**
         company: "Company",
         email: "email@ail.ail",
-        password: "password123",
+        password: "patata56",
         orgType: "ONG o empreses del 3er sector",
       },
+      validation: {
+        name: null,
+        email: null,
+        password: null,
+      },
+      confirmPassword: "",
+      showDismissibleAlert: false,
     };
   },
   computed: {
+    validationPassword() {
+      return this.user.password === this.confirmPassword;
+    },
     getUser() {
       return this.$store.getters.getCurrentUser; // It still doesn't return anything...
     },

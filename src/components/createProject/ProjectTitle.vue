@@ -5,17 +5,21 @@
         id="title"
         placeholder="Your Title"
         v-model="title"
-        :state="titleState"
+        :state="isTitleValid"
+        aria-describedby="title-feedback"
       ></b-form-input>
       <b-form-invalid-feedback id="title-feedback">
         The title must have at least 3 letters
       </b-form-invalid-feedback>
+    </b-form-group>
+    <b-form-group>
       <b-form-textarea
         id="new-textarea"
-        :state="descriptionState"
+        :state="isDescriptionValid"
         placeholder="Project Description, 500 char"
         class="description"
         v-model="description"
+        aria-describedby="new-textarea-feedback"
       ></b-form-textarea>
       <b-form-invalid-feedback id="new-textarea-feedback">
         This field cannot be empty
@@ -26,6 +30,10 @@
 <script>
 export default {
   name: "ProjectTitle",
+  props: {
+    isDescriptionValid: Boolean,
+    isTitleValid: Boolean,
+  },
   computed: {
     title: {
       get() {
@@ -43,21 +51,10 @@ export default {
         this.$store.commit("updateNewProjecDescription", newDescription);
       },
     },
-    titleState() {
-      return this.title.length > 3 ? true : false;
-    },
-    descriptionState() {
-      return this.description ? true : false;
-    },
   },
 };
 </script>
 <style scoped>
-.stepper1-container {
-  display: flex;
-  flex-direction: column;
-}
-
 .description {
   height: 300px;
 }
