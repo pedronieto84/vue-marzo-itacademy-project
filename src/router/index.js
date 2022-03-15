@@ -4,8 +4,7 @@ import ProjectsPage from "../views/ProjectsPage.vue";
 import CreateProjectPage from "../views/CreateProjectPage.vue";
 import MyAccountPage from "../views/MyAccountPage.vue";
 import FormLogin from "../views/FormLogin.vue";
-// import CreateAccount from "../views/CreateAccount.vue";
-// import AdminPage from '../views/AdminPage.vue';
+import AdminPage from "../views/AdminPage.vue";
 
 Vue.use(VueRouter);
 const routes = [
@@ -28,11 +27,11 @@ const routes = [
     name: "CreateProjectPage",
     component: CreateProjectPage,
   },
-  // {
-  //   path: "/admin",
-  //   name: "Admin",
-  //   component: AdminPage,
-  // },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: AdminPage,
+  },
   {
     path: "/login",
     name: "FormLogin",
@@ -45,11 +44,6 @@ const routes = [
       return import(/* webpackChunkName: 'Register' */ "../views/Register.vue");
     },
   },
-  // {
-  //   path: "/create-account",
-  //   name: "CreateAccount",
-  //   component: CreateAccount,
-  // },
   {
     path: "/my-account",
     name: "MyAccountPage",
