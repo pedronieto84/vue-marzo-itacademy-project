@@ -1,5 +1,5 @@
 <template>
-  <b-row>
+  <b-row class="mt-4">
     <b-col cols="6">
       <b-input-group>
         <b-form-input
