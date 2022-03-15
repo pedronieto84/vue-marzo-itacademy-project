@@ -10,7 +10,7 @@
           class="bid"
           min="0"
           :state="bidValid"
-          aria-describedby="bid-input-help"
+          aria-describedby="bid-input-feedback"
         />
         <b-input-group-prepend is-text>€</b-input-group-prepend>
         <b-form-invalid-feedback id="bid-input-feedback">
