@@ -90,8 +90,8 @@ export default new Vuex.Store({
     updateDeadline(state, newDeadline) {
       state.newProject.deadline = newDeadline;
     },
-    updateFrameworks(state, newFrameworks) {
-      state.newProject.frameworks = newFrameworks;
+    updateTechSet(state, newFrameworks) {
+      state.newProject.techSet = newFrameworks
     },
     updateBid(state, newBid) {
       state.newProject.bid = newBid;
