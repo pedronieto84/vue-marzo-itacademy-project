@@ -67,7 +67,7 @@ export default new Vuex.Store({
       state.userLogged = user;
       if (user.admin === true) state.admin = true;
     },
-    setIsAdmin(state, userAdmin) {},
+    setIsAdmin(state, userAdmin) { },
     setCurrentUser(state, user) {
       state.currentUser = user;
     },
@@ -76,16 +76,14 @@ export default new Vuex.Store({
     },
     setProjects(state, projects) {
       state.projects = projects;
-      console.log(state.projects);
     },
-    setCurrentProject(state, project) {},
-    setTechSet(state, techSet) {},
+    setTechSet(state, techSet) { },
 
     //mutations for createProject page
     updateNewProjectTitle(state, newTitle) {
       state.newProject.title = newTitle;
     },
-    updateNewProjecDescription(state, newDescription) {
+    updateNewProjectDescription(state, newDescription) {
       state.newProject.shortExplanation = newDescription;
     },
     updateNewDate(state, newDate) {
@@ -190,7 +188,7 @@ export default new Vuex.Store({
     },
     async getProjectById({ commit }, id) {
       try {
-        const response = axios.get(`${API}/projects/${id}`);
+        const response = await axios.get(`${API}/project/${id}`);
         if (response.error) {
           throw response.error;
         }
@@ -202,7 +200,7 @@ export default new Vuex.Store({
 
     async updateProject({ dispatch, commit }, project) {
       try {
-        const response = await axios.put(`${API}/projects/${procject.id}`, {
+        const response = await axios.put(`${API}/projects/${project.id}`, {
           project,
         });
         if (response.error) {

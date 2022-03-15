@@ -48,7 +48,7 @@ export default {
         return this.$store.state.newProject.shortExplanation;
       },
       set(newDescription) {
-        this.$store.commit("updateNewProjecDescription", newDescription);
+        this.$store.commit("updateNewProjectDescription", newDescription);
       },
     },
   },
