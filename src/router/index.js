@@ -14,7 +14,7 @@ const routes = [
     component: ProjectsPage,
   },
   {
-    path: "/project-detail/:id",
+    path: "/project-detail",
     name: "ProjectDetailPage",
     component: () => {
       return import(
