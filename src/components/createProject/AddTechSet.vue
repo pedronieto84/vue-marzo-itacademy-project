@@ -5,11 +5,13 @@
       label-for="tags-with-dropdown"
       class="tech-container"
     >
+      {{ frameworks }}
       <b-form-tags
         id="tags-with-dropdown"
         v-model="frameworks"
         no-outer-focus
         class="mb-2"
+        :state="techSetValid"
       >
         <template v-slot="{ tags, disabled, addTag, removeTag }">
           <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
@@ -73,6 +75,9 @@
 <script>
 export default {
   name: "AddTechSet",
+  props: {
+    techSetValid: Boolean,
+  },
   data() {
     return {
       options: [
@@ -95,7 +100,7 @@ export default {
         return this.$store.state.newProject.techSet;
       },
       set(newFrameworks) {
-        this.$store.commit("updateFrameworks", newFrameworks);
+        this.$store.commit("updateTechSet", newFrameworks);
       },
     },
     criteria() {
