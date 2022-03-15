@@ -8,7 +8,7 @@
           :key="project.id"
         >
           <router-link
-            :to="{ path: '/ProjectDetailPage/', query: { id: project.id } }"
+            :to="{ path: '/project-detail/', query: { id: project.id } }"
           >
             <project-card
               :title="project.title"

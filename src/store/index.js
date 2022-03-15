@@ -26,6 +26,7 @@ export default new Vuex.Store({
       techSet: [""],
       files: [],
     },
+    filesArray: [],
     messageError: "",
   },
   getters: {
@@ -54,7 +55,10 @@ export default new Vuex.Store({
       return state.techSet;
     },
     getErrorMessage: (state) => {
-      return errorMessage;
+      return state.errorMessage;
+    },
+    getFiles: (state) => {
+      return state.filesArray;
     },
   },
   mutations: {
@@ -97,7 +101,7 @@ export default new Vuex.Store({
       state.newProject.bid = newBid;
     },
     updateFiles(state, file) {
-      state.newProject.files = file;
+      state.filesArray = file;
     },
     resetNewProject(state) {
       state.newProject = {
@@ -244,9 +248,11 @@ export default new Vuex.Store({
       }
     },
     async logIn({ commit }, login) {
+      console.log(login.email);
+      console.log(login.password);
       try {
-        const response = await axios.post(`${API}/users/login`, {
-          user: login.email,
+        const response = await axios.post(`${API}/login`, {
+          email: login.email,
           password: login.password,
         });
         if (response.error) {
@@ -260,6 +266,17 @@ export default new Vuex.Store({
     },
     uploadDocument({ dispatch }, document) {},
     downloadDocument(url) {},
+    async uploadFiles({ getters }) {
+      const upload = getters.getFiles;
+      try {
+        const response = await axios.post(`${API}/proyecto`, { upload });
+        if (response.error) {
+          throw response.error;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
   modules: {},
 });
