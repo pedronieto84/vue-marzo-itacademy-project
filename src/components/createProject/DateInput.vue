@@ -2,19 +2,23 @@
   <div>
     <b-row>
       <b-col>
-        <div class="datepicker">
-          <label for="publishDate">Published:</label>
+        <div>
+          <label for="published-date">Published:</label>
           <b-form-datepicker
-            id="publishedDate"
+            id="published-date"
             v-model="publishedDate"
+            :state="ispublishedDateValid"
           ></b-form-datepicker>
         </div>
       </b-col>
       <b-col>
-        <div class="datepicker">
+        <div>
           <label for="deadline">Deadline:</label>
-
-          <b-form-datepicker v-model="deadline"></b-form-datepicker>
+          <b-form-datepicker
+            id="deadline"
+            v-model="deadline"
+            :state="isDeadlineValid"
+          ></b-form-datepicker>
         </div>
       </b-col>
     </b-row>
@@ -23,14 +27,18 @@
 <script>
 export default {
   name: "DateInput",
+  props: {
+    ispublishedDateValid: Boolean,
+    isDeadlineValid: Boolean,
+  },
   computed: {
     publishedDate: {
       get() {
         return this.$store.state.newProject.publishedDate;
       },
       set(newDate) {
-        let toMs = new Date(newDate).getTime();
-        this.$store.commit("updateNewDate", toMs);
+        // let toMs = new Date(newDate).getTime();
+        this.$store.commit("updateNewDate", newDate);
       },
     },
     deadline: {
@@ -38,8 +46,8 @@ export default {
         return this.$store.state.newProject.deadline;
       },
       set(newDeadline) {
-        let toMs = new Date(newDeadline).getTime();
-        this.$store.commit("updateDeadline", toMs);
+        // let toMs = new Date(newDeadline).getTime();
+        this.$store.commit("updateDeadline", newDeadline);
       },
     },
   },
