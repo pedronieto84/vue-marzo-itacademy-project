@@ -31,7 +31,7 @@
                     :inputType="'password'" 
                 />
                <b-form-text class="text-center">
-                   La contraseña debe tener mínimo 4 carácteres y un número 
+                   La contraseña debe tener letras y números, un  mínimo 4 carácteres y un máxima de 8. 
                 </b-form-text>
                 <b-form-group class="m-4">
                     <label for="text-password">Confirm Password</label>
@@ -109,7 +109,7 @@ export default {
         if (this.confirmPassword.length === 0) {
             return null;
         }
-        return this.password === this.confirmPassword ? true :false;
+        return this.password === this.confirmPassword
       },
     },
     methods: {

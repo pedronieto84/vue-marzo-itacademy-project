@@ -44,8 +44,7 @@
             return value.length > 5 ? true :false;
         },
         validateEmail(value){
-            //eslint-disable-next-line
-            let regEx = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+            let regEx = /\S+@\S+\.\S+/
             return regEx.test(value) ? true : false;    
         },
         validatePassword(value) {
