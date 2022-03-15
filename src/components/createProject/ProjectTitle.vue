@@ -40,7 +40,7 @@ export default {
         return this.$store.state.newProject.title;
       },
       set(newTitle) {
-        this.$store.commit("updateNewProjecTitle", newTitle);
+        this.$store.commit("updateNewProjectTitle", newTitle);
       },
     },
     description: {

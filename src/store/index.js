@@ -63,7 +63,7 @@ export default new Vuex.Store({
       state.userLogged = user;
       if (user.admin === true) state.admin = true;
     },
-    setIsAdmin(state, userAdmin) {},
+    setIsAdmin(state, userAdmin) { },
     setCurrentUser(state, user) {
       state.currentUser = user;
     },
@@ -74,11 +74,11 @@ export default new Vuex.Store({
       state.projects = data.projects;
       console.log(state.projects);
     },
-    setCurrentProject(state, project) {},
-    setTechSet(state, techSet) {},
+    setCurrentProject(state, project) { },
+    setTechSet(state, techSet) { },
 
     //mutations for createProject page
-    updateNewProjet(state, newTitle) {
+    updateNewProjectTitle(state, newTitle) {
       state.newProject.title = newTitle;
     },
     updateNewProjecDescription(state, newDescription) {
@@ -239,7 +239,7 @@ export default new Vuex.Store({
       }
     },
 
-    deleteProject({ dispatch }, id) {},
+    deleteProject({ dispatch }, id) { },
     async getTechSet({ commit }) {
       try {
         const response = await axios.get("API/getTech");
@@ -269,8 +269,8 @@ export default new Vuex.Store({
         // Redirect goBack(-1)
       }
     },
-    uploadDocument({ dispatch }, document) {},
-    downloadDocument(url) {},
+    uploadDocument({ dispatch }, document) { },
+    downloadDocument(url) { },
   },
   modules: {},
 });
