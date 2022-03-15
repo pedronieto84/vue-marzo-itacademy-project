@@ -70,9 +70,8 @@ export default new Vuex.Store({
     setUsers(state, users) {
       state.users = users;
     },
-    setProjects(state, data) {
-      state.projects = data.projects;
-      console.log(state.projects);
+    setProjects(state, projects) {
+      state.projects = projects;
     },
     setCurrentProject(state, project) {},
     setTechSet(state, techSet) {},
