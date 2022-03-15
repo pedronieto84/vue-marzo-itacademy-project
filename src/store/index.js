@@ -4,7 +4,7 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 
 Vue.use(Vuex);
-const API = 'http://itacademyvuemarzo.duckdns.org/api';
+const API = "http://itacademyvuemarzo.duckdns.org/api";
 
 export default new Vuex.Store({
   state: {
@@ -63,7 +63,7 @@ export default new Vuex.Store({
       state.userLogged = user;
       if (user.admin === true) state.admin = true;
     },
-    setIsAdmin(state, userAdmin) { },
+    setIsAdmin(state, userAdmin) {},
     setCurrentUser(state, user) {
       state.currentUser = user;
     },
@@ -74,8 +74,8 @@ export default new Vuex.Store({
       state.projects = data.projects;
       console.log(state.projects);
     },
-    setCurrentProject(state, project) { },
-    setTechSet(state, techSet) { },
+    setCurrentProject(state, project) {},
+    setTechSet(state, techSet) {},
 
     //mutations for createProject page
     updateNewProjectTitle(state, newTitle) {
@@ -91,7 +91,7 @@ export default new Vuex.Store({
       state.newProject.deadline = newDeadline;
     },
     updateTechSet(state, newFrameworks) {
-      state.newProject.techSet = newFrameworks
+      state.newProject.techSet = newFrameworks;
     },
     updateBid(state, newBid) {
       state.newProject.bid = newBid;
@@ -124,9 +124,7 @@ export default new Vuex.Store({
   actions: {
     async getUsers({ commit }) {
       try {
-        const response = await axios.get(
-          "API/users"
-        );
+        const response = await axios.get(`${API}/users`);
         if (response.error) {
           throw response.error;
         }
@@ -137,9 +135,7 @@ export default new Vuex.Store({
     },
     async getUserById({ commit }, id) {
       try {
-        const response = await axios.get(
-          `https://6227da469fd6174ca814fdc5.mockapi.io/api/users/${id}`
-        );
+        const response = await axios.get(`${API}/users/${id}`);
         if (response.error) {
           throw response.error;
         }
@@ -150,14 +146,11 @@ export default new Vuex.Store({
     },
     async setNewUser({ dispatch, commit }, user) {
       try {
-        const response = await axios.post(
-          "API/users/",
-          {
-            name: user.name,
-            password: user.password,
-            email: user.email,
-          }
-        );
+        const response = await axios.post(`${API}/users`, {
+          name: user.name,
+          password: user.password,
+          email: user.email,
+        });
         if (response.error) {
           throw response.error;
         }
@@ -170,9 +163,7 @@ export default new Vuex.Store({
     },
     async deleteUser({ dispatch, commit }, id) {
       try {
-        const response = await axios.delete(
-          `https://6227da469fd6174ca814fdc5.mockapi.io/api/users/${id}`
-        );
+        const response = await axios.delete(`${API}/users/${id}`);
         if (response.error) {
           throw response.error;
         }
@@ -183,9 +174,7 @@ export default new Vuex.Store({
     },
     async getProjects({ commit }) {
       try {
-        const response = await axios.get(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects"
-        );
+        const response = await axios.get(`${API}/projects`);
         if (response.error) {
           throw response.error;
         }
@@ -196,9 +185,7 @@ export default new Vuex.Store({
     },
     async getProjectById({ commit }, id) {
       try {
-        const response = axios.get(
-          `https://6227da469fd6174ca814fdc5.mockapi.io/api/projects/${id}`
-        );
+        const response = axios.get(`${API}/projects/${id}`);
         if (response.error) {
           throw response.error;
         }
@@ -210,12 +197,9 @@ export default new Vuex.Store({
 
     async updateProject({ dispatch, commit }, project) {
       try {
-        const response = await axios.put(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects",
-          {
-            project,
-          }
-        );
+        const response = await axios.put(`${API}/projects/${procject.id}`, {
+          project,
+        });
         if (response.error) {
           throw response.error;
         }
@@ -227,22 +211,29 @@ export default new Vuex.Store({
 
     async setNewProject({ dispatch, state, commit }, $router) {
       try {
-        await axios.post(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects",
-          state.newProject
-        );
+        await axios.post(`${API}/projects`, state.newProject);
         commit("resetNewProject");
         $router.push({ name: "ProjectsPage" });
         dispatch("getProjects");
       } catch (e) {
-        console.log(e);
+        commit("setErrorMessage", { error: `${e.message}` });
       }
     },
 
-    deleteProject({ dispatch }, id) { },
+    async deleteProject({ dispatch }, id) {
+      try {
+        const response = await axios.delete(`${API}/projects/${id}`);
+        if (response.error) {
+          throw response.error;
+        }
+        dispatch("getProjects");
+      } catch (e) {
+        commit("setErrorMessage", { error: `${e.message}` });
+      }
+    },
     async getTechSet({ commit }) {
       try {
-        const response = await axios.get("API/getTech");
+        const response = await axios.get(`${API}/techSet`);
         if (response.error) {
           throw response.error;
         }
@@ -253,13 +244,10 @@ export default new Vuex.Store({
     },
     async logIn({ commit }, login) {
       try {
-        const response = await axios.post(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/users/",
-          {
-            user: login.email,
-            password: login.password,
-          }
-        );
+        const response = await axios.post(`${API}/users/login`, {
+          user: login.email,
+          password: login.password,
+        });
         if (response.error) {
           throw response.error;
         }
@@ -269,8 +257,8 @@ export default new Vuex.Store({
         // Redirect goBack(-1)
       }
     },
-    uploadDocument({ dispatch }, document) { },
-    downloadDocument(url) { },
+    uploadDocument({ dispatch }, document) {},
+    downloadDocument(url) {},
   },
   modules: {},
 });
