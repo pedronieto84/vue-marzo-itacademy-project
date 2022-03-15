@@ -2,8 +2,12 @@
   <div>
     <b-navbar class="mt-2">
       <b-button-group size="lg">
-        <b-button variant="info ">Admin</b-button>
-        <b-button>Projects</b-button>
+        <b-button variant="info ">
+          <router-link :to="{ name: 'Admin' }" class="text-white">Admin</router-link>
+        </b-button>
+        <b-button>
+          Projects
+        </b-button>
       </b-button-group>
       <!-- Right aligned nav items -->
       <router-link
