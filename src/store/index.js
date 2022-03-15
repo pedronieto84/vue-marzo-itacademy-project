@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 
 Vue.use(Vuex);
+const API = 'http://itacademyvuemarzo.duckdns.org/api';
 
 export default new Vuex.Store({
   state: {
@@ -23,7 +24,7 @@ export default new Vuex.Store({
       deadline: "",
       bid: "",
       techSet: [""],
-      files: []
+      files: [],
     },
     messageError: "",
   },
@@ -55,7 +56,6 @@ export default new Vuex.Store({
     getErrorMessage: (state) => {
       return errorMessage;
     },
-
   },
   mutations: {
     setUserLogged(state, user) {
@@ -63,7 +63,7 @@ export default new Vuex.Store({
       state.userLogged = user;
       if (user.admin === true) state.admin = true;
     },
-    setIsAdmin(state, userAdmin) { },
+    setIsAdmin(state, userAdmin) {},
     setCurrentUser(state, user) {
       state.currentUser = user;
     },
@@ -72,29 +72,32 @@ export default new Vuex.Store({
     },
     setProjects(state, data) {
       state.projects = data.projects;
-      console.log(state.projects)
+      console.log(state.projects);
     },
-    setCurrentProject(state, project) { },
-    setTechSet(state, techSet) { },
+    setCurrentProject(state, project) {},
+    setTechSet(state, techSet) {},
 
     //mutations for createProject page
-    updateNewProje(state, newTitle) {
-      state.newProject.title = newTitle
+    updateNewProjet(state, newTitle) {
+      state.newProject.title = newTitle;
     },
     updateNewProjecDescription(state, newDescription) {
-      state.newProject.shortExplanation = newDescription
+      state.newProject.shortExplanation = newDescription;
     },
     updateNewDate(state, newDate) {
-      state.newProject.publishedDate = newDate
+      state.newProject.publishedDate = newDate;
     },
     updateDeadline(state, newDeadline) {
-      state.newProject.deadline = newDeadline
+      state.newProject.deadline = newDeadline;
     },
     updateTechSet(state, newFrameworks) {
       state.newProject.techSet = newFrameworks
     },
     updateBid(state, newBid) {
-      state.newProject.bid = newBid
+      state.newProject.bid = newBid;
+    },
+    updateFiles(state, file) {
+      state.newProject.files = file;
     },
     resetNewProject(state) {
       state.newProject = {
@@ -105,8 +108,8 @@ export default new Vuex.Store({
         bid: "",
         techSet: [""],
         filesArray: [],
-        state: "published"
-      }
+        state: "published",
+      };
     },
     setCurrentProject(state, project) {
       state.currentProject = project;
@@ -122,7 +125,7 @@ export default new Vuex.Store({
     async getUsers({ commit }) {
       try {
         const response = await axios.get(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/users"
+          "API/users"
         );
         if (response.error) {
           throw response.error;
@@ -148,7 +151,7 @@ export default new Vuex.Store({
     async setNewUser({ dispatch, commit }, user) {
       try {
         const response = await axios.post(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/users/",
+          "API/users/",
           {
             name: user.name,
             password: user.password,
@@ -205,7 +208,7 @@ export default new Vuex.Store({
       }
     },
 
-   async updateProject({ dispatch, commit }, project) {
+    async updateProject({ dispatch, commit }, project) {
       try {
         const response = await axios.put(
           "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects",
@@ -217,19 +220,18 @@ export default new Vuex.Store({
           throw response.error;
         }
         dispatch("getUsers", 2000);
-     
       } catch (e) {
         commit("setErrorMessage", { error: `${e.message}` });
       }
     },
 
-
     async setNewProject({ dispatch, state, commit }, $router) {
       try {
         await axios.post(
-          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects", state.newProject
+          "https://6227da469fd6174ca814fdc5.mockapi.io/api/projects",
+          state.newProject
         );
-        commit('resetNewProject');
+        commit("resetNewProject");
         $router.push({ name: "ProjectsPage" });
         dispatch("getProjects");
       } catch (e) {
@@ -237,7 +239,7 @@ export default new Vuex.Store({
       }
     },
 
-    deleteProject({ dispatch }, id) { },
+    deleteProject({ dispatch }, id) {},
     async getTechSet({ commit }) {
       try {
         const response = await axios.get("API/getTech");
@@ -267,9 +269,8 @@ export default new Vuex.Store({
         // Redirect goBack(-1)
       }
     },
-    uploadDocument({ dispatch }, document) { },
-    downloadDocument(url) { },
-
+    uploadDocument({ dispatch }, document) {},
+    downloadDocument(url) {},
   },
   modules: {},
 });

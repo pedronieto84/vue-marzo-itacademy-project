@@ -3,7 +3,7 @@
     <b-tabs content-class="mt-3" v-model="tabIndex">
       <b-tab title="1">
         <b-progress
-          class="mt-2 barra-progress"
+          class="my-2 barra-progress"
           :value="25"
           variant="info"
           striped
@@ -75,5 +75,3 @@ export default {
   },
 };
 </script>
-
-
