@@ -87,7 +87,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .view-container {
   margin-top: 3rem;
   border: 2px solid #666;
