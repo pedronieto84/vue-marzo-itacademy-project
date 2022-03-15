@@ -18,6 +18,7 @@
             id="deadline"
             v-model="deadline"
             :state="isDeadlineValid"
+            :min="publishedDate"
           ></b-form-datepicker>
         </div>
       </b-col>
