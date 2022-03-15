@@ -63,7 +63,7 @@ export default new Vuex.Store({
       state.userLogged = user;
       if (user.admin === true) state.admin = true;
     },
-    setIsAdmin(state, userAdmin) {},
+    setIsAdmin(state, userAdmin) { },
     setCurrentUser(state, user) {
       state.currentUser = user;
     },
@@ -73,14 +73,14 @@ export default new Vuex.Store({
     setProjects(state, projects) {
       state.projects = projects;
     },
-    setCurrentProject(state, project) {},
-    setTechSet(state, techSet) {},
+    setCurrentProject(state, project) { },
+    setTechSet(state, techSet) { },
 
     //mutations for createProject page
     updateNewProjectTitle(state, newTitle) {
       state.newProject.title = newTitle;
     },
-    updateNewProjecDescription(state, newDescription) {
+    updateNewProjectDescription(state, newDescription) {
       state.newProject.shortExplanation = newDescription;
     },
     updateNewDate(state, newDate) {
@@ -256,8 +256,8 @@ export default new Vuex.Store({
         // Redirect goBack(-1)
       }
     },
-    uploadDocument({ dispatch }, document) {},
-    downloadDocument(url) {},
+    uploadDocument({ dispatch }, document) { },
+    downloadDocument(url) { },
   },
   modules: {},
 });
