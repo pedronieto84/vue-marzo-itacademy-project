@@ -80,16 +80,7 @@ export default {
   },
   data() {
     return {
-      options: [
-        "react",
-        "vue",
-        "php",
-        "node",
-        "typescript",
-        "python",
-        "css",
-        "bootstrap",
-      ],
+      options: [],
       search: "",
       value: [],
     };
@@ -134,6 +125,10 @@ export default {
       addTag(option);
       this.search = "";
     },
+  },
+  async mounted() {
+    await this.$store.dispatch("getTechSet");
+    this.options = this.$store.getters.getTechSet;
   },
 };
 </script>

@@ -24,7 +24,7 @@
         <b-button @click="updateFiles">UploadFiles</b-button>
         <b-button
           type="submit"
-          @click="$store.dispatch('setNewProject', $router)"
+          @click="submit($event)"
           >Publish Project</b-button
         >
       </b-col>
@@ -56,6 +56,10 @@ export default {
         store.dispatch("uploadFiles");
       }
     },
+    submit(event){
+      event.preventDefault();
+      this.$store.dispatch('setNewProject')
+    }
  
   },
 };
