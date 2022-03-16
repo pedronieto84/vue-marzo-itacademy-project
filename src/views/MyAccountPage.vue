@@ -7,7 +7,6 @@
         v-if="currentView === 'projects'"
         v-model="projects"
         :fields="fields"
-        :options="options"
       />
     </div>
   </div>
@@ -96,7 +95,6 @@ export default {
         },
         { key: "edit", label: "", type: "edit" },
       ],
-      options: ["accepted", "published", "refused", "doing", "finished"],
     };
   },
   methods: {
