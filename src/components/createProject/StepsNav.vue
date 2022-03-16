@@ -69,6 +69,9 @@ export default {
   },
   computed: {
     isTitleValid() {
+      if(this.$store.state.newProject.title.length === 0) {
+        return null;
+      }
       return this.$store.state.newProject.title.length >= 3 ? true : false;
     },
     isDescriptionValid() {
