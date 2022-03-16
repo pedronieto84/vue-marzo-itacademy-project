@@ -66,7 +66,7 @@
         <button
           v-if="!tableItems[data.index].isEdit"
           class="delete-button"
-          @click="handleDelete(data.index)"
+          @click="handleDelete(tableItems[data.index])"
         >
           <img src="@/assets/icons/remove.png" alt="Delete" />
         </button>
@@ -121,9 +121,10 @@ export default {
       this.tableItems[data.index].isEdit = !this.tableItems[data.index].isEdit;
     },
     handleDelete(index) {
-      this.tableItems = this.tableItems.filter((item, i) => i !== index);
+      const id = index.id;
+      this.tableItems = this.tableItems.filter((item) => item.id !== index.id);
       this.$emit("input", this.tableItems);
-      this.$emit("remove", this.tableItems[index]);
+      this.$emit("remove", id);
     },
     convertDateToLocale(date) {
       const localeDate = new Date(date * 1000).toLocaleString(undefined, {
