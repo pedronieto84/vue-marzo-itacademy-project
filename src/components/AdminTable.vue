@@ -152,9 +152,6 @@ export default {
       );
     },
     updateDBProject(data) {
-      if (this.tableItems[data.index].isEdit) {
-        console.log("hi again");
-      }
       this.convertDeadlineToUnixDate(data);
       let updatedProject = { ...data.item };
       updatedProject.bid = updatedProject.bid.toString();
