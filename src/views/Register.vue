@@ -84,13 +84,13 @@ export default {
       selected: null,
       options: [
         { value: null, text: "Organization Type" },
-        { value: "Empresa Publica", text: "Empresa Pública" },
+        { value: "Empresa Pública", text: "Public Company" },
         {
-          value: "ONG o empresa del tercer sector",
-          text: "ONG o empresa del tercer sector",
+          value: "ONG o empreses del 3er sector",
+          text: "NGO or 3rd sector companies",
         },
-        { value: "Empresa privada", text: "Empresa privada" },
-        { value: "Otros", text: "Otros" },
+        { value: "Empresa Privada", text: "Private Company" },
+        { value: "Altres", text: "Other" },
       ],
       validation: {
         name: null,
@@ -109,41 +109,33 @@ export default {
       return this.password === this.confirmPassword;
     },
   },
+
   methods: {
-    onSubmit(event) {
+    onSubmit: function (event) {
       event.preventDefault();
       this.registerNewUser();
     },
     openLogin() {
       this.$router.push({ path: "login" });
     },
-    methods: {
-      onSubmit(event){
-        event.preventDefault()
-        this.registerNewUser();
-      },
-      openLogin(){
-          this.$router.push({path: 'login'})
-      },
-      registerNewUser(){
-        if(this.validation.name === true && 
-            this.validation.email === true && 
-            this.validation.password === true && 
-            this.passwordValidation === true
-            ) 
-        {
-            const newUser = {
-                name: this.name,
-                email: this.email,
-                password: this.password,
-                organization : this.selected
-            }
-            this.$store.dispatch("setNewUser", newUser);
-            this.$router.push({path: 'login'})
-        } else {
-            this.showErrorMessage = true
-        } 
-        },
+    registerNewUser: function () {
+      if (
+        this.validation.name === true &&
+        this.validation.email === true &&
+        this.validation.password === true &&
+        this.passwordValidation === true
+      ) {
+        const newUser = {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          typeOfInstitution: this.selected,
+        };
+        this.$store.dispatch("setNewUser", newUser);
+        this.$router.push({ path: "login" });
+      } else {
+        this.showErrorMessage = true;
+      }
     },
   },
 };

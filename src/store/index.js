@@ -12,21 +12,21 @@ export default new Vuex.Store({
     isAdmin: false,
     users: [],
     currentUser: Object,
-    userLogged: { name: "Julius" },
+    userLogged: Object,
     projects: [],
     currentProject: Object,
     techSet: [],
     //initial value of the fields when creating a new project
     newProject: {
+      user_id: Number,
       title: "",
       shortExplanation: "",
       publishedDate: "",
       deadline: "",
       bid: "",
       techSet: [""],
-      files: [],
+      filesArray: [],
     },
-    filesArray: [],
     errorMessage: "",
   },
   getters: {
@@ -67,7 +67,6 @@ export default new Vuex.Store({
       state.userLogged = user;
       if (user.admin === 1) state.isAdmin = true;
     },
-    setIsAdmin(state, userAdmin) {},
     setCurrentUser(state, user) {
       state.currentUser = user;
     },
@@ -80,6 +79,10 @@ export default new Vuex.Store({
     //mutations for createProject page
     updateNewProjectTitle(state, newTitle) {
       state.newProject.title = newTitle;
+    },
+    // Addition in order to accomplish lastMinute project protocol changes
+    setUserIdProject(state, id) {
+      state.newProject.user_id = id;
     },
     updateNewProjectDescription(state, newDescription) {
       state.newProject.shortExplanation = newDescription;
@@ -97,7 +100,7 @@ export default new Vuex.Store({
       state.newProject.bid = newBid;
     },
     updateFiles(state, file) {
-      state.filesArray = file;
+      state.newProject.filesArray = file;
     },
     resetNewProject(state) {
       state.newProject = {
@@ -145,12 +148,14 @@ export default new Vuex.Store({
       }
     },
     async setNewUser({ dispatch, commit }, user) {
+      alert("User");
       try {
         const response = await axios.post(`${API}/user`, {
           name: user.name,
           password: user.password,
           email: user.email,
           typeOfInstitution: user.typeOfInstitution,
+          verified: true,
         });
         if (response.error) {
           throw response.error;
@@ -171,6 +176,23 @@ export default new Vuex.Store({
         dispatch("getUsers");
       } catch (e) {
         commit("setErrorMessage", { error: `${e.message}` });
+      }
+    },
+    async logIn({ commit, dispatch }, login) {
+      try {
+        const response = await axios.post(`${API}/login`, {
+          email: login.email,
+          password: login.password,
+        });
+        console.log(response.data);
+        if (response.data.mensaje) {
+          throw response.data.mensaje;
+        }
+        commit("setUserLogged", response.data[0]);
+      } catch (e) {
+        commit("setErrorMessage", e);
+        console.log(response);
+        // Redirect goBack(-1)
       }
     },
     async getProjects({ commit }) {
@@ -218,10 +240,10 @@ export default new Vuex.Store({
 
     async setNewProject({ dispatch, state, commit }, $router) {
       try {
-        await axios.post(`${API}/project`, state.newProject);
+        await axios.post(`${API}/project`, { request: state.newProject });
         commit("resetNewProject");
-        $router.push({ name: "ProjectsPage" });
         dispatch("getProjects");
+        $router.push({ name: "ProjectsPage" });
       } catch (e) {
         commit("setErrorMessage", { error: `${e.message}` });
       }
@@ -247,23 +269,6 @@ export default new Vuex.Store({
         commit("setTechSet", response.data);
       } catch (e) {
         commit("setErrorMessage", { error: `${e.message}` });
-      }
-    },
-    async logIn({ commit }, login) {
-      try {
-        const response = await axios.post(`${API}/login`, {
-          email: login.email,
-          password: login.password,
-        });
-        console.log(response.data.mensaje);
-        if (response.data.mensaje) {
-          throw response.data.mensaje;
-        }
-        commit("setUserLogged", response.data[0]);
-      } catch (e) {
-        commit("setErrorMessage", e);
-        console.log(response);
-        // Redirect goBack(-1)
       }
     },
     uploadDocument({ dispatch }, document) {},
