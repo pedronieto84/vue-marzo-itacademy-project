@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="view-container">
-      <admin-table v-model="projects" :fields="fields" />
+      <admin-table v-model="projects" :fields="fields" :options="options" />
     </div>
   </div>
 </template>
@@ -13,58 +13,12 @@ export default {
   components: {
     AdminTable,
   },
+  created() {
+    this.$store.dispatch("getProjects");
+  },
   data() {
     return {
-      projects: [
-        {
-          title: "Project 1",
-          id: 1,
-          user_id: 666,
-          publishedDate: 1646902840,
-          deadline: 1649992840,
-          techset: ["CSS", "JS"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "doing",
-          bid: 1200,
-        },
-        {
-          title: "Project 2",
-          id: 2,
-          user_id: 666,
-          publishedDate: 1646802840,
-          deadline: 1651232840,
-          techset: ["CSS", "HTML"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "refused",
-          bid: 4200,
-        },
-        {
-          title: "Project 3",
-          id: 3,
-          user_id: 666,
-          publishedDate: 1646902840,
-          deadline: 1649992840,
-          techset: ["CSS", "JS"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "doing",
-          bid: 1800,
-        },
-        {
-          title: "Project 4",
-          id: 4,
-          user_id: 666,
-          publishedDate: 1646902840,
-          deadline: 1649992840,
-          techset: ["CSS", "JS"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "doing",
-          bid: 2300,
-        },
-      ],
+      options: ["accepted", "published", "refused", "doing", "finished"],
       fields: [
         { key: "title", label: "Name", sortable: true, type: "text" },
         {
@@ -82,8 +36,19 @@ export default {
         },
         { key: "edit", label: "", type: "edit" },
       ],
+      projects: []
     };
   },
+  computed: {
+    projectsFromStore() {
+      return this.$store.getters.getProjects
+    }
+  },
+  watch: {
+    projectsFromStore: function (newVal, oldVal) {
+      this.projects = [...newVal]
+    }
+  }
 };
 </script>
 

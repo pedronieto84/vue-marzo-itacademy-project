@@ -45,7 +45,13 @@
       </template>
 
       <template #cell(state)="data">
-        <span>{{ data.value }}</span>
+        <b-form-select
+          v-if="tableItems[data.index].isEdit"
+          :options="options"
+          :value="tableItems[data.index].state"
+          @change="(value) => inputHandler(value, data.index, 'state')"
+        ></b-form-select>
+        <span v-else>{{ data.value }}</span>
       </template>
 
       <template #cell(edit)="data">
@@ -53,10 +59,7 @@
           <span v-if="!tableItems[data.index].isEdit"
             ><img src="@/assets/icons/pencil.png" alt="Edit"
           /></span>
-          <span
-            v-else
-            class="done-span"
-            @click="convertDeadlineToUnixDate(data)"
+          <span v-else class="done-span" @click="updateDBProject(data)"
             ><img src="@/assets/icons/done.png" alt="Done"
           /></span>
         </button>
@@ -82,19 +85,34 @@ export default {
       type: Array,
       required: true,
     },
+    options: {
+      type: Array,
+    },
   },
   data() {
     return {
-      tableItems: this.value.map((item) => ({
-        ...item,
-        isEdit: false,
-        deadlineToDatepicker: this.convertDateToDatepicker(item.deadline),
-      })),
+      tableItems: this.mapItems(this.value),
     };
   },
+  watch: {
+    value(newVal) {
+      this.tableItems = this.mapItems(newVal);
+    },
+  },
   methods: {
+    mapItems(data) {
+      return data.map((item, index) => ({
+        ...item,
+        isEdit: this.tableItems[index] ? this.tableItems[index].isEdit : false,
+        deadline: parseInt(item.deadline),
+        bid: parseFloat(item.bid),
+        publishedDate: parseInt(item.publishedDate),
+        deadlineToDatepicker: this.convertDateToDatepicker(
+          parseInt(item.deadline)
+        ),
+      }));
+    },
     inputHandler(value, index, key) {
-      console.log(value);
       this.tableItems[index][key] = value;
       this.$set(this.tableItems, index, this.tableItems[index]);
       this.$emit("input", this.tableItems);
@@ -103,7 +121,8 @@ export default {
       this.tableItems[data.index].isEdit = !this.tableItems[data.index].isEdit;
     },
     handleDelete(index) {
-      this.tableItems = this.tableItems.filter((item, i) => i !== index);
+      this.value = this.value.filter((item, i) => i !== index);
+      console.log(index);
       this.$emit("input", this.tableItems);
     },
     convertDateToLocale(date) {
@@ -131,6 +150,20 @@ export default {
       data.item.deadline = Math.floor(
         new Date(data.item.deadlineToDatepicker).getTime() / 1000
       );
+    },
+    updateDBProject(data) {
+      if (this.tableItems[data.index].isEdit) {
+        console.log("hi again");
+      }
+      this.convertDeadlineToUnixDate(data);
+      let updatedProject = { ...data.item };
+      updatedProject.bid = updatedProject.bid.toString();
+      updatedProject.deadline = updatedProject.deadline.toString();
+      updatedProject.publishedDate = updatedProject.publishedDate.toString();
+      delete updatedProject.isEdit;
+      delete updatedProject.deadlineToDatepicker;
+      this.$store.dispatch("updateProject", updatedProject);
+      this.$store.dispatch("getProjects");
     },
   },
 };
