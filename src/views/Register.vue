@@ -133,8 +133,8 @@ export default {
                 password: this.password,
                 organization : this.selected
             }
+            this.$store.dispatch("setNewUser", newUser);
             this.$router.push({path: 'login'})
-            console.log(newUser);
         } else {
             this.showErrorMessage = true
         } 
