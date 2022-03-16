@@ -124,7 +124,7 @@ export default {
         if(this.validation.name === true && 
             this.validation.email === true && 
             this.validation.password === true && 
-            this.validationPassword === true
+            this.passwordValidation === true
             ) 
         {
             const newUser = {
@@ -135,7 +135,6 @@ export default {
             }
             this.$router.push({path: 'login'})
             console.log(newUser);
-            return true
         } else {
             this.showErrorMessage = true
         } 

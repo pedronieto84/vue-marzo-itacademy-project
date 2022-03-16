@@ -1,10 +1,10 @@
 <template>
   <div>
+    <b-alert v-model="showErrorMessage" variant="danger"
+      >{{ this.getErrorMessage }}</b-alert
+    >
     <b-alert v-model="showSuccessMessage" variant="success"
       >Acceso correcto!</b-alert
-    >
-    <b-alert v-model="showErrorMessage" variant="danger" dismissible
-      >Usuario no encontrado</b-alert
     >
     <div class="row justify-content-center align-items-center">
       <b-form @submit="onSubmit" class="m-5 p-5 col-8 text-left border">
@@ -13,7 +13,6 @@
           :inputValue="login.email"
           :name="'E-mail'"
           @input="login.email = $event"
-          @validation="validation.login.email = $event"
           :inputType="'email'"
         />
         <b-form-group class="m-4">
@@ -49,12 +48,14 @@ export default {
     return {
       login: { email: "", password: "" },
       verified: false,
+      showErrorMessage: false,
       showSuccessMessage: false,
     };
   },
   computed: {
     ...mapGetters([
-      'getErrorMessage'
+      'getErrorMessage',
+      'getIsLogged'
     ]), 
   },
   methods: {
@@ -66,11 +67,15 @@ export default {
       this.$router.push({ path: "Register" });
     },
     async attemptLogin() {
-      await this.$store.dispatch("logIn", this.login);
+      await this.$store.dispatch("logIn", this.login)
+       if(this.getIsLogged === true ) {
+        this.showSuccessMessage = true
+        this.verified = true
+       } else {
+        this.showErrorMessage = true
+        return getErrorMessage;
+       }
     },
-    showErrorMessage() {
-      return getErrorMessage.length > 0;
-    }
   },
 };
 </script>
