@@ -45,13 +45,7 @@
       </template>
 
       <template #cell(state)="data">
-        <b-form-select
-          v-if="tableItems[data.index].isEdit"
-          :options="options"
-          :value="tableItems[data.index].state"
-          @change="(value) => inputHandler(value, data.index, 'state')"
-        ></b-form-select>
-        <span v-else>{{ data.value }}</span>
+        <span>{{ data.value }}</span>
       </template>
 
       <template #cell(edit)="data">
@@ -87,10 +81,7 @@ export default {
     fields: {
       type: Array,
       required: true,
-    },
-    options: {
-      type: Array,
-    },
+    }
   },
   data() {
     return {
