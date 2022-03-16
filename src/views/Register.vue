@@ -84,7 +84,7 @@ export default {
       selected: null,
       options: [
         { value: null, text: "Organization Type" },
-        { value: "Empresa publica", text: "Empresa pública" },
+        { value: "Empresa Publica", text: "Empresa Pública" },
         {
           value: "ONG o empresa del tercer sector",
           text: "ONG o empresa del tercer sector",
@@ -118,25 +118,25 @@ export default {
       this.$router.push({ path: "login" });
     },
     registerNewUser() {
-      if (
-        this.validation.name === true &&
-        this.validation.email === true &&
-        this.validation.password === true &&
-        this.validationPassword === true
-      ) {
-        const newUser = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          typeOfInstitution: this.selected,
-        };
-        this.$store.dispatch("setNewUser", newUser);
-        this.$router.push({ path: "login" });
-        console.log(newUser);
-        return true;
-      } else {
-        this.showErrorMessage = true;
-      }
+      // if (
+      //   this.validation.name === true &&
+      //   this.validation.email === true &&
+      //   this.validation.password === true &&
+      //   this.validationPassword === true
+      // ) {
+      const newUser = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        typeOfInstitution: this.selected,
+      };
+      this.$store.dispatch("setNewUser", newUser);
+      this.$router.push({ path: "login" });
+      console.log(newUser);
+      return true;
+      // } else {
+      //   this.showErrorMessage = true;
+      // }
     },
   },
 };

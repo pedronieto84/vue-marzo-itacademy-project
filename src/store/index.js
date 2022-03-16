@@ -77,8 +77,6 @@ export default new Vuex.Store({
     setProjects(state, projects) {
       state.projects = projects;
     },
-    setTechSet(state, techSet) {},
-
     //mutations for createProject page
     updateNewProjectTitle(state, newTitle) {
       state.newProject.title = newTitle;
@@ -220,7 +218,7 @@ export default new Vuex.Store({
 
     async setNewProject({ dispatch, state, commit }, $router) {
       try {
-        await axios.post(`${API}/projects`, state.newProject);
+        await axios.post(`${API}/project`, state.newProject);
         commit("resetNewProject");
         $router.push({ name: "ProjectsPage" });
         dispatch("getProjects");
