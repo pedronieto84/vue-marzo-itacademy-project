@@ -6,7 +6,7 @@
           <router-link :to="{ name: 'Admin' }" class="text-white">Admin</router-link>
         </b-button>
         <b-button>
-          Projects
+          <router-link :to="{ name: 'ProjectsPage' }" class="text-white">Projects</router-link>
         </b-button>
       </b-button-group>
       <!-- Right aligned nav items -->
