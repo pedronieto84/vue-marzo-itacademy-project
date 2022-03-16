@@ -10,15 +10,15 @@
       <b-form @submit="onSubmit" class="m-5 p-5 col-8 text-left border">
         <h3 class="text-center">Login</h3>
         <FormInput
-          :inputValue="email"
+          :inputValue="login.email"
           :name="'E-mail'"
-          @input="email = $event"
-          @validation="validation.email = $event"
+          @input="login.email = $event"
+          @validation="validation.login.email = $event"
           :inputType="'email'"
         />
         <b-form-group class="m-4">
           <label for="text-password">Password</label>
-          <b-form-input v-model="password" type="password" />
+          <b-form-input v-model="login.password" type="password" />
         </b-form-group>
         <div class="d-flex justify-content-center">
           <b-button @click="openRegister" variant="light" class="m-4 col-6">
@@ -46,8 +46,7 @@ export default {
   },
   data() {
     return {
-      email: "",
-      password: "",
+      login: { email: "", password: "" },
       verified: false,
       showErrorMessage: false,
       showSuccessMessage: false,
@@ -62,7 +61,7 @@ export default {
       this.$router.push({ path: "Register" });
     },
     foundRegisteredUser() {
-      this.$store.dispatch("logIn", {login:{email:this.email, password:this.password}});
+      this.$store.dispatch("logIn", this.login);
       // if(this.$store.state.users.find(
       //     user => user.email === this.email && user.password === this.password)
       // ) {

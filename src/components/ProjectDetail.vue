@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card :title="currentProject.title">
+    <b-card :title="currentProject.title" :sub-title="currentProject.published">
       <b-card-body>
         <div class="mb-4">
           {{ currentProject.shortExplanation }}
@@ -9,6 +9,7 @@
           <b-col>
             <label for="published-display">Published</label>
             <b-form-datepicker
+              v-model="published"
               id="published-display"
               class="mb-2"
               readonly
@@ -17,6 +18,7 @@
           <b-col>
             <label for="deadline-display">Deadline</label>
             <b-form-datepicker
+              v-model="deadline"
               id="deadline-display"
               class="mb-2"
               readonly
@@ -44,23 +46,44 @@
       </b-card>
       <div>
         <h3>Files</h3>
-        <div v-for="file in currentProject.files" :key="file.id">
+        <div v-for="file in currentProject.filesArray" :key="file.id">
           {{ file.filename }}
         </div>
       </div>
     </b-card>
+    <b-button @click="$router.go(-1)">GoBack</b-button>
   </div>
 </template>
 <script>
 export default {
   name: "ProjectDetail",
-  computed: {
-    currentProject() {
-      return this.$store.getters.getCurrentProject;
-    },
+  data() {
+    return {
+      currentProject: Object,
+      deadline: "",
+      published: "",
+    };
   },
-  mounted() {
-    this.$store.dispatch("getProjectById", this.$route.query.id);
+  computed: {
+    // getProject() {
+    //   this.currentProject = this.$store.getters.getCurrentProject;
+    //   alert(this.currentProject);
+    //   this.deadline = this.secondsToDate(this.currentProject.deadline);
+    // },
+  },
+
+  async mounted() {
+    await this.$store.dispatch("getProjectById", this.$route.query.id);
+    this.currentProject = this.$store.getters.getCurrentProject;
+    this.deadline = this.secondsToDate(this.currentProject.deadline);
+    this.published = this.secondsToDate(this.currentProject.publishedDate);
+  },
+  methods: {
+    secondsToDate(seconds) {
+      let d = new Date(seconds * 1000);
+      let dateString = d.toISOString("en-US");
+      return dateString.slice(0, 9);
+    },
   },
 };
 </script>
