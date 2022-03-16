@@ -38,6 +38,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import FormInput from "@/components/FormInput.vue";
 export default {
   name: "Formlogin",
@@ -48,30 +49,28 @@ export default {
     return {
       login: { email: "", password: "" },
       verified: false,
-      showErrorMessage: false,
       showSuccessMessage: false,
     };
+  },
+  computed: {
+    ...mapGetters([
+      'getErrorMessage'
+    ]), 
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      this.foundRegisteredUser();
+      this.attemptLogin();
     },
     openRegister() {
       this.$router.push({ path: "Register" });
     },
-    foundRegisteredUser() {
-      this.$store.dispatch("logIn", this.login);
-      // if(this.$store.state.users.find(
-      //     user => user.email === this.email && user.password === this.password)
-      // ) {
-      //     this.validation.email = true
-      //     this.verified = true
-      //     this. showSuccessMessage = true
-      // } else{
-      //     this.showErrorMessage = true
-      // }
+    async attemptLogin() {
+      await this.$store.dispatch("logIn", this.login);
     },
+    showErrorMessage() {
+      return getErrorMessage.length > 0;
+    }
   },
 };
 </script>

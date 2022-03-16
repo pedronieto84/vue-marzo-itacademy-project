@@ -27,7 +27,7 @@ export default new Vuex.Store({
       files: [],
     },
     filesArray: [],
-    messageError: "",
+    errorMessage: "",
   },
   getters: {
     getIsLogged: (state) => {
@@ -120,7 +120,7 @@ export default new Vuex.Store({
       state.techSet = techSet;
     },
     setErrorMessage(state, message) {
-      state.setErrorMessage = message;
+      state.errorMessage = message;
     },
   },
   actions: {
@@ -152,6 +152,7 @@ export default new Vuex.Store({
           name: user.name,
           password: user.password,
           email: user.email,
+          organization: user.organization
         });
         if (response.error) {
           throw response.error;
