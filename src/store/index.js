@@ -4,7 +4,7 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 
 Vue.use(Vuex);
-const API = "http://itacademyvuemarzo.duckdns.org/api";
+const API = "https://itacademyvuemarzo.duckdns.org/api";
 
 export default new Vuex.Store({
   state: {
@@ -202,7 +202,7 @@ export default new Vuex.Store({
       const headers = { _method: "PUT" };
       try {
         const response = await axios.post(
-          `${API}/project/${project.id}`, /// ???????????????????
+          `${API}/projects`, /// ???????????????????
           {
             project,
           },
