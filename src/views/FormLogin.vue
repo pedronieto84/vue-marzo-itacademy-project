@@ -71,6 +71,7 @@ export default {
        if(this.getIsLogged === true ) {
         this.showSuccessMessage = true
         this.verified = true
+        this.$router.push({ path: "my-account" })
        } else {
         this.showErrorMessage = true
         return getErrorMessage;
