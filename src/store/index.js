@@ -4,7 +4,7 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 
 Vue.use(Vuex);
-const API = "http://itacademyvuemarzo.duckdns.org/api";
+const API = "https://itacademyvuemarzo.duckdns.org/api";
 
 export default new Vuex.Store({
   state: {
@@ -120,7 +120,7 @@ export default new Vuex.Store({
       state.techSet = techSet;
     },
     setErrorMessage(state, message) {
-      state.setErrorMessage = message;
+      state.ErrorMessage = message;
     },
   },
   actions: {
@@ -148,10 +148,11 @@ export default new Vuex.Store({
     },
     async setNewUser({ dispatch, commit }, user) {
       try {
-        const response = await axios.post(`${API}/users`, {
+        const response = await axios.post(`${API}/user`, {
           name: user.name,
           password: user.password,
           email: user.email,
+          typeOfInstitution: user.typeOfInstitution,
         });
         if (response.error) {
           throw response.error;
@@ -256,13 +257,14 @@ export default new Vuex.Store({
           email: login.email,
           password: login.password,
         });
-        console.log(response);
-        if (response.error) {
-          throw response.message;
+        console.log(response.data.mensaje);
+        if (response.data.mensaje) {
+          throw response.data.mensaje;
         }
         commit("setUserLogged", response.data[0]);
       } catch (e) {
-        commit("setErrorMessage", { error: `${e.message}` });
+        commit("setErrorMessage", e);
+        console.log(response);
         // Redirect goBack(-1)
       }
     },
