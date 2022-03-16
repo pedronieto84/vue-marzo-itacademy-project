@@ -65,9 +65,9 @@ export default new Vuex.Store({
     setUserLogged(state, user) {
       state.isLogged = true;
       state.userLogged = user;
-      if (user.admin === true) state.admin = true;
+      if (user.admin === 1) state.isAdmin = true;
     },
-    setIsAdmin(state, userAdmin) { },
+    setIsAdmin(state, userAdmin) {},
     setCurrentUser(state, user) {
       state.currentUser = user;
     },
@@ -77,7 +77,7 @@ export default new Vuex.Store({
     setProjects(state, projects) {
       state.projects = projects;
     },
-    setTechSet(state, techSet) { },
+    setTechSet(state, techSet) {},
 
     //mutations for createProject page
     updateNewProjectTitle(state, newTitle) {
@@ -246,8 +246,6 @@ export default new Vuex.Store({
       }
     },
     async logIn({ commit }, login) {
-      console.log(login.email);
-      console.log(login.password);
       try {
         const response = await axios.post(`${API}/login`, {
           email: login.email,
@@ -256,7 +254,7 @@ export default new Vuex.Store({
         if (response.error) {
           throw response.error;
         }
-        commit("setUser", login);
+        commit("setUserLogged", response.data[0]);
       } catch (e) {
         commit("setErrorMessage", { error: `${e.message}` });
         // Redirect goBack(-1)
