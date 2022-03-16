@@ -27,7 +27,7 @@ export default new Vuex.Store({
       files: [],
     },
     filesArray: [],
-    messageError: "",
+    errorMessage: "",
   },
   getters: {
     getIsLogged: (state) => {
@@ -118,7 +118,7 @@ export default new Vuex.Store({
       state.techSet = techSet;
     },
     setErrorMessage(state, message) {
-      state.ErrorMessage = message;
+      state.errorMessage = message;
     },
   },
   actions: {

@@ -55,8 +55,8 @@ export default {
     },
   },
   methods: {
-    async handleRemoveProject(project) {
-      await this.$store.dispatch("deleteProject", project.id);
+    async handleRemoveProject(projectId) {
+      await this.$store.dispatch("deleteProject", projectId);
     },
   },
 };
