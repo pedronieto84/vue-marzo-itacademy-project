@@ -251,8 +251,9 @@ export default new Vuex.Store({
           email: login.email,
           password: login.password,
         });
+        console.log(response);
         if (response.error) {
-          throw response.error;
+          throw response.message;
         }
         commit("setUserLogged", response.data[0]);
       } catch (e) {

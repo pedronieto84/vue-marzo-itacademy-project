@@ -1,21 +1,23 @@
 <template>
   <div class="container mt-4">
     <b-row>
-      <b-col class="content d-flex ml-4">
-        <article
-          class="aticle-card"
-          v-for="project in projects"
-          :key="project.id"
-        >
-          <router-link
-            :to="{ path: '/project-detail/', query: { id: project.id } }"
+      <b-col class="d-flex justify-content-center">
+        <div class="frame content d-flex ml-4 justify-content-center py-3">
+          <article
+            class="aticle-card"
+            v-for="project in projects"
+            :key="project.id"
           >
-            <project-card
-              :title="project.title"
-              :shortDescription="project.shortExplanation"
-            ></project-card>
-          </router-link>
-        </article>
+            <router-link
+              :to="{ path: '/project-detail/', query: { id: project.id } }"
+            >
+              <project-card
+                :title="project.title"
+                :shortDescription="project.shortExplanation"
+              ></project-card>
+            </router-link>
+          </article>
+        </div>
       </b-col>
     </b-row>
     <div class="chat">
@@ -70,7 +72,9 @@ export default {
 
   a
     text-decoration: none
-
+.frame
+  border: 1px solid blue
+  width: 85%
 .chat
   position: sticky
   top: 90vh
