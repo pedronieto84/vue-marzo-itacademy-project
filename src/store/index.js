@@ -199,14 +199,19 @@ export default new Vuex.Store({
     },
 
     async updateProject({ dispatch, commit }, project) {
+      const headers = { _method: "PUT" };
       try {
-        const response = await axios.put(`${API}/projects/${project.id}`, {
-          project,
-        });
+        const response = await axios.post(
+          `${API}/project/${project.id}`, /// ???????????????????
+          {
+            project,
+          },
+          { headers: headers }
+        );
         if (response.error) {
           throw response.error;
         }
-        dispatch("getUsers", 2000);
+        dispatch("getProjects");
       } catch (e) {
         commit("setErrorMessage", { error: `${e.message}` });
       }
@@ -225,7 +230,7 @@ export default new Vuex.Store({
 
     async deleteProject({ dispatch }, id) {
       try {
-        const response = await axios.delete(`${API}/projects/${id}`);
+        const response = await axios.delete(`${API}/project/${id}`);
         if (response.error) {
           throw response.error;
         }
