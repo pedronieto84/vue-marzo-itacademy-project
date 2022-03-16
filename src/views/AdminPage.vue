@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <div class="view-container">
-      <admin-table v-model="projects" :fields="fields" :options="options" />
+      <admin-table
+        v-model="projects"
+        :fields="fields"
+        :options="options"
+        @remove="handleRemoveProject($event)"
+      />
     </div>
   </div>
 </template>
@@ -36,19 +41,24 @@ export default {
         },
         { key: "edit", label: "", type: "edit" },
       ],
-      projects: []
+      projects: [],
     };
   },
   computed: {
     projectsFromStore() {
-      return this.$store.getters.getProjects
-    }
+      return this.$store.getters.getProjects;
+    },
   },
   watch: {
     projectsFromStore: function (newVal, oldVal) {
-      this.projects = [...newVal]
-    }
-  }
+      this.projects = [...newVal];
+    },
+  },
+  methods: {
+    async handleRemoveProject(project) {
+      await this.$store.dispatch("deleteProject", project.id);
+    },
+  },
 };
 </script>
 

@@ -121,9 +121,9 @@ export default {
       this.tableItems[data.index].isEdit = !this.tableItems[data.index].isEdit;
     },
     handleDelete(index) {
-      this.value = this.value.filter((item, i) => i !== index);
-      console.log(index);
+      this.tableItems = this.tableItems.filter((item, i) => i !== index);
       this.$emit("input", this.tableItems);
+      this.$emit("remove", this.tableItems[index]);
     },
     convertDateToLocale(date) {
       const localeDate = new Date(date * 1000).toLocaleString(undefined, {
@@ -163,7 +163,6 @@ export default {
       delete updatedProject.isEdit;
       delete updatedProject.deadlineToDatepicker;
       this.$store.dispatch("updateProject", updatedProject);
-      this.$store.dispatch("getProjects");
     },
   },
 };
