@@ -21,6 +21,7 @@
     </b-row>
     <b-row>
       <b-col>
+        <b-button @click="updateFiles">UploadFiles</b-button>
         <b-button
           type="submit"
           @click="$store.dispatch('setNewProject', $router)"
@@ -52,8 +53,10 @@ export default {
     updateFiles: function () {
       if (this.inputFile.length > 0) {
         store.commit("updateFiles", this.inputFile);
+        store.dispatch("uploadFiles");
       }
     },
+ 
   },
 };
 </script>
