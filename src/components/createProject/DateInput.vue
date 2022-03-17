@@ -3,22 +3,22 @@
     <b-row>
       <b-col>
         <div>
-          <label for="published-date">Published:</label>
+          <label for="published-date" class="date-title mt-4">Published:</label>
           <b-form-datepicker
             id="published-date"
-            v-model="publishedDate"
-            :state="ispublishedDateValid"
+            :value="new Date()"
+            readonly
           ></b-form-datepicker>
         </div>
       </b-col>
       <b-col>
         <div>
-          <label for="deadline">Deadline:</label>
+          <label for="deadline" class="date-title mt-4">Deadline:</label>
           <b-form-datepicker
             id="deadline"
             v-model="deadline"
             :state="isDeadlineValid"
-            :min="publishedDate"
+            :min="new Date()"
           ></b-form-datepicker>
         </div>
       </b-col>
@@ -29,22 +29,14 @@
 export default {
   name: "DateInput",
   props: {
-    ispublishedDateValid: Boolean,
     isDeadlineValid: Boolean,
   },
   data() {
     return {
-      publishedDate: "",
       deadline: "",
     };
   },
   watch: {
-    publishedDate: function () {
-      this.$store.commit(
-        "updateNewDate",
-        this.convertDeadlineToUnixDate(this.publishedDate)
-      );
-    },
     deadline: function () {
       this.$store.commit(
         "updateDeadline",
@@ -80,3 +72,8 @@ export default {
   // },
 };
 </script>
+<style scoped>
+label {
+  color: black;
+}
+</style>
