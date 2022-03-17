@@ -4,10 +4,11 @@
     <div class="view-container">
       <data-edit-form v-if="currentView === 'data'" />
       <projects-edit-table
-        v-if="currentView === 'projects'"
+        v-if="currentView === 'projects' && projects.length > 0"
         v-model="projects"
         @remove="handleRemoveProject"
       />
+      <div v-else>You still have no projects</div>
     </div>
   </div>
 </template>
@@ -28,29 +29,11 @@ export default {
     return {
       views: ["My Data", "My Projects"],
       currentView: "data",
-      projects: [
-        {
-          id: 3,
-          title: "Zolore Omnis Project",
-          publishedDate: "1650136649",
-          deadline: "1656087529",
-          shortExplanation:
-            "Omnis dolorum quis assumenda nihil ducimus minus recusandae. Et inventore animi voluptatem architecto et quae ad impedit.",
-          state: "refused",
-          bid: "20409.73",
-        },
-        {
-          id: 9,
-          title: "Ullam Necessitatibus Voluptatem Project",
-          publishedDate: 1650917598,
-          deadline: 1654657134,
-          shortExplanation:
-            "Distinctio quam iusto nemo qui sed. Necessitatibus totam molestiae est ut nostrum.",
-          state: "finished",
-          bid: 94919.16,
-        },
-      ],
+      projects: [],
     };
+  },
+  created() {
+    this.projects = this.$store.state.currentUser.projectsPublished;
   },
   computed: {
     currentUser() {
