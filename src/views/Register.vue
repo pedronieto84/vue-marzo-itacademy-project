@@ -1,8 +1,11 @@
 <template>
   <div>
-    <b-alert v-model="showErrorMessage" variant="danger" dismissible
-      >Hay errores en el formulario</b-alert
-    >
+    <b-alert v-model="showErrorMessage" variant="danger" dismissible>
+      Hay errores en el formulario
+    </b-alert>
+    <b-alert v-model="showSuccsessMessage" variant="success" dismissible>
+      Cuenta creada correctamente!
+    </b-alert>
     <div class="row justify-content-center align-items-center">
       <b-form @submit="onSubmit" class="m-5 p-5 col-8 border text-left">
         <h3 class="text-center">Registro</h3>
@@ -99,6 +102,7 @@ export default {
         selected: null,
       },
       showErrorMessage: false,
+      showSuccsessMessage: false
     };
   },
   computed: {
@@ -132,7 +136,9 @@ export default {
           typeOfInstitution: this.selected,
         };
         this.$store.dispatch("setNewUser", newUser);
-        this.$router.push({ path: "login" });
+        this.$store.state.isLogged = true; 
+        this.showSuccsessMessage = true;
+        // this.$router.push({ path: "/my-account" });
       } else {
         this.showErrorMessage = true;
       }
