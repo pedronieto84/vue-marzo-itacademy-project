@@ -31,7 +31,7 @@
 export default {
   name: "ProjectTitle",
   props: {
-    isDescriptionValid: false,
+    isDescriptionValid: Boolean,
     isTitleValid: Boolean,
   },
   computed: {
