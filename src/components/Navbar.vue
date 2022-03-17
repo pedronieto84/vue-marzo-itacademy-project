@@ -8,11 +8,11 @@
         <router-link :to="{ name: 'ProjectsPage' }" class="text-white">Projects</router-link>
       </b-button>
       <!-- Right aligned nav items -->
-      <router-link
-        :to="{ name: 'CreateProjectPage' }"
-        class="btn btn-info ml-auto btn-lg"
-        >Create Project</router-link
-      >
+      <b-button class="btn btn-info ml-auto btn-lg" v-if="this.$store.state.isLogged === true">
+        <router-link :to="{ name: 'CreateProjectPage' }">
+          Create Project
+        </router-link>
+      </b-button>
       <b-button variant=" ml-auto" size="lg border" v-if="this.$store.state.isLogged === true"> 
         {{ this.$store.state.userLogged.name}} 
       </b-button>
