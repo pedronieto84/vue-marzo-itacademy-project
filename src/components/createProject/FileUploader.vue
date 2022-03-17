@@ -55,10 +55,7 @@ export default {
     },
     async submit(event) {
       event.preventDefault();
-      await this.$store.dispatch("setNewProject");
-      this.$store.errorMessage === ""
-        ? this.$router.push({ name: "ProjectsPage" })
-        : false;
+      await this.$store.dispatch("setNewProject", this.$router);
     },
   },
 };

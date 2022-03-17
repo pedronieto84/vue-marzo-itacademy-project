@@ -262,8 +262,8 @@ export default new Vuex.Store({
           throw response.data;
         }
         commit("resetNewProject");
-        dispatch("getProjects");
-        // $router.push({ name: "ProjectsPage" });
+        await dispatch("getProjects");
+        $router.push({ name: "ProjectsPage" });
       } catch (e) {
         commit("setErrorMessage", { error: `${e.message}` });
       }
