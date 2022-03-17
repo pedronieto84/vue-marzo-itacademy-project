@@ -240,7 +240,13 @@ export default new Vuex.Store({
 
     async setNewProject({ dispatch, state, commit }, $router) {
       try {
-        await axios.post(`${API}/project`, { request: state.newProject });
+        await axios.post(`${API}/project`, {
+          request: JSON.stringify(state.newProject),
+        });
+        console.log(response);
+        if (response.error) {
+          throw response.error;
+        }
         commit("resetNewProject");
         dispatch("getProjects");
         $router.push({ name: "ProjectsPage" });
