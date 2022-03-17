@@ -140,7 +140,8 @@ export default new Vuex.Store({
     },
     async getUserById({ commit }, id) {
       try {
-        const response = await axios.get(`${API}/users/${id}`);
+        console.log(id);
+        const response = await axios.get(`${API}/user/${id}`);
         if (response.error) {
           throw response.error;
         }

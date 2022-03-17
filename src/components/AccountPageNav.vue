@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      selected: this.views[0],
+      selected: this.views[1],
     };
   },
   methods: {
