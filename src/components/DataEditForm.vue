@@ -6,7 +6,7 @@
       class="my-data-form"
     >
       <form-input
-        :inputValue="user.company"
+        :inputValue="user.name"
         :name="'Nombre'"
         :inputType="'text'"
         @input="user.company = $event"
@@ -36,10 +36,11 @@
       <b-form-group class="m-4">
         <label>Type Of Institution</label>
         <b-form-select
-          v-model="user.orgType"
+          v-model="user.typeOfInstitution"
           :options="orgTypes"
         ></b-form-select>
       </b-form-group>
+
       <b-form-invalid-feedback :state="validationPassword">
         La contraseña no coincide
       </b-form-invalid-feedback>
@@ -69,13 +70,7 @@ export default {
         "Altres",
       ],
       showButtons: false,
-      user: {
-        // TODO: Use getCurrentUser getter and **set new user onSubmit()**
-        company: "Company",
-        email: "email@ail.ail",
-        password: "patata56",
-        orgType: "ONG o empreses del 3er sector",
-      },
+      pwdChange: false,
       validation: {
         name: null,
         email: null,
@@ -89,8 +84,8 @@ export default {
     validationPassword() {
       return this.user.password === this.confirmPassword;
     },
-    getUser() {
-      return this.$store.getters.getCurrentUser; // It still doesn't return anything...
+    user() {
+      return this.$store.getters.getCurrentUser;
     },
   },
   methods: {
@@ -98,12 +93,6 @@ export default {
       return;
     },
     onCancel() {
-      this.user = {
-        company: "Company",
-        email: "email@ail.ail",
-        password: "password123",
-        orgType: "ONG",
-      };
       location.reload(); // ugly but it works for now
     },
   },
