@@ -3,9 +3,8 @@
     <div class="view-container">
       <admin-table
         v-model="projects"
-        :fields="fields"
         :options="options"
-        @remove="handleRemoveProject($event)"
+        @remove="handleRemoveProject"
       />
     </div>
   </div>
@@ -24,23 +23,6 @@ export default {
   data() {
     return {
       options: ["accepted", "published", "refused", "doing", "finished"],
-      fields: [
-        { key: "title", label: "Name", sortable: true, type: "text" },
-        {
-          key: "publishedDate",
-          label: "Published",
-          sortable: true,
-          type: "date",
-        },
-        { key: "deadline", sortable: true, type: "date" },
-        { key: "bid", sortable: true, type: "number" },
-        {
-          key: "state",
-          sortable: true,
-          type: "select",
-        },
-        { key: "edit", label: "", type: "edit" },
-      ],
       projects: [],
     };
   },
@@ -56,6 +38,7 @@ export default {
   },
   methods: {
     async handleRemoveProject(projectId) {
+      console.log(projectId);
       await this.$store.dispatch("deleteProject", projectId);
     },
   },
