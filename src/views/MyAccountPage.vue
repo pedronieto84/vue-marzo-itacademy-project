@@ -6,7 +6,7 @@
       <projects-edit-table
         v-if="currentView === 'projects'"
         v-model="projects"
-        :fields="fields"
+        @remove="handleRemoveProject"
       />
     </div>
   </div>
@@ -30,78 +30,75 @@ export default {
       currentView: "data",
       projects: [
         {
-          title: "Project 1",
-          id: 1,
-          user_id: 666,
-          publishedDate: 1646902840,
-          deadline: 1649992840,
-          techset: ["CSS", "JS"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "doing",
-          bid: 1200,
-        },
-        {
-          title: "Project 2",
-          id: 2,
-          user_id: 666,
-          publishedDate: 1646802840,
-          deadline: 1651232840,
-          techset: ["CSS", "HTML"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "refused",
-          bid: 4200,
-        },
-        {
-          title: "Project 3",
           id: 3,
-          user_id: 666,
-          publishedDate: 1646902840,
-          deadline: 1649992840,
-          techset: ["CSS", "JS"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "doing",
-          bid: 1800,
+          title: "Dolore Omnis Project",
+          publishedDate: "1650136649",
+          deadline: "1656087529",
+          shortExplanation:
+            "Omnis dolorum quis assumenda nihil ducimus minus recusandae. Et inventore animi voluptatem architecto et quae ad impedit.",
+          state: "refused",
+          bid: "20409.73",
         },
         {
-          title: "Project 4",
-          id: 4,
-          user_id: 666,
-          publishedDate: 1646902840,
-          deadline: 1649992840,
-          techset: ["CSS", "JS"],
-          filesArray: ["delete me"],
-          shortExplanation: ["idk"],
-          state: "doing",
-          bid: 2300,
+          id: 9,
+          title: "Ullam Necessitatibus Voluptatem Project",
+          publishedDate: "1650917598",
+          deadline: "1654657134",
+          shortExplanation:
+            "Distinctio quam iusto nemo qui sed. Necessitatibus totam molestiae est ut nostrum.",
+          state: "finished",
+          bid: "94919.16",
         },
-      ],
-      fields: [
-        { key: "title", label: "Name", sortable: true, type: "text" },
         {
-          key: "publishedDate",
-          label: "Published",
-          sortable: true,
-          type: "date",
+          id: 17,
+          title: "Quam Nostrum Neque Project",
+          publishedDate: "1649592109",
+          deadline: "1655337139",
+          shortExplanation:
+            "Qui sed animi adipisci beatae quas quia saepe eos. Aut est fuga dignissimos quod.",
+          state: "accepted",
+          bid: "48161.08",
         },
-        { key: "deadline", sortable: true, type: "date" },
-        { key: "bid", sortable: true, type: "number" },
         {
-          key: "state",
-          sortable: true,
-          type: "select",
+          id: 37,
+          title: "Et Libero Corporis Project",
+          publishedDate: "1650686670",
+          deadline: "1658177622",
+          shortExplanation:
+            "Consequatur est molestiae rem quidem magnam cupiditate quidem. Laudantium neque illo maxime quisquam magnam quia ut.",
+          state: "finished",
+          bid: "1513.81",
         },
-        { key: "edit", label: "", type: "edit" },
+        {
+          id: 50,
+          title: "Optio Impedit Project",
+          publishedDate: "1650931205",
+          deadline: "1659618602",
+          shortExplanation:
+            "Error voluptatum odio ut a. Tempora voluptatem dolor occaecati.",
+          state: "finished",
+          bid: "9667.78",
+        },
       ],
     };
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters.getCurrentUser;
+    },
+    getProjects() {
+      const test = [...this.currentUser.projectsPublished]; // problem passing computed to v-model
+      return test;
+    },
   },
   methods: {
     changeView(view) {
       view === "My Data"
         ? (this.currentView = "data")
         : (this.currentView = "projects");
+    },
+    async handleRemoveProject(project) {
+      await this.$store.dispatch("deleteProject", project.id);
     },
   },
 };
