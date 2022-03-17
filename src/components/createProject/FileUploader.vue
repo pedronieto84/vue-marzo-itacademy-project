@@ -56,9 +56,10 @@ export default {
         store.dispatch("uploadFiles");
       }
     },
-    submit(event){
+    async submit(event){
       event.preventDefault();
-      this.$store.dispatch('setNewProject')
+      await this.$store.dispatch('setNewProject');
+      if
     }
  
   },

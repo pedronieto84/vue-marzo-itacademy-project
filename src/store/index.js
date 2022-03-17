@@ -65,6 +65,7 @@ export default new Vuex.Store({
     setUserLogged(state, user) {
       state.isLogged = true;
       state.userLogged = user;
+      state.newProject.user_id = state.userLogged.id;
       if (user.admin === 1) state.isAdmin = true;
     },
     setCurrentUser(state, user) {
@@ -185,8 +186,8 @@ export default new Vuex.Store({
           password: login.password,
         });
         console.log(response.data);
-        if (response.data.mensaje) {
-          throw response.data.mensaje;
+        if (response.data.message) {
+          throw response.data.message;
         }
         commit("setUserLogged", response.data[0]);
       } catch (e) {
@@ -244,8 +245,8 @@ export default new Vuex.Store({
           request: JSON.stringify(state.newProject),
         });
         console.log(response);
-        if (response.error) {
-          throw response.error;
+        if (response.data.message) {
+          throw response.data;
         }
         commit("resetNewProject");
         dispatch("getProjects");
