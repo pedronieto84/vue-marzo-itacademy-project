@@ -74,7 +74,7 @@ export default {
         this.$router.push({ path: "my-account" })
        } else {
         this.showErrorMessage = true
-        return getErrorMessage;
+        return this.$store.getters.getErrorMessage;
        }
     },
   },

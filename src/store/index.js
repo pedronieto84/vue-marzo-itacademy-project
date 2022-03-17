@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 
 Vue.use(Vuex);
+Vue.use(VueRouter);
 const API = "https://itacademyvuemarzo.duckdns.org/api";
 
 export default new Vuex.Store({
@@ -65,6 +66,7 @@ export default new Vuex.Store({
     setUserLogged(state, user) {
       state.isLogged = true;
       state.userLogged = user;
+      state.newProject.user_id = state.userLogged.id;
       if (user.admin === 1) state.isAdmin = true;
     },
     setCurrentUser(state, user) {
@@ -184,14 +186,14 @@ export default new Vuex.Store({
           email: login.email,
           password: login.password,
         });
-        console.log(response.data);
-        if (response.data.mensaje) {
-          throw response.data.mensaje;
-        }
-        commit("setUserLogged", response.data[0]);
-      } catch (e) {
-        commit("setErrorMessage", e);
         console.log(response);
+        if (response.data.message) {
+          throw response.data;
+        }
+        commit("setUserLogged", response.data);
+      } catch (e) {
+        commit("setErrorMessage", e.message);
+        console.log(e);
         // Redirect goBack(-1)
       }
     },
@@ -240,10 +242,16 @@ export default new Vuex.Store({
 
     async setNewProject({ dispatch, state, commit }, $router) {
       try {
-        await axios.post(`${API}/project`, { request: state.newProject });
+        const response = await axios.post(`${API}/project`, {
+          request: JSON.stringify(state.newProject),
+        });
+        console.log(response);
+        if (response.data.message) {
+          throw response.data;
+        }
         commit("resetNewProject");
         dispatch("getProjects");
-        $router.push({ name: "ProjectsPage" });
+        // $router.push({ name: "ProjectsPage" });
       } catch (e) {
         commit("setErrorMessage", { error: `${e.message}` });
       }
