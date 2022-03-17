@@ -41,10 +41,15 @@
       </b-tab>
     </b-tabs>
     <b-button-group class="mt-2">
-      <b-button @click="tabIndex--" :disabled="tabIndex === 0"
-        >Previous</b-button
+      <b-button @click="tabIndex--" v-if="tabIndex > 0">Previous</b-button>
+      <b-button
+        @click="
+          setDirty(tabIndex);
+          tabIndex++;
+        "
+        v-if="tabIndex < 2"
+        >Next</b-button
       >
-      <b-button @click="tabIndex++" :disabled="tabIndex === 2">Next</b-button>
     </b-button-group>
   </b-card>
 </template>
@@ -62,25 +67,60 @@ export default {
     return {
       animate: true,
       tabIndex: 0,
+      isTabDirty: [false, false],
     };
+  },
+  methods: {
+    setDirty(tabIndex) {
+      this.isTabDirty = this.isTabDirty.map((isDirty, i) =>
+        i === tabIndex ? true : isDirty
+      );
+    },
   },
   computed: {
     isTitleValid() {
-      if (this.$store.state.newProject.title.length === 0) {
+      if (
+        this.$store.state.newProject.title.length === 0 &&
+        !this.isTabDirty[0]
+      ) {
         return null;
       }
       return this.$store.state.newProject.title.length >= 3 ? true : false;
     },
     isDescriptionValid() {
+      if (
+        this.$store.state.newProject.shortExplanation.length === 0 &&
+        !this.isTabDirty[0]
+      ) {
+        return null;
+      }
       return this.$store.state.newProject.shortExplanation ? true : false;
     },
     isBidValid() {
+      if (
+        this.$store.state.newProject.bid.length === 0 &&
+        !this.isTabDirty[1]
+      ) {
+        return null;
+      }
       return this.$store.state.newProject.bid >= 1 ? true : false;
     },
     isTechSetValid() {
+      if (
+        this.$store.state.newProject.techSet.length === 0 &&
+        !this.isTabDirty[1]
+      ) {
+        return null;
+      }
       return this.$store.state.newProject.techSet.length >= 1 ? true : false;
     },
     isDeadlineValid() {
+      if (
+        this.$store.state.newProject.deadline.length === 0 &&
+        !this.isTabDirty[1]
+      ) {
+        return null;
+      }
       return this.$store.state.newProject.deadline ? true : false;
     },
   },

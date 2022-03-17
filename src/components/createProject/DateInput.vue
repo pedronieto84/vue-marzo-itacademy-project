@@ -31,45 +31,29 @@ export default {
   props: {
     isDeadlineValid: Boolean,
   },
-  data() {
-    return {
-      deadline: "",
-    };
-  },
-  watch: {
-    deadline: function () {
-      this.$store.commit(
-        "updateDeadline",
-        this.convertDeadlineToUnixDate(this.deadline)
-      );
-    },
-  },
   methods: {
     convertDeadlineToUnixDate(data) {
-      return Math.floor(new Date(data).getTime() / 1000);
+      return data && Math.floor(new Date(data).getTime() / 1000);
+    },
+    fromUnixDate(data) {
+      return data && new Date(data * 1000);
     },
   },
 
-  // computed: {
-  //   publishedDate: {
-  //     get() {
-  //       return this.$store.state.newProject.publishedDate;
-  //     },
-  //     set(newDate) {
-  //       // let toMs = new Date(newDate).getTime();
-  //       this.$store.commit("updateNewDate", newDate);
-  //     },
-  //   },
-  //   deadline: {
-  //     get() {
-  //       return this.$store.state.newProject.deadline;
-  //     },
-  //     set(newDeadline) {
-  //       // let toMs = new Date(newDeadline).getTime();
-  //       this.$store.commit("updateDeadline", newDeadline);
-  //     },
-  //   },
-  // },
+  computed: {
+    deadline: {
+      get() {
+        return this.fromUnixDate(this.$store.state.newProject.deadline);
+      },
+      set(newDeadline) {
+        // let toMs = new Date(newDeadline).getTime();
+        this.$store.commit(
+          "updateDeadline",
+          this.convertDeadlineToUnixDate(newDeadline)
+        );
+      },
+    },
+  },
 };
 </script>
 <style scoped>
