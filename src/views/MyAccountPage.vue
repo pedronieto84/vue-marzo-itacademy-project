@@ -4,11 +4,19 @@
     <div class="view-container">
       <data-edit-form v-if="currentView === 'data'" />
       <projects-edit-table
-        v-if="currentView === 'projects' && projects.length > 0"
+        v-if="
+          currentView === 'projects' && currentUser.projectsPublished.length > 0
+        "
         v-model="projects"
         @remove="handleRemoveProject"
       />
-      <div v-else>You still have no projects</div>
+      <div
+        v-if="
+          currentView === 'projects' && currentUser.projectsPublished.length < 1
+        "
+      >
+        You still have no projects
+      </div>
     </div>
   </div>
 </template>
@@ -28,20 +36,19 @@ export default {
   data() {
     return {
       views: ["My Data", "My Projects"],
-      currentView: "data",
-      projects: [],
+      currentView: "projects",
     };
   },
   created() {
-    this.projects = this.$store.state.currentUser.projectsPublished;
+    const userId = this.$store.state.userLogged.id;
+    this.$store.dispatch("getUserById", userId);
   },
   computed: {
     currentUser() {
       return this.$store.getters.getCurrentUser;
     },
-    getProjects() {
-      const test = [...this.currentUser.projectsPublished]; // problem passing computed to v-model
-      return test;
+    projects() {
+      return this.$store.getters.getCurrentUser.projectsPublished;
     },
   },
   methods: {
@@ -50,8 +57,8 @@ export default {
         ? (this.currentView = "data")
         : (this.currentView = "projects");
     },
-    async handleRemoveProject(project) {
-      await this.$store.dispatch("deleteProject", project.id);
+    async handleRemoveProject(id) {
+      await this.$store.dispatch("deleteProject", id);
     },
   },
 };
