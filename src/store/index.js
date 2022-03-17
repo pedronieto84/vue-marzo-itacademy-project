@@ -150,7 +150,6 @@ export default new Vuex.Store({
       }
     },
     async setNewUser({ dispatch, commit }, user) {
-      alert("User");
       try {
         const response = await axios.post(`${API}/user`, {
           name: user.name,
@@ -240,9 +239,7 @@ export default new Vuex.Store({
     async setNewProject({ dispatch, state, commit }, $router) {
       let formData = new FormData();
       let filesArray = [];
-      for (let i; this.state.filesArray.lengh - 1; i++){
-        
-      }
+      for (let i; this.state.filesArray.lengh - 1; i++) {}
       try {
         // const response = await axios.post(
         //   `${API}/project`,
@@ -257,7 +254,7 @@ export default new Vuex.Store({
         const response = await axios.post(`${API}/project`, {
           request: JSON.stringify({
             ...state.newProject,
-            publishedDate: Math.floor(Date.now() / 1000)
+            publishedDate: Math.floor(Date.now() / 1000),
           }),
         });
         console.log(response);
@@ -294,8 +291,8 @@ export default new Vuex.Store({
         commit("setErrorMessage", { error: `${e.message}` });
       }
     },
-    uploadDocument({ dispatch }, document) { },
-    downloadDocument(url) { },
+    uploadDocument({ dispatch }, document) {},
+    downloadDocument(url) {},
     async uploadFiles({ getters }) {
       const upload = getters.getFiles;
       try {

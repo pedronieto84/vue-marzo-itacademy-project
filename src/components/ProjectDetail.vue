@@ -8,21 +8,11 @@
         <b-row>
           <b-col>
             <label for="published-display">Published</label>
-            <b-form-datepicker
-              v-model="published"
-              id="published-display"
-              class="mb-2"
-              readonly
-            ></b-form-datepicker>
+            <b-form-input id="bid" readonly :value="published"> </b-form-input>
           </b-col>
           <b-col>
             <label for="deadline-display">Deadline</label>
-            <b-form-datepicker
-              v-model="deadline"
-              id="deadline-display"
-              class="mb-2"
-              readonly
-            ></b-form-datepicker>
+            <b-form-input id="bid" readonly :value="deadline"> </b-form-input>
           </b-col>
           <b-col>
             <label for="bid-display">Bid</label>
@@ -82,7 +72,7 @@ export default {
     secondsToDate(seconds) {
       let d = new Date(seconds * 1000);
       let dateString = d.toISOString("en-US");
-      return dateString.slice(0, 9);
+      return dateString.slice(0, 10);
     },
   },
 };
