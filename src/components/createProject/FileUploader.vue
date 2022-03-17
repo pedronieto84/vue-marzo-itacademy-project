@@ -51,7 +51,6 @@ export default {
     updateFiles: function () {
       if (this.inputFile.length > 0) {
         store.commit("updateFiles", this.inputFile);
-        store.dispatch("uploadFiles");
       }
     },
     async submit(event) {

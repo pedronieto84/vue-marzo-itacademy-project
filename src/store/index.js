@@ -26,9 +26,9 @@ export default new Vuex.Store({
       deadline: "",
       bid: "",
       techSet: [""],
-      filesArray: [],
     },
     errorMessage: "",
+    filesArray: [],
   },
   getters: {
     getIsLogged: (state) => {
@@ -67,7 +67,7 @@ export default new Vuex.Store({
       state.isLogged = true;
       state.userLogged = user;
       state.newProject.user_id = state.userLogged.id;
-      if (user.admin === 1) state.isAdmin = true;
+      if (user.admin) state.isAdmin = true;
     },
     setCurrentUser(state, user) {
       state.currentUser = user;
@@ -102,7 +102,7 @@ export default new Vuex.Store({
       state.newProject.bid = newBid;
     },
     updateFiles(state, file) {
-      state.newProject.filesArray = file;
+      state.filesArray = file;
     },
     resetNewProject(state) {
       state.newProject = {
@@ -112,9 +112,9 @@ export default new Vuex.Store({
         deadline: "",
         bid: "",
         techSet: [""],
-        filesArray: [],
         state: "published",
       };
+      state.filesArray = [];
     },
     setCurrentProject(state, project) {
       state.currentProject = project;
@@ -241,10 +241,22 @@ export default new Vuex.Store({
     },
 
     async setNewProject({ dispatch, state, commit }, $router) {
+      let formData = new FormData();
+      let filesArray = [];
+      for (let i; this.state.filesArray.lengh - 1; i++){
+        
+      }
       try {
-        const response = await axios.post(`${API}/project`, {
-          request: JSON.stringify(state.newProject),
-        });
+        const response = await axios.post(
+          `${API}/project`,
+          {
+            request: JSON.stringify(state.newProject),
+            filesArray: arraySend,
+          },
+          {
+            headers: { "Content-type": "multipart/form-data" },
+          }
+        );
         console.log(response);
         if (response.data.message) {
           throw response.data;
