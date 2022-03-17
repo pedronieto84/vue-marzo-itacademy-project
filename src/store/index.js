@@ -67,7 +67,7 @@ export default new Vuex.Store({
       state.isLogged = true;
       state.userLogged = user;
       state.newProject.user_id = state.userLogged.id;
-      if (user.admin === 1) state.isAdmin = true;
+      if (user.admin === true) state.isAdmin = true;
     },
     setCurrentUser(state, user) {
       state.currentUser = user;
