@@ -84,7 +84,7 @@ export default {
   },
   data() {
     return {
-      tableItems: this.mapItems(this.value),
+      tableItems: [],
       sortOrder: "id",
     };
   },
@@ -92,6 +92,9 @@ export default {
     value(newVal) {
       this.tableItems = this.mapItems(newVal);
     },
+  },
+  created() {
+    this.tableItems = this.mapItems(this.value);
   },
   computed: {
     orderedItems() {
