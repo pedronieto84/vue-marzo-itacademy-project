@@ -222,15 +222,12 @@ export default new Vuex.Store({
     },
 
     async updateProject({ dispatch, commit }, project) {
-      const headers = { _method: "PUT" };
       try {
-        const response = await axios.post(
-          `${API}/projects`, /// ???????????????????
-          {
-            project,
-          },
-          { headers: headers }
-        );
+        const projectToJSON = JSON.stringify(project);
+        const response = await axios.post(`${API}/project/${project.id}`, {
+          request: projectToJSON,
+          _method: "PUT",
+        });
         if (response.error) {
           throw response.error;
         }
@@ -247,16 +244,22 @@ export default new Vuex.Store({
         
       }
       try {
-        const response = await axios.post(
-          `${API}/project`,
-          {
-            request: JSON.stringify(state.newProject),
-            filesArray: arraySend,
-          },
-          {
-            headers: { "Content-type": "multipart/form-data" },
-          }
-        );
+        // const response = await axios.post(
+        //   `${API}/project`,
+        //   {
+        //     request: JSON.stringify(state.newProject),
+        //     filesArray: arraySend,
+        //   },
+        //   {
+        //     headers: { "Content-type": "multipart/form-data" },
+        //   }
+        // );
+        const response = await axios.post(`${API}/project`, {
+          request: JSON.stringify({
+            ...state.newProject,
+            publishedDate: Math.floor(Date.now() / 1000)
+          }),
+        });
         console.log(response);
         if (response.data.message) {
           throw response.data;
@@ -291,8 +294,8 @@ export default new Vuex.Store({
         commit("setErrorMessage", { error: `${e.message}` });
       }
     },
-    uploadDocument({ dispatch }, document) {},
-    downloadDocument(url) {},
+    uploadDocument({ dispatch }, document) { },
+    downloadDocument(url) { },
     async uploadFiles({ getters }) {
       const upload = getters.getFiles;
       try {

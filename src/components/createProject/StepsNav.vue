@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto w-50">
+  <b-card class="mx-auto w-50" title="Create project">
     <b-tabs content-class="mt-3" v-model="tabIndex">
       <b-tab title="1">
         <b-progress
@@ -22,10 +22,7 @@
           striped
           :animated="animate"
         ></b-progress>
-        <DateInput
-          :isDeadlineValid="isDeadlineValid"
-          :ispublishedDateValid="ispublishedDateValid"
-        />
+        <DateInput :isDeadlineValid="isDeadlineValid" />
         <Bid :bidValid="isBidValid" />
         <AddTechSet :techSetValid="isTechSetValid" />
       </b-tab>
@@ -49,7 +46,7 @@
       >
       <b-button @click="tabIndex++" :disabled="tabIndex === 2">Next</b-button>
     </b-button-group>
-  </div>
+  </b-card>
 </template>
 <script>
 import ProjectTitle from "./ProjectTitle.vue";
@@ -69,7 +66,7 @@ export default {
   },
   computed: {
     isTitleValid() {
-      if(this.$store.state.newProject.title.length === 0) {
+      if (this.$store.state.newProject.title.length === 0) {
         return null;
       }
       return this.$store.state.newProject.title.length >= 3 ? true : false;
@@ -85,9 +82,6 @@ export default {
     },
     isDeadlineValid() {
       return this.$store.state.newProject.deadline ? true : false;
-    },
-    ispublishedDateValid() {
-      return this.$store.state.newProject.publishedDate ? true : false;
     },
   },
 };

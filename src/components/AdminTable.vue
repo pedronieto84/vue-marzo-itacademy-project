@@ -277,9 +277,6 @@ export default {
 .table-buttons {
   padding-left: 2rem;
 }
-.table-responsive {
-  max-width: 90%;
-}
 .edit-button {
   max-height: 36px;
   border: none;
