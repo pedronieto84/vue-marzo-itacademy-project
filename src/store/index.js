@@ -19,7 +19,7 @@ export default new Vuex.Store({
     techSet: [],
     //initial value of the fields when creating a new project
     newProject: {
-      user_id: Number,
+      user_id: undefined,
       title: "",
       shortExplanation: "",
       publishedDate: "",
@@ -66,7 +66,6 @@ export default new Vuex.Store({
     setUserLogged(state, user) {
       state.isLogged = true;
       state.userLogged = user;
-      state.newProject.user_id = state.userLogged.id;
       if (user.admin) state.isAdmin = true;
     },
     setCurrentUser(state, user) {
@@ -239,7 +238,7 @@ export default new Vuex.Store({
     async setNewProject({ dispatch, state, commit }, $router) {
       let formData = new FormData();
       let filesArray = [];
-      for (let i; this.state.filesArray.lengh - 1; i++) {}
+      for (let i; this.state.filesArray.lengh - 1; i++) { }
       try {
         // const response = await axios.post(
         //   `${API}/project`,
@@ -254,6 +253,7 @@ export default new Vuex.Store({
         const response = await axios.post(`${API}/project`, {
           request: JSON.stringify({
             ...state.newProject,
+            user_id: state.userLogged.id,
             publishedDate: Math.floor(Date.now() / 1000),
           }),
         });
@@ -291,8 +291,8 @@ export default new Vuex.Store({
         commit("setErrorMessage", { error: `${e.message}` });
       }
     },
-    uploadDocument({ dispatch }, document) {},
-    downloadDocument(url) {},
+    uploadDocument({ dispatch }, document) { },
+    downloadDocument(url) { },
     async uploadFiles({ getters }) {
       const upload = getters.getFiles;
       try {
