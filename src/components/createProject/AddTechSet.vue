@@ -5,7 +5,6 @@
       label-for="tags-with-dropdown"
       class="tech-container"
     >
-      {{ frameworks }}
       <b-form-tags
         id="tags-with-dropdown"
         v-model="frameworks"
@@ -31,6 +30,7 @@
             variant="outline-secondary"
             block
             menu-class="w-100"
+            class="dropdown mb-4"
           >
             <template #button-content>
               <b-icon icon="tag-fill"></b-icon> Choose frameworks
@@ -132,3 +132,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.tech-container {
+  color: black;
+}
+</style>

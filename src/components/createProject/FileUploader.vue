@@ -8,8 +8,8 @@
         label-cols-sm="2"
         ref="fileform"
       >
-        <file-input @click="addFile1" />
-        <file-input @click="addFile2" />
+        <file-input class="file-input m-4" @click="addFile1" />
+        <file-input class="file-input m-4" @click="addFile2" />
       </b-form-group>
     </b-row>
     <b-row>

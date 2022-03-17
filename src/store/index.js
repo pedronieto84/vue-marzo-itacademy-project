@@ -243,7 +243,10 @@ export default new Vuex.Store({
     async setNewProject({ dispatch, state, commit }, $router) {
       try {
         const response = await axios.post(`${API}/project`, {
-          request: JSON.stringify(state.newProject),
+          request: JSON.stringify({
+            ...state.newProject,
+            publishedDate: Math.floor(Date.now() / 1000)
+          }),
         });
         console.log(response);
         if (response.data.message) {
@@ -279,8 +282,8 @@ export default new Vuex.Store({
         commit("setErrorMessage", { error: `${e.message}` });
       }
     },
-    uploadDocument({ dispatch }, document) {},
-    downloadDocument(url) {},
+    uploadDocument({ dispatch }, document) { },
+    downloadDocument(url) { },
     async uploadFiles({ getters }) {
       const upload = getters.getFiles;
       try {
