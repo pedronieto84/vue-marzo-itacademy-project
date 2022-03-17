@@ -22,9 +22,7 @@
     <b-row>
       <b-col>
         <b-button @click="updateFiles">UploadFiles</b-button>
-        <b-button
-          type="submit"
-          @click="submit($event)"
+        <b-button type="submit" @click="submit($event)"
           >Publish Project</b-button
         >
       </b-col>
@@ -56,11 +54,13 @@ export default {
         store.dispatch("uploadFiles");
       }
     },
-    submit(event){
+    async submit(event) {
       event.preventDefault();
-      this.$store.dispatch('setNewProject')
-    }
- 
+      await this.$store.dispatch("setNewProject");
+      this.$store.errorMessage === ""
+        ? this.$router.push({ name: "ProjectsPage" })
+        : false;
+    },
   },
 };
 </script>
