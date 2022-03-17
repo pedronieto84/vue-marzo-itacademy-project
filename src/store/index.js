@@ -222,15 +222,12 @@ export default new Vuex.Store({
     },
 
     async updateProject({ dispatch, commit }, project) {
-      const headers = { _method: "PUT" };
       try {
-        const response = await axios.post(
-          `${API}/projects`, /// ???????????????????
-          {
-            project,
-          },
-          { headers: headers }
-        );
+        const projectToJSON = JSON.stringify(project);
+        const response = await axios.post(`${API}/project/${project.id}`, {
+          request: projectToJSON,
+          _method: "PUT",
+        });
         if (response.error) {
           throw response.error;
         }
